@@ -72,7 +72,7 @@ int		ft_printf(const char *format, ...)
 	while (format[idx])
 	{
 		if (format[idx] == '%')
-			idx = replace_and_print(format, idx, &ap);
+			idx = replace_and_print(format, ++idx, &ap);
 		else
 			write(1, &format[idx], sizeof(char));
 		idx++;
