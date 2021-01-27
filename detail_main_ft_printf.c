@@ -40,13 +40,11 @@ int print_min;
     ft_printf("%%s------------------\n");
     ft_printf("%s", "Hello World!");
     ft_printf("\n");
-
-    ft_printf("%%p------------------\n");
-    ft_printf("%p", &print_min);
-    ft_printf("\n");
     
     ft_printf("%%-------------------\n");
     ft_printf("%%");
     ft_printf("\n");
+
+    ft_printf("%%p test -> same file plz\n");
 	return (0);
 }

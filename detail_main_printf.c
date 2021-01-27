@@ -39,13 +39,11 @@ int	main(void)
     printf("%%s------------------\n");
     printf("%s", "Hello World!");
     printf("\n");
-
-    printf("%%p------------------\n");
-    printf("%#x", &print_min);
-    printf("\n");
     
     printf("%%-------------------\n");
     printf("%%");
     printf("\n");
+
+    printf("%%p test -> same file plz\n");
 	return (0);
 }
