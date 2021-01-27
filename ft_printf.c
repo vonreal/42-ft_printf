@@ -1,6 +1,29 @@
 #include <stdarg.h>
 #include <unistd.h>
 
+void	ft_putnbr(int n)
+{
+	char num;
+
+	if (n == -2147483648)
+		write(1, "-2147483648", 11);
+	else if (n < 0)
+	{
+		write(1, "-", 1);
+		ft_putnbr(n * (-1), 1);
+	}
+	else if (n < 10)
+	{
+		num = n + '0';
+		write(1, &num, 1);
+	}
+	else
+	{
+		ft_putnbr(n / 10);
+		ft_putnbr(n % 10);
+	}
+}
+
 void	get_hex_and_print(int n, char *hex)
 {
 	if (n < 16)
@@ -38,7 +61,10 @@ void	print_conversion(char conversion, va_list *ap)
 	else if (conversion == 'p')
 		return ;
 	else if (conversion == 'd' || conversion == 'i')
-		return ;
+	{
+		num = va_arg(*ap, int);
+		ft_putnbr(num);
+	}
 	else if (conversion == 'u')
 		return ;
 	else if (conversion == 'x' || conversion == 'X')
