@@ -40,7 +40,7 @@ void	ft_putnbr(int n)
 	}
 }
 
-void	get_hex_and_print(int n, char *hex)
+void	get_hex_and_print(unsigned int n, char *hex)
 {
 	if (n < 16)
 		write(1, &hex[n], sizeof(char));
@@ -75,7 +75,11 @@ void	print_conversion(char conversion, va_list *ap)
 		write(1, str, (sizeof(char) * num));
 	}
 	else if (conversion == 'p')
-		return ;
+	{
+		(unsigned int)num = va_arg(*ap, void *);
+		write(2, "0x", (sizeof(char) * 2));
+		get_hex_and_print(num, hex);
+	}
 	else if (conversion == 'd' || conversion == 'i')
 	{
 		num = va_arg(*ap, int);
@@ -83,12 +87,12 @@ void	print_conversion(char conversion, va_list *ap)
 	}
 	else if (conversion == 'u')
 	{
-		num = va_arg(*ap, unsigned int);
+		(unsigned int)num = va_arg(*ap, unsigned int);
 		ft_putnbr_unsigned(num);
 	}
 	else if (conversion == 'x' || conversion == 'X')
 	{
-		num = va_arg(*ap, int);
+		(unsigned int)num = va_arg(*ap, unsigned int);
 		(conversion == 'x') ? get_hex_and_print(num, hex) : get_hex_and_print(num, HEX);
 	}
 	else if (conversion == '%')
