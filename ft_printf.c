@@ -1,12 +1,25 @@
 #include <stdarg.h>
 #include <unistd.h>
 
-// conversion에 따라 출력하는 함수
+void	get_hex_and_print(int n, char *hex)
+{
+	if (n < 16)
+		write(1, &hex[n], sizeof(char));
+	else
+	{
+		get_hex_and_print((n / 16), hex);
+		get_hex_and_print((n % 16), hex);
+	}
+}
+
+// [Comment] conversion에 따라 출력하는 함수
 void	print_conversion(char conversion, va_list *ap)
 {
 	char	c;
 	char	*str;
-	int		size;
+	char	hex[17] = "0123456789abcdef";
+	char	HEX[17] = "0123456789ABCDEF"
+	int		num;
 
 	if (conversion == 'c')
 	{
@@ -15,35 +28,47 @@ void	print_conversion(char conversion, va_list *ap)
 	}
 	else if (conversion == 's')
 	{
+		// [Improving] Use the malloc and free function.
 		str = va_arg(*ap, char *);
-		size = 0;
-		while (str[size])
-			size++;
-		write(1, str, (sizeof(char) * size));
+		num = 0;
+		while (str[num])
+			num++;
+		write(1, str, (sizeof(char) * num));
 	}
 	else if (conversion == 'p')
 		return ;
-	else if (conversion == 'd')
-		return ;
-	else if (conversion == 'i')
+	else if (conversion == 'd' || conversion == 'i')
 		return ;
 	else if (conversion == 'u')
 		return ;
 	else if (conversion == 'x')
-		return ;
+	{
+		num = va_arg(*ap, int);
+		get_hex_and_print(num, hex);
+	}
 	else if (conversion == 'X')
-		return ;
+	{
+		num = va_arg(*ap, int);
+		get_hex_and_print(num, HEX);
+	}
+
+	else if (conversion = 'x' || conversion = 'X')
+	{
+		num = va_arg(*ap, int);
+		(conversion == 'x') ? get_hex_and_print(num, hex) : get_hex_and_print(num, HEX);
+	}
+
 	else if (conversion == '%')
 		write(1, "%", sizeof(char));
 }
 
-// %를 만나면 conversion까지 읽어와 해당 조건에 맞게 출력하는 함수
+// [Comment] %를 만나면 conversion까지 읽어와 해당 조건에 맞게 출력하는 함수
 int		replace_and_print(const char *format, int i, va_list *ap)
 {
 	int		j;
 	char	*conversion;
 
-	// change to static varialbe and use ft_strlcpy funcion.
+	// [Improving] Change to static varialbe and use ft_strlcpy funcion.
 	conversion = "cspdiuxX%";
 	while (format[i])
 	{
