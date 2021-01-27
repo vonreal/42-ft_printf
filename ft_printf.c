@@ -52,7 +52,7 @@ void	print_conversion(char conversion, va_list *ap)
 		get_hex_and_print(num, HEX);
 	}
 
-	else if (conversion = 'x' || conversion = 'X')
+	else if (conversion == 'x' || conversion == 'X')
 	{
 		num = va_arg(*ap, int);
 		(conversion == 'x') ? get_hex_and_print(num, hex) : get_hex_and_print(num, HEX);
