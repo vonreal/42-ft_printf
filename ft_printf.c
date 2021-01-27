@@ -18,7 +18,7 @@ void	print_conversion(char conversion, va_list *ap)
 	char	c;
 	char	*str;
 	char	hex[17] = "0123456789abcdef";
-	char	HEX[17] = "0123456789ABCDEF"
+	char	HEX[17] = "0123456789ABCDEF";
 	int		num;
 
 	if (conversion == 'c')
