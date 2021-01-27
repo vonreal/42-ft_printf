@@ -22,17 +22,17 @@ void	print_conversion(char conversion, va_list *ap)
 		write(1, str, (sizeof(char) * size));
 	}
 	else if (conversion == 'p')
-		continue ;
+		return ;
 	else if (conversion == 'd')
-		continue ;
+		return ;
 	else if (conversion == 'i')
-		continue ;
+		return ;
 	else if (conversion == 'u')
-		continue ;
+		return ;
 	else if (conversion == 'x')
-		continue ;
+		return ;
 	else if (conversion == 'X')
-		continue ;
+		return ;
 	else if (conversion == '%')
 		write(1, "%", sizeof(char));
 }
