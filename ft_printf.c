@@ -10,7 +10,7 @@ void	ft_putnbr(int n)
 	else if (n < 0)
 	{
 		write(1, "-", 1);
-		ft_putnbr(n * (-1), 1);
+		ft_putnbr(n * (-1));
 	}
 	else if (n < 10)
 	{
