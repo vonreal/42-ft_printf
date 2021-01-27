@@ -38,7 +38,7 @@ void	print_conversion(char conversion, va_list *ap)
 }
 
 // %를 만나면 conversion까지 읽어와 해당 조건에 맞게 출력하는 함수
-int		replace_and_print(char *format, int i, va_list *ap)
+int		replace_and_print(const char *format, int i, va_list *ap)
 {
 	int		j;
 	char	*conversion;
