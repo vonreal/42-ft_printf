@@ -18,9 +18,9 @@ int     main(void)
     printf("c = %#x\n", &c);
 
     ft_printf("ft_printf:\n");
-    ft_printf("a = %#x\n", &a);
-    ft_printf("b = %#x\n", &b);
-    ft_printf("c = %#x\n", &c);
+    ft_printf("a = %p\n", &a);
+    ft_printf("b = %p\n", &b);
+    ft_printf("c = %p\n", &c);
 
     return (0);
 }
