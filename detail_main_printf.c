@@ -6,46 +6,46 @@ int	main(void)
     int print_min;
 
     print_min = 32;
-	printf("%%d------------------");
-    printf("INT_MIN: %d\n", INT_MIN);
-    printf("INT_MAX: %d\n", INT_MAX);
-    printf("\n");
+	print("%%d------------------\n");
+    print("INT_MIN: %d\n", INT_MIN);
+    print("INT_MAX: %d\n", INT_MAX);
+    print("\n");
 
-    printf("%%i------------------");
-    printf("INT_MIN: %i\n", INT_MIN);
-    printf("INT_MAX: %i\n", INT_MAX);
-    printf("\n");
+    print("%%i------------------\n");
+    print("INT_MIN: %i\n", INT_MIN);
+    print("INT_MAX: %i\n", INT_MAX);
+    print("\n");
 
-    printf("%%u------------------");
-    printf("UINT_MAX: %u", UINT_MAX);
-    printf("\n");
+    print("%%u------------------\n");
+    print("UINT_MAX: %u", UINT_MAX);
+    print("\n");
 
-    printf("%%x------------------");
-    printf("UINT_MAX: %x", UINT_MAX);
-    printf("\n");
+    print("%%x------------------\n");
+    print("UINT_MAX: %x", UINT_MAX);
+    print("\n");
 
-    printf("%%X------------------");
-    printf("UINT_MAX: %X", UINT_MAX);
-    printf("\n");
+    print("%%X------------------\n");
+    print("UINT_MAX: %X", UINT_MAX);
+    print("\n");
 
-    printf("%%c------------------");
+    print("%%c------------------\n");
     while (print_min >= 32 && print_min <= 126)
     {
-        printf("%c ", print_min);
+        print("%c\n", print_min);
         print_min++;
     }
-    printf("\n");
+    print("\n");
 
-    printf("%%s------------------");
-    printf("%s", "Hello World!");
-    printf("\n");
+    print("%%s------------------\n");
+    print("%s", "Hello World!");
+    print("\n");
 
-    printf("%%p------------------");
-    printf("%#x", &print_min);
-    printf("\n");
+    print("%%p------------------\n");
+    print("%#x", &print_min);
+    print("\n");
     
-    printf("%%-------------------");
-    printf("%%");
-    printf("\n");
+    print("%%-------------------\n");
+    print("%%");
+    print("\n");
 	return (0);
 }
