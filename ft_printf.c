@@ -1,6 +1,22 @@
 #include <stdarg.h>
 #include <unistd.h>
 
+void	ft_putnbr_unsigned(unsigned int n)
+{
+	char num;
+
+	if (n < 10)
+	{
+		num = n + '0';
+		write(1, &num, 1);
+	}
+	else
+	{
+		ft_putnbr(n / 10);
+		ft_putnbr(n % 10);
+	}
+}
+
 void	ft_putnbr(int n)
 {
 	char num;
@@ -66,7 +82,10 @@ void	print_conversion(char conversion, va_list *ap)
 		ft_putnbr(num);
 	}
 	else if (conversion == 'u')
-		return ;
+	{
+		num = va_arg(*ap, unsigned int);
+		ft_putnbr_unsigned(num);
+	}
 	else if (conversion == 'x' || conversion == 'X')
 	{
 		num = va_arg(*ap, int);
