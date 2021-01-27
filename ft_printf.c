@@ -3,7 +3,7 @@
 
 void	ft_putnbr_unsigned(unsigned int n)
 {
-	char num;
+	char			num;
 
 	if (n < 10)
 	{
@@ -19,7 +19,7 @@ void	ft_putnbr_unsigned(unsigned int n)
 
 void	ft_putnbr(int n)
 {
-	char num;
+	char			num;
 
 	if (n == -2147483648)
 		write(1, "-2147483648", 11);
@@ -54,11 +54,13 @@ void	get_hex_and_print(unsigned int n, char *hex)
 // [Comment] conversion에 따라 출력하는 함수
 void	print_conversion(char conversion, va_list *ap)
 {
-	char	c;
-	char	*str;
-	char	hex[17] = "0123456789abcdef";
-	char	HEX[17] = "0123456789ABCDEF";
-	int		num;
+	char			c;
+	char			*str;
+	char			hex[17] = "0123456789abcdef";
+	char			HEX[17] = "0123456789ABCDEF";
+	int				num;
+	unsigned int 	u_num;
+	void			*v_ptr;
 
 	if (conversion == 'c')
 	{
@@ -76,9 +78,10 @@ void	print_conversion(char conversion, va_list *ap)
 	}
 	else if (conversion == 'p')
 	{
-		(unsigned int)num = va_arg(*ap, void *);
+		v_ptr = va_arg(*ap, void *);
+		u_num = (unsigned int)v_ptr;
 		write(2, "0x", (sizeof(char) * 2));
-		get_hex_and_print(num, hex);
+		get_hex_and_print(u_num, hex);
 	}
 	else if (conversion == 'd' || conversion == 'i')
 	{
@@ -87,13 +90,13 @@ void	print_conversion(char conversion, va_list *ap)
 	}
 	else if (conversion == 'u')
 	{
-		(unsigned int)num = va_arg(*ap, unsigned int);
-		ft_putnbr_unsigned(num);
+		u_num = va_arg(*ap, unsigned int);
+		ft_putnbr_unsigned(u_num);
 	}
 	else if (conversion == 'x' || conversion == 'X')
 	{
-		(unsigned int)num = va_arg(*ap, unsigned int);
-		(conversion == 'x') ? get_hex_and_print(num, hex) : get_hex_and_print(num, HEX);
+		u_num = va_arg(*ap, unsigned int);
+		(conversion == 'x') ? get_hex_and_print(u_num, hex) : get_hex_and_print(u_num, HEX);
 	}
 	else if (conversion == '%')
 		write(1, "%", sizeof(char));
@@ -102,8 +105,8 @@ void	print_conversion(char conversion, va_list *ap)
 // [Comment] %를 만나면 conversion까지 읽어와 해당 조건에 맞게 출력하는 함수
 int		replace_and_print(const char *format, int i, va_list *ap)
 {
-	int		j;
-	char	*conversion;
+	int				j;
+	char			*conversion;
 
 	// [Improving] Change to static varialbe and use ft_strlcpy funcion.
 	conversion = "cspdiuxX%";
@@ -126,8 +129,8 @@ int		replace_and_print(const char *format, int i, va_list *ap)
 
 int		ft_printf(const char *format, ...)
 {
-	int		idx;
-	va_list	ap;
+	int				idx;
+	va_list			ap;
 
 	idx = 0;
 	va_start(ap, format);
