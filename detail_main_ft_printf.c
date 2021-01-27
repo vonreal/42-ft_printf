@@ -42,7 +42,7 @@ int print_min;
     ft_printf("\n");
 
     ft_printf("%%p------------------\n");
-    ft_printf("%#x", &print_min);
+    ft_printf("%p", &print_min);
     ft_printf("\n");
     
     ft_printf("%%-------------------\n");
