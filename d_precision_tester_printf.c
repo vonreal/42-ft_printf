@@ -48,18 +48,18 @@ int main(void)
     //printf("5-2: %.*d\n", 0, INT_MIN);
 
     // <6> .(*): * = plus number
-    printf("6-0: %*d\n", 1, 12345);
-    printf("6-1: %*d\n", 10, 12345);
-    printf("6-2: %*d\n", 100, 12345);
-    //printf("6-3: %*d\n", INT_MAX, 12345);
-    printf("6-4: %*d\n", 1, INT_MAX);
-    printf("6-5: %*d\n", 10, INT_MAX);
-    printf("6-6: %*d\n", 100, INT_MAX);
-    //printf("6-7: %*d\n", INT_MAX, INT_MAX);
-    printf("6-8: %*d\n", 1, INT_MIN);
-    printf("6-9: %*d\n", 10, INT_MIN);
-    printf("6-10: %*d\n", 100, INT_MIN);
-    //printf("6-11: %*d\n", INT_MAX, INT_MIN);
+    printf("6-0: %.*d\n", 1, 12345);
+    printf("6-1: %.*d\n", 10, 12345);
+    printf("6-2: %.*d\n", 100, 12345);
+    //printf("6-3: %.*d\n", INT_MAX, 12345);
+    printf("6-4: %.*d\n", 1, INT_MAX);
+    printf("6-5: %.*d\n", 10, INT_MAX);
+    printf("6-6: %.*d\n", 100, INT_MAX);
+    //printf("6-7: %.*d\n", INT_MAX, INT_MAX);
+    printf("6-8: %.*d\n", 1, INT_MIN);
+    printf("6-9: %.*d\n", 10, INT_MIN);
+    printf("6-10: %.*d\n", 100, INT_MIN);
+    //printf("6-11: %.*d\n", INT_MAX, INT_MIN);
 
     // <7> .(*): * = minus number
     printf("8-0: %.*d\n", -1, 12345);
