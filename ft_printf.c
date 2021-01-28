@@ -9,14 +9,17 @@ int		check_precision(const char *format, va_list *ap)
 
 	i = 0;
 	num = 0;
-	if (format[i++] == '*')
+	if (format[i] == '*')
+	{
 		num = va_arg(*ap, int);
+		c = format[i + 1];
+	}
 	else if (format[i] >= '0' && format[i] <= '9')
 	{
 		while (format[i] >= '0' && format[i] <= '9')
 			num = (num * 10) + format[i++] - '0';
+		c = format[i];
 	}
-	c = format[i];
 	if (num >= 0)
 	{
 		if (c == 'd' || c == 'i' || c == 'u' || c == 'x'|| c == 'X' || c == 's')
