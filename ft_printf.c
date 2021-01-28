@@ -6,7 +6,7 @@ void	precision_number(int precision, unsigned int num)
 	int digit;
 
 	digit = 1;
-	while (num < 9)
+	while (num > 9)
 	{
 		num /= 10;
 		digit++;
