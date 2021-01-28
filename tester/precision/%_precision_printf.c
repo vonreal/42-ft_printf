@@ -43,37 +43,36 @@ int main(void)
     // printf("4-11: %.-2147483647%\n");
 
     // <5> .(*): * = 0
-    printf("5-0: %.*%\n");
+    printf("5-0: %.*%\n", 0);
     //printf("5-1: %.*%\n", 0);
     //printf("5-2: %.*%\n", 0);
 
     // <6> .(*): * = plus number
-    printf("6-0: %.*%\n");
-    printf("6-1: %.*%\n");
-    printf("6-2: %.*%\n");
+    printf("6-0: %.*%\n", 1);
+    printf("6-1: %.*%\n", 10);
+    printf("6-2: %.*%\n", 100);
     //printf("6-3: %.*%\n");
-    printf("6-4: %.*%\n");
-    printf("6-5: %.*%\n");
-    printf("6-6: %.*%\n");
+    printf("6-4: %.*%\n", 1);
+    printf("6-5: %.*%\n", 10);
+    printf("6-6: %.*%\n", 100);
     //printf("6-7: %.*%\n");
-    printf("6-8: %.*%\n");
-    printf("6-9: %.*%\n");
-    printf("6-10: %.*%\n");
+    printf("6-8: %.*%\n", 1);
+    printf("6-9: %.*%\n", 10);
+    printf("6-10: %.*%\n", 100);
     //printf("6-11: %.*%\n");
 
     // <7> .(*): * = minus number
-    printf("8-0: %.*%\n");
-    printf("8-1: %.*%\n");
-    printf("8-2: %.*%\n");
+    printf("8-0: %.*%\n", -1);
+    printf("8-1: %.*%\n", -10);
+    printf("8-2: %.*%\n", -100);
     //printf("8-3: %.*%\n");
-    printf("8-4: %.*%\n");
-    printf("8-5: %.*%\n");
-    printf("8-6: %.*%\n");
+    printf("8-4: %.*%\n", -1);
+    printf("8-5: %.*%\n", -10);
+    printf("8-6: %.*%\n", -100);
     //printf("8-7: %.*%\n");
-    printf("8-8: %.*%\n");
-    printf("8-9: %.*%\n");
-    printf("8-10: %.*%\n");
-    //printf("8-11: %.*%\n");
+    printf("8-8: %.*%\n", -1);
+    printf("8-9: %.*%\n", -10);
+    printf("8-10: %.*%\n", -100);
     printf("\n");
     return (0);
 }
