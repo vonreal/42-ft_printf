@@ -28,19 +28,19 @@ int main(void)
     printf("3-10: %.100d\n", INT_MIN);
     printf("3-11: %.2147483647d\n", INT_MIN);
 
-    // <4> number: .(minus number)
-    printf("4-0: %.-1d\n", 12345);
-    printf("4-1: %.-10d\n", 12345);
-    printf("4-2: %.-100d\n", 12345);
-    printf("4-3: %.-2147483647d\n", 12345);
-    printf("4-4: %.-1d\n", INT_MAX);
-    printf("4-5: %.-10d\n", INT_MAX);
-    printf("4-6: %.-100d\n", INT_MAX);
-    printf("4-7: %.-2147483647d\n", INT_MAX);
-    printf("4-8: %.-1d\n", INT_MIN);
-    printf("4-9: %.-10d\n", INT_MIN);
-    printf("4-10: %.-100d\n", INT_MIN);
-    printf("4-11: %.-2147483647d\n", INT_MIN);
+    // <4> number: .(minus number) (error)
+    // printf("4-0: %.-1d\n", 12345);
+    // printf("4-1: %.-10d\n", 12345);
+    // printf("4-2: %.-100d\n", 12345);
+    // printf("4-3: %.-2147483647d\n", 12345);
+    // printf("4-4: %.-1d\n", INT_MAX);
+    // printf("4-5: %.-10d\n", INT_MAX);
+    // printf("4-6: %.-100d\n", INT_MAX);
+    // printf("4-7: %.-2147483647d\n", INT_MAX);
+    // printf("4-8: %.-1d\n", INT_MIN);
+    // printf("4-9: %.-10d\n", INT_MIN);
+    // printf("4-10: %.-100d\n", INT_MIN);
+    // printf("4-11: %.-2147483647d\n", INT_MIN);
 
     // <5> .(*): * = 0
     printf("5-0: %.*d\n", 0, 12345);
