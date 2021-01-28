@@ -1,7 +1,7 @@
 #include <stdarg.h>
 #include <unistd.h>
 
-int		check_precision(char *format, va_list *ap)
+int		check_precision(const char *format, va_list *ap)
 {
 	int			num;
 	int			i;
@@ -122,7 +122,7 @@ void	print_conversion(char conversion, va_list *ap, int precision)
 			}
 			precision -= u_num;
 			while (precision-- >= 0)
-				wrtie(1, "0", sizeof(char));
+				write(1, "0", sizeof(char));
 		}
 		ft_putnbr(num);
 	}
