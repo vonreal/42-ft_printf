@@ -1,6 +1,33 @@
 #include <stdarg.h>
 #include <unistd.h>
 
+int		get_size(int n)
+{
+	int		count;
+
+	count = 1;
+	if (n < 0)
+	{
+		if (n == INT_MIN)
+			return (11);
+		n *= (-1);
+		count++;
+	}
+	while (n > 9)
+	{
+		n /= 10;
+		count++;
+	}
+	return (count);
+}
+
+void	precision_number_int(int precision, int num)
+{
+	precision -= get_size(num);
+	while (precision-- > 0)
+		write(1, "0", sizeof(char));
+}
+
 void	precision_number(int precision, unsigned int num)
 {
 	int digit;
@@ -63,13 +90,10 @@ void	ft_putnbr(int n)
 {
 	char			num;
 
-	if (n == -2147483648)
-		write(1, "-2147483648", 11);
+	if (n == 2147483648)
+		write(1, "2147483648", 10);
 	else if (n < 0)
-	{
-		write(1, "-", 1);
 		ft_putnbr(n * (-1));
-	}
 	else if (n < 10)
 	{
 		num = n + '0';
@@ -131,6 +155,10 @@ void	print_conversion(char conversion, va_list *ap, int precision)
 	else if (conversion == 'd' || conversion == 'i')
 	{
 		num = va_arg(*ap, int);
+		if (num < 0)
+			write(1, "-", sizeof(char));
+		if (precision >= 0)
+			precision_number_int(precision, num);
 		ft_putnbr(num);
 	}
 	else if (conversion == 'u')
