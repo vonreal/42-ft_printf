@@ -55,7 +55,7 @@ int		check_precision(const char *format, va_list *ap)
 
 	i = 0;
 	num = 0;
-	c = '';
+	c = '0';
 	if (format[i] == '*')
 	{
 		num = va_arg(*ap, int);
