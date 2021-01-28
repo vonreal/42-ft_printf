@@ -10,24 +10,24 @@ int main(void)
     ft_printf("1-1: %.d\n", INT_MAX);
     ft_printf("1-2: %.d\n", INT_MIN);
 
-    // <2> .(0)
-    ft_printf("2-0: %.0d\n", 12345);
-    ft_printf("2-1: %.0d\n", INT_MAX);
-    ft_printf("2-2: %.0d\n", INT_MIN);
+    // // <2> .(0)
+    // ft_printf("2-0: %.0d\n", 12345);
+    // ft_printf("2-1: %.0d\n", INT_MAX);
+    // ft_printf("2-2: %.0d\n", INT_MIN);
 
-    // <3> number: .(plus number)
-    ft_printf("3-0: %.1d\n", 12345);
-    ft_printf("3-1: %.10d\n", 12345);
-    ft_printf("3-2: %.100d\n", 12345);
-    ft_printf("3-3: %.2147483647d\n", 12345);
-    ft_printf("3-4: %.1d\n", INT_MAX);
-    ft_printf("3-5: %.10d\n", INT_MAX);
-    ft_printf("3-6: %.100d\n", INT_MAX);
-    ft_printf("3-7: %.2147483647d\n", INT_MAX);
-    ft_printf("3-8: %.1d\n", INT_MIN);
-    ft_printf("3-9: %.10d\n", INT_MIN);
-    ft_printf("3-10: %.100d\n", INT_MIN);
-    ft_printf("3-11: %.2147483647d\n", INT_MIN);
+    // // <3> number: .(plus number)
+    // ft_printf("3-0: %.1d\n", 12345);
+    // ft_printf("3-1: %.10d\n", 12345);
+    // ft_printf("3-2: %.100d\n", 12345);
+    // ft_printf("3-3: %.2147483647d\n", 12345);
+    // ft_printf("3-4: %.1d\n", INT_MAX);
+    // ft_printf("3-5: %.10d\n", INT_MAX);
+    // ft_printf("3-6: %.100d\n", INT_MAX);
+    // ft_printf("3-7: %.2147483647d\n", INT_MAX);
+    // ft_printf("3-8: %.1d\n", INT_MIN);
+    // ft_printf("3-9: %.10d\n", INT_MIN);
+    // ft_printf("3-10: %.100d\n", INT_MIN);
+    // ft_printf("3-11: %.2147483647d\n", INT_MIN);
 
     // <4> number: .(minus number) (error)
     // ft_printf("4-0: %.-1d\n", 12345);
