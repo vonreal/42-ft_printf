@@ -10,8 +10,9 @@ int		get_size(int n)
 	if (n < 0)
 	{
 		if (n == INT_MIN)
-			return (10);
+			return (11);
 		n *= (-1);
+		count++;
 	}
 	while (n > 9)
 	{
@@ -156,7 +157,10 @@ void	print_conversion(char conversion, va_list *ap, int precision)
 	{
 		num = va_arg(*ap, int);
 		if (num < 0)
+		{
 			write(1, "-", sizeof(char));
+			precision += 1;
+		}
 		if (precision >= 0)
 			precision_number_int(precision, num);
 		ft_putnbr(num);
