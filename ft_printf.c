@@ -70,7 +70,7 @@ int		check_precision(const char *format, va_list *ap)
 		return (num);
 	if (num >= 0)
 	{
-		if (c == 'd' || c == 'i' || c == 'u' || c == 'x'|| c == 'X')
+		if (c == 'd' || c == 'i' || c == 'u' || c == 'x'|| c == 'X' || c == 's')
 			return (num);
 	}
 	return (-1);
