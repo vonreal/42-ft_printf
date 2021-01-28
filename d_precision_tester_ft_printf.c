@@ -10,10 +10,10 @@ int main(void)
     ft_printf("1-1: %.d\n", INT_MAX);
     ft_printf("1-2: %.d\n", INT_MIN);
 
-    // // <2> .(0)
-    // ft_printf("2-0: %.0d\n", 12345);
-    // ft_printf("2-1: %.0d\n", INT_MAX);
-    // ft_printf("2-2: %.0d\n", INT_MIN);
+    // <2> .(0)
+    ft_printf("2-0: %.0d\n", 12345);
+    ft_printf("2-1: %.0d\n", INT_MAX);
+    ft_printf("2-2: %.0d\n", INT_MIN);
 
     // // <3> number: .(plus number)
     // ft_printf("3-0: %.1d\n", 12345);
