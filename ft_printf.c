@@ -12,7 +12,6 @@ int		get_size(int n)
 		if (n == INT_MIN)
 			return (10);
 		n *= (-1);
-		count++;
 	}
 	while (n > 9)
 	{
