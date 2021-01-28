@@ -29,14 +29,14 @@ void	precision_number_int(int precision, int num)
 		write(1, "0", sizeof(char));
 }
 
-void	precision_number(int precision, unsigned int num)
+void	precision_number(int precision, unsigned int num, int division_num)
 {
 	int digit;
 
 	digit = 1;
 	while (num > 9)
 	{
-		num /= 10;
+		num /= division_num;
 		digit++;
 	}
 	precision -= digit;
@@ -169,14 +169,14 @@ void	print_conversion(char conversion, va_list *ap, int precision)
 	{
 		u_num = va_arg(*ap, unsigned int);
 		if (precision >= 0)
-			precision_number(precision, u_num);
+			precision_number(precision, u_num, 10);
 		ft_putnbr_unsigned(u_num);
 	}
 	else if (conversion == 'x' || conversion == 'X')
 	{
 		u_num = va_arg(*ap, unsigned int);
 		if (precision >= 0)
-			precision_number(precision, u_num);
+			precision_number(precision, u_num, 16);
 		(conversion == 'x') ? get_hex_and_print(u_num, hex) : get_hex_and_print(u_num, HEX);
 	}
 	else if (conversion == '%')
