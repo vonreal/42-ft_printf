@@ -1,5 +1,6 @@
 #include <stdarg.h>
 #include <unistd.h>
+#include <limits.h>
 
 int		get_size(int n)
 {
