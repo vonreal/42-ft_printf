@@ -22,6 +22,8 @@ int		get_size(int n)
 	return (count);
 }
 
+//	precision 음수일때는 음수 기호를 제외한 나머지 자릿수로 계산해야함.
+//	음수표시는 맨 앞에 해주고
 void	precision_number_int(int precision, int num)
 {
 	precision -= get_size(num);
@@ -29,7 +31,8 @@ void	precision_number_int(int precision, int num)
 		write(1, "0", sizeof(char));
 }
 
-void	precision_number(int precision, unsigned int num, int division_num)
+// 10진수일때와 16진수일때의 경우가 다름
+void	precision_number(int precision, unsigned int num, unsigned int division_num)
 {
 	int digit;
 
@@ -126,7 +129,6 @@ void	print_conversion(char conversion, va_list *ap, int precision)
 	char			hex[17] = "0123456789abcdef";
 	char			HEX[17] = "0123456789ABCDEF";
 	int				num;
-	int				temp;
 	unsigned int 	u_num;
 	void			*v_ptr;
 
@@ -142,6 +144,7 @@ void	print_conversion(char conversion, va_list *ap, int precision)
 		num = 0;
 		while (str[num])
 			num++;
+		// precision가 문자열보다 더 큰 경우는 그대로 출력임
 		if (precision >= 0 && precision <= num)
 			num = precision;
 		write(1, str, (sizeof(char) * num));
