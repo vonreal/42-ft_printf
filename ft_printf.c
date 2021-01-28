@@ -55,6 +55,7 @@ int		check_precision(const char *format, va_list *ap)
 
 	i = 0;
 	num = 0;
+	c = '';
 	if (format[i] == '*')
 	{
 		num = va_arg(*ap, int);
@@ -68,11 +69,8 @@ int		check_precision(const char *format, va_list *ap)
 	}
 	if (format[i] == 's')
 		return (num);
-	if (num >= 0)
-	{
-		if (c == 'd' || c == 'i' || c == 'u' || c == 'x'|| c == 'X' || c == 's')
-			return (num);
-	}
+	if (c == 'd' || c == 'i' || c == 'u' || c == 'x'|| c == 'X' || c == 's')
+		return (num);
 	return (-1);
 }
 
@@ -213,6 +211,8 @@ int		replace_and_print(const char *format, int i, va_list *ap)
 		i++;
 	}
 	print_conversion(conversion[j], ap, precision);
+	if (format[i] == '\0')
+		return (-1);
 	return (i);
 }
 
@@ -226,7 +226,11 @@ int		ft_printf(const char *format, ...)
 	while (format[idx])
 	{
 		if (format[idx] == '%')
+		{
 			idx = replace_and_print(format, ++idx, &ap);
+			if (idx == -1)
+				return (-1);
+		}
 		else
 			write(1, &format[idx], sizeof(char));
 		idx++;
