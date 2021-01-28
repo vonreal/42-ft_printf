@@ -34,7 +34,7 @@ void	precision_number(int precision, unsigned int num, int division_num)
 	int digit;
 
 	digit = 1;
-	while (num > 9)
+	while (num > (division_num - 1))
 	{
 		num /= division_num;
 		digit++;
