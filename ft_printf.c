@@ -91,7 +91,7 @@ void	ft_putnbr(int n)
 {
 	char			num;
 
-	if (n == 2147483648)
+	if (n == -2147483648)
 		write(1, "2147483648", 10);
 	else if (n < 0)
 		ft_putnbr(n * (-1));
