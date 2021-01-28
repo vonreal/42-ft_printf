@@ -4,7 +4,7 @@ int	ft_printf(const char *format, ...);
 
 int	main(void)
 {
-int print_min;
+    int print_min;
 
     print_min = 32;
 	ft_printf("%%d------------------\n");
