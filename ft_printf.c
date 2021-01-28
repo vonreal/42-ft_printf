@@ -152,10 +152,10 @@ void	print_conversion(char conversion, va_list *ap, int width, int precision)
 	if (conversion == 'c')
 	{
 		c = va_arg(*ap, int);
-		if (!width)
+		if (width != 0)
 		{
 			while (width > 1)
-				wirte(1, " ", sizeof(char));
+				write(1, " ", sizeof(char));
 				width--;
 		}
 		write(1, &c, sizeof(char));
