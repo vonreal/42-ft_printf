@@ -1,6 +1,21 @@
 #include <stdarg.h>
 #include <unistd.h>
 
+void	precision_number(int precision, unsigned int num)
+{
+	int digit;
+
+	digit = 1;
+	while (num < 9)
+	{
+		num /= 10;
+		digit++;
+	}
+	precision -= digit;
+	while (precision-- > 0)
+		write(1, "0", sizeof(char));
+}
+
 int		check_precision(const char *format, va_list *ap)
 {
 	int			num;
@@ -102,6 +117,8 @@ void	print_conversion(char conversion, va_list *ap, int precision)
 		num = 0;
 		while (str[num])
 			num++;
+		if (precision >= 0)
+			num = precision;
 		write(1, str, (sizeof(char) * num));
 	}
 	else if (conversion == 'p')
@@ -114,29 +131,20 @@ void	print_conversion(char conversion, va_list *ap, int precision)
 	else if (conversion == 'd' || conversion == 'i')
 	{
 		num = va_arg(*ap, int);
-		if (precision >= 0)
-		{
-			temp = num;
-			u_num = 1;
-			while (temp > 9)
-			{
-				temp /= 10;
-				u_num++;
-			}
-			precision -= u_num;
-			while (precision-- > 0)
-				write(1, "0", sizeof(char));
-		}
 		ft_putnbr(num);
 	}
 	else if (conversion == 'u')
 	{
 		u_num = va_arg(*ap, unsigned int);
+		if (precision >= 0)
+			precision_number(precision, u_num);
 		ft_putnbr_unsigned(u_num);
 	}
 	else if (conversion == 'x' || conversion == 'X')
 	{
 		u_num = va_arg(*ap, unsigned int);
+		if (precision >= 0)
+			precision_number(precision, u_num);
 		(conversion == 'x') ? get_hex_and_print(u_num, hex) : get_hex_and_print(u_num, HEX);
 	}
 	else if (conversion == '%')
