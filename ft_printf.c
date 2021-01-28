@@ -1,6 +1,30 @@
 #include <stdarg.h>
 #include <unistd.h>
 
+int		check_precision(char *format, va_list *ap)
+{
+	int			num;
+	int			i;
+	char		c;
+
+	i = 0;
+	num = 0;
+	if (format[i++] == '*')
+		num = va_arg(*ap, int);
+	else if (format[i] >= '0' && format[i] <= '9')
+	{
+		while (format[i] >= '0' && format[i] <= '9')
+			num = (num * 10) + format[i++] - '0';
+	}
+	c = format[i];
+	if (num >= 0)
+	{
+		if (c == 'd' || c == 'i' || c == 'u' || c == 'x'|| c == 'X' || c == 's')
+			return (num);
+	}
+	return (-1);
+}
+
 void	ft_putnbr_unsigned(unsigned int n)
 {
 	char			num;
@@ -52,13 +76,14 @@ void	get_hex_and_print(unsigned int n, char *hex)
 }
 
 // [Comment] conversion에 따라 출력하는 함수
-void	print_conversion(char conversion, va_list *ap)
+void	print_conversion(char conversion, va_list *ap, int precision)
 {
 	char			c;
 	char			*str;
 	char			hex[17] = "0123456789abcdef";
 	char			HEX[17] = "0123456789ABCDEF";
 	int				num;
+	int				temp;
 	unsigned int 	u_num;
 	void			*v_ptr;
 
@@ -86,6 +111,19 @@ void	print_conversion(char conversion, va_list *ap)
 	else if (conversion == 'd' || conversion == 'i')
 	{
 		num = va_arg(*ap, int);
+		if (precision >= 0)
+		{
+			temp = num;
+			u_num = 1;
+			while (temp > 9)
+			{
+				temp /= 10;
+				u_num++;
+			}
+			precision -= u_num;
+			while (precision-- >= 0)
+				wrtie(1, "0", sizeof(char));
+		}
 		ft_putnbr(num);
 	}
 	else if (conversion == 'u')
@@ -107,11 +145,14 @@ int		replace_and_print(const char *format, int i, va_list *ap)
 {
 	int				j;
 	char			*conversion;
+	int				precision;
 
 	// [Improving] Change to static varialbe and use ft_strlcpy funcion.
 	conversion = "cspdiuxX%";
 	while (format[i])
 	{
+		if (format[i] == '.')
+			precision = check_precision(&format[i + 1], ap);
 		j = 0;
 		while (conversion[j])
 		{
@@ -123,7 +164,7 @@ int		replace_and_print(const char *format, int i, va_list *ap)
 			break ;
 		i++;
 	}
-	print_conversion(conversion[j], ap);
+	print_conversion(conversion[j], ap, precision);
 	return (i);
 }
 
