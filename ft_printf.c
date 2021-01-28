@@ -117,14 +117,14 @@ void	print_conversion(char conversion, va_list *ap, int precision)
 		if (precision >= 0)
 		{
 			temp = num;
-			u_num = 0;
-			while (temp > 10)
+			u_num = 1;
+			while (temp > 9)
 			{
 				temp /= 10;
 				u_num++;
 			}
 			precision -= u_num;
-			while (precision-- >= 0)
+			while (precision-- > 0)
 				write(1, "0", sizeof(char));
 		}
 		ft_putnbr(num);
