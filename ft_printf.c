@@ -2,6 +2,23 @@
 #include <unistd.h>
 #include <limits.h>
 
+int		check_width(const char *format, va_list *ap)
+{
+	int num;
+	int i;
+
+	num = 0;
+	i = 0;
+	if (format[i] >= '1' && format[i] <= '9')
+	{
+		while (format[i] >= '1' && format[i] <= '9')
+			num = (num * 10) + format[i++] - '0';
+	}
+	else if (format[i] == '*')
+		num = va_arg(*ap, int);
+	return (num);
+}
+
 int		get_size(int n)
 {
 	int		count;
@@ -122,7 +139,7 @@ void	get_hex_and_print(unsigned int n, char *hex)
 }
 
 // [Comment] conversion에 따라 출력하는 함수
-void	print_conversion(char conversion, va_list *ap, int precision)
+void	print_conversion(char conversion, va_list *ap, int width, int precision)
 {
 	char			c;
 	char			*str;
@@ -135,6 +152,12 @@ void	print_conversion(char conversion, va_list *ap, int precision)
 	if (conversion == 'c')
 	{
 		c = va_arg(*ap, int);
+		if (!width)
+		{
+			while (width > 1)
+				wirte(1, " ", sizeof(char));
+				width--;
+		}
 		write(1, &c, sizeof(char));
 	}
 	else if (conversion == 's')
@@ -191,12 +214,15 @@ int		replace_and_print(const char *format, int i, va_list *ap)
 {
 	int				j;
 	char			*conversion;
+	int				width;
 	int				precision;
 
 	// [Improving] Change to static varialbe and use ft_strlcpy funcion.
 	conversion = "cspdiuxX%";
 	while (format[i])
 	{
+		if ((format[i] >= '1' && format[i] <= '9') || format[i] == '*')
+			width = check_width(&format[i], ap);
 		if (format[i] == '.')
 			precision = check_precision(&format[i + 1], ap);
 		j = 0;
@@ -210,7 +236,7 @@ int		replace_and_print(const char *format, int i, va_list *ap)
 			break ;
 		i++;
 	}
-	print_conversion(conversion[j], ap, precision);
+	print_conversion(conversion[j], ap, width, precision);
 	if (format[i] == '\0')
 		return (-1);
 	return (i);
