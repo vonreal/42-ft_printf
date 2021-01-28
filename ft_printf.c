@@ -117,7 +117,7 @@ void	print_conversion(char conversion, va_list *ap, int precision)
 		num = 0;
 		while (str[num])
 			num++;
-		if (precision >= 0)
+		if (precision >= 0 && precision <= num)
 			num = precision;
 		write(1, str, (sizeof(char) * num));
 	}
