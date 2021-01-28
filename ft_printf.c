@@ -66,9 +66,11 @@ int		check_precision(const char *format, va_list *ap)
 			num = (num * 10) + format[i++] - '0';
 		c = format[i];
 	}
+	if (format[i] == 's')
+		return (num);
 	if (num >= 0)
 	{
-		if (c == 'd' || c == 'i' || c == 'u' || c == 'x'|| c == 'X' || c == 's')
+		if (c == 'd' || c == 'i' || c == 'u' || c == 'x'|| c == 'X')
 			return (num);
 	}
 	return (-1);
