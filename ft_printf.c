@@ -166,7 +166,7 @@ void	print_conversion(char conversion, va_list *ap, int width, int precision)
 	if (conversion == 'c')
 	{
 		c = va_arg(*ap, int);
-		if (width != 0)
+		if (width > 0)
 			set_width(width);
 		write(1, &c, sizeof(char));
 		if (width < 0)
