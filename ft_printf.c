@@ -183,7 +183,10 @@ void	print_conversion(char conversion, va_list *ap, int flag, int width, int pre
 	{
 		c = va_arg(*ap, int);
 		if (flag == '-')
-			width *= -1;
+		{
+			if (width > 0)
+				width *= -1;
+		}
 		if (width > 0)
 			set_width(width - 1, flag);
 		write(1, &c, sizeof(char));
@@ -196,7 +199,10 @@ void	print_conversion(char conversion, va_list *ap, int flag, int width, int pre
 		str = va_arg(*ap, char *);
 		num = 0;
 		if (flag == '-')
-			width *= -1;
+		{
+			if (width > 0)
+				width *= -1;
+		}
 		while (str[num])
 			num++;
 		// precision가 문자열보다 더 큰 경우는 그대로 출력임
@@ -220,7 +226,10 @@ void	print_conversion(char conversion, va_list *ap, int flag, int width, int pre
 		v_ptr = va_arg(*ap, void *);
 		u_num = (unsigned int)v_ptr;
 		if (flag == '-')
-			width *= -1;
+		{
+			if (width > 0)
+				width *= -1;
+		}
 		if (width > 0)
 		{
 			if ((width -= (get_size_unum(u_num, 16) + 2)) > 0)
@@ -244,7 +253,10 @@ void	print_conversion(char conversion, va_list *ap, int flag, int width, int pre
 			precision += 1;
 		}
 		if (flag == '-')
-			width *= -1;
+		{
+			if (width > 0)
+				width *= -1;
+		}		
 		if (width > 0)
 		{
 			if (precision >= 0)
@@ -272,7 +284,10 @@ void	print_conversion(char conversion, va_list *ap, int flag, int width, int pre
 	{
 		u_num = va_arg(*ap, unsigned int);
 		if (flag == '-')
-			width *= -1;
+		{
+			if (width > 0)
+				width *= -1;
+		}
 		if (width > 0)
 		{
 			if (precision >= 0)
@@ -300,7 +315,10 @@ void	print_conversion(char conversion, va_list *ap, int flag, int width, int pre
 	{
 		u_num = va_arg(*ap, unsigned int);
 		if (flag == '-')
-			width *= -1;
+		{
+			if (width > 0)
+				width *= -1;
+		}
 		if (width > 0)
 		{
 			if (precision >= 0)
@@ -327,7 +345,10 @@ void	print_conversion(char conversion, va_list *ap, int flag, int width, int pre
 	else if (conversion == '%')
 	{
 		if (flag == '-')
-			width *= -1;
+		{
+			if (width > 0)
+				width *= -1;
+		}
 		if (width > 0)
 			set_width(width - 1, flag);
 		write(1, "%", sizeof(char));
