@@ -26,9 +26,9 @@ int		check_width(const char *format, va_list *ap)
 
 	num = 0;
 	i = 0;
-	if (format[i] >= '1' && format[i] <= '9')
+	if (format[i] >= '0' && format[i] <= '9')
 	{
-		while (format[i] >= '1' && format[i] <= '9')
+		while (format[i] >= '0' && format[i] <= '9')
 			num = (num * 10) + format[i++] - '0';
 	}
 	else if (format[i] == '*')
