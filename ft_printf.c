@@ -222,7 +222,7 @@ void	print_conversion(char conversion, va_list *ap, int width, int precision)
 		get_hex_and_print(u_num, hex);
 		if (width < 0)
 		{
-			if ((width += (get_size_unum(u_num, 16) + 2) < 0))
+			if ((width += (get_size_unum(u_num, 16) + 2)) < 0)
 				set_width(width);
 		}
 	}
