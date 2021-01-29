@@ -179,14 +179,14 @@ void	print_conversion(char conversion, va_list *ap, int width, int precision)
 		num = 0;
 		while (str[num])
 			num++;
+		// precision가 문자열보다 더 큰 경우는 그대로 출력임
+		if (precision >= 0 && precision <= num)
+			num = precision;
 		if (width > 0)
 		{
 			if ((width -= num) > 0)
 				set_width(width);
 		}
-		// precision가 문자열보다 더 큰 경우는 그대로 출력임
-		if (precision >= 0 && precision <= num)
-			num = precision;
 		write(1, str, (sizeof(char) * num));
 		if (width < 0)
 		{
@@ -238,6 +238,7 @@ int		replace_and_print(const char *format, int i, va_list *ap)
 	char			*conversion;
 	int				width;
 	int				precision;
+	int				temp;
 
 	// [Improving] Change to static varialbe and use ft_strlcpy funcion.
 	width = 0;
@@ -248,7 +249,11 @@ int		replace_and_print(const char *format, int i, va_list *ap)
 		if ((format[i] >= '1' && format[i] <= '9') || format[i] == '*')
 			width = check_width(&format[i], ap);
 		if (format[i] == '.')
+		{
+			if (width != 0)
+				temp = width;
 			precision = check_precision(&format[i + 1], ap);
+		}
 		j = 0;
 		while (conversion[j])
 		{
@@ -260,6 +265,8 @@ int		replace_and_print(const char *format, int i, va_list *ap)
 			break ;
 		i++;
 	}
+	if (temp != 0)
+		width = temp;
 	print_conversion(conversion[j], ap, width, precision);
 	if (format[i] == '\0')
 		return (-1);
