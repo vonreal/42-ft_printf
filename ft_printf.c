@@ -322,7 +322,7 @@ void	print_conversion(char conversion, va_list *ap, int flag, int width, int pre
 		}
 		if (width > 0)
 		{
-			if (precision >= 0 &&| (precision - get_size(num)) > 0)
+			if (precision >= 0 && (precision - get_size(num)) > 0)
 				width -= (get_size_unum(u_num, 16) + (precision - get_size_unum(u_num, 16)));
 			else
 				width -= get_size_unum(u_num, 16);
