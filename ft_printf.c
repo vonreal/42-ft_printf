@@ -37,11 +37,13 @@ void	convert_format_specifier(Field *fields, va_list *ap, int *total)
 		if (type == '%')
 		{
 			write(1, "%", sizeof(char));
+			*total += width(fields->_width, 1, fields->_flag);
 		}
 		else
 		{
 			c_temp = va_arg(*ap, int);
 			write(1, &c_temp, sizeof(char));
+			*total += width(fields->_width, 1, ' ');
 		}
 		*total += 1;
 	}
@@ -55,6 +57,7 @@ void	convert_format_specifier(Field *fields, va_list *ap, int *total)
 			fields->_width = 0;
 		}
 		write(1, c_ptr, (sizeof(char) * i_temp));
+		*total += width(fields->_width, i_temp, ' ');
 		*total += i_temp;
 	}
 	else if (type == 'p')
