@@ -32,6 +32,7 @@ int		scan_syntax(const char *format, int idx, va_list *ap, int total)
 	char	fmt;
 	Field	fields;
 
+	ft_memset(&fields, 0, sizeof(Field));
 	while (format[idx])
 	{
 		fmt = format[idx];

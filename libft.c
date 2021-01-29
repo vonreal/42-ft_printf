@@ -1,23 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   libft.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jna <jna@student.42seoul.kr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/29 17:26:12 by jna               #+#    #+#             */
-/*   Updated: 2021/01/29 17:26:12 by jna              ###   ########.fr       */
+/*   Created: 2021/01/29 18:56:12 by jna               #+#    #+#             */
+/*   Updated: 2021/01/29 18:56:12 by jna              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "ft_printf.h"
 
-#include <stdlib.h>
-#include <stdarg.h>
-#include <unistd.h>
+void	*ft_memset(void *b, int c, size_t len)
+{
+	unsigned int	count;
+	unsigned char	*ptr;
 
-int		ft_printf(const char *format, ...);
-void	*ft_memset(void *b, int c, size_t len);
-
-#endif
+	ptr = (unsigned char *)b;
+	count = 0;
+	while (count < len)
+	{
+		ptr[count] = (unsigned char)c;
+		count++;
+	}
+	return (b);
+}
