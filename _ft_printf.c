@@ -179,17 +179,22 @@ void	print_conversion(char conversion, va_list *ap, int flag, int width, int pre
 	unsigned int 	u_num;
 	void			*v_ptr;
 
+	if ((flag == '-') && (width > 0))
+		width *= -1;
 	if (conversion == 'c')
 	{
 		c = va_arg(*ap, int);
-		if (flag == '-')
-		{
-			if (width > 0)
-				width *= -1;
-		}
 		if (width > 0)
 			set_width(width - 1, flag);
 		write(1, &c, sizeof(char));
+		if (width < 0)
+			set_width(width + 1, flag);
+	}
+	else if (conversion == '%')
+	{
+		if (width > 0)
+			set_width(width - 1, flag);
+		write(1, "%", sizeof(char));
 		if (width < 0)
 			set_width(width + 1, flag);
 	}
@@ -198,11 +203,6 @@ void	print_conversion(char conversion, va_list *ap, int flag, int width, int pre
 		// [Improving] Use the malloc and free function.
 		str = va_arg(*ap, char *);
 		num = 0;
-		if (flag == '-')
-		{
-			if (width > 0)
-				width *= -1;
-		}
 		while (str[num])
 			num++;
 		// precision가 문자열보다 더 큰 경우는 그대로 출력임
@@ -225,11 +225,6 @@ void	print_conversion(char conversion, va_list *ap, int flag, int width, int pre
 	{
 		v_ptr = va_arg(*ap, void *);
 		u_num = (unsigned int)v_ptr;
-		if (flag == '-')
-		{
-			if (width > 0)
-				width *= -1;
-		}
 		if (width > 0)
 		{
 			if ((width -= (get_size_unum(u_num, 16) + 2)) > 0)
@@ -252,11 +247,6 @@ void	print_conversion(char conversion, va_list *ap, int flag, int width, int pre
 			write(1, "-", sizeof(char));
 			precision += 1;
 		}
-		if (flag == '-')
-		{
-			if (width > 0)
-				width *= -1;
-		}		
 		if (width > 0)
 		{
 			if (precision >= 0 && (precision - get_size(num)) > 0)
@@ -283,11 +273,6 @@ void	print_conversion(char conversion, va_list *ap, int flag, int width, int pre
 	else if (conversion == 'u')
 	{
 		u_num = va_arg(*ap, unsigned int);
-		if (flag == '-')
-		{
-			if (width > 0)
-				width *= -1;
-		}
 		if (width > 0)
 		{
 			if (precision >= 0 && (precision - get_size(num)) > 0)
@@ -314,11 +299,6 @@ void	print_conversion(char conversion, va_list *ap, int flag, int width, int pre
 	else if (conversion == 'x' || conversion == 'X')
 	{
 		u_num = va_arg(*ap, unsigned int);
-		if (flag == '-')
-		{
-			if (width > 0)
-				width *= -1;
-		}
 		if (width > 0)
 		{
 			if (precision >= 0 && (precision - get_size(num)) > 0)
@@ -342,19 +322,7 @@ void	print_conversion(char conversion, va_list *ap, int flag, int width, int pre
 				set_width(width, flag);
 		}
 	}
-	else if (conversion == '%')
-	{
-		if (flag == '-')
-		{
-			if (width > 0)
-				width *= -1;
-		}
-		if (width > 0)
-			set_width(width - 1, flag);
-		write(1, "%", sizeof(char));
-		if (width < 0)
-			set_width(width + 1, flag);
-	}
+
 }
 
 // [Comment] %를 만나면 conversion까지 읽어와 해당 조건에 맞게 출력하는 함수
@@ -373,16 +341,23 @@ int		replace_and_print(const char *format, int i, va_list *ap)
 	conversion = "cspdiuxX%";
 	while (format[i])
 	{
-		if (format[i] == '-')
+		if (format[i] == '-' || format[i] == '0')
 		{
-			while (format[i] == '-')
+			while (format[i] == '-' || format[i] == '0')
+			{
+				if (flag == '1' && format[i] == '0')
+					flag == '0';
+				else
+					flag == '-'
 				i++;
-			flag = '-';
+			}
 		}
 		if (width == 0)
 		{
 			if ((format[i] >= '1' && format[i] <= '9') || format[i] == '*')
 				width = check_width(&format[i], ap);
+			while (format[i] >= '0' && format[i] <= '9')
+				i++;
 		}
 		if (format[i] == '.')
 			precision = check_precision(&format[i + 1], ap);

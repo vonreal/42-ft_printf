@@ -23,8 +23,13 @@ typedef struct _Field
 
 int		convert_format_specifier(Field *fields, va_list *ap)
 {
-	write(1, &(fields->type), sizeof(char));
 	return (0);
+}
+
+void	field_rules(Field *fields)
+{
+	if ((*fields->flag == '-') && (*fields->width > 0))
+		*fields->width *= -1;
 }
 
 int		scan_syntax(const char *format, int idx, va_list *ap, int total)
@@ -36,6 +41,9 @@ int		scan_syntax(const char *format, int idx, va_list *ap, int total)
 	while (format[idx])
 	{
 		fmt = format[idx];
+		if (fmt == '-' || fmt == '0')
+		if ((fmt >= '1' && fmt <= '9') || fmt == '*')
+		if (fmt == '.')
 		if (fmt == 'c' || fmt == 's' || fmt == 'p'
 					   || fmt == 'd' || fmt == 'i'
 					   || fmt == 'u' || fmt == 'x'
@@ -46,6 +54,7 @@ int		scan_syntax(const char *format, int idx, va_list *ap, int total)
 		}
 		idx++;
 	}
+	field_rules(&fields);
 	convert_format_specifier(&fields, ap);
 	if (format[idx] == '\0')
 		return (-1);
