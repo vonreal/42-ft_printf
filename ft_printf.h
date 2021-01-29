@@ -24,7 +24,7 @@ typedef struct _Field
 	int		_width;
 	int		_precision;
 	char	_type;
-} Field = {'z', 0, -1, 'z'};
+} Field;
 
 int		ft_printf(const char *format, ...);
 void	*ft_memset(void *b, int c, size_t len);
@@ -33,7 +33,7 @@ void	ft_putchar_fd(char c, int fd);
 void	ft_putnbr_signed(int n);
 void	ft_putnbr_unsigned(unsigned int n, char type);
 int		print_signed_int(int num, int value);
-int		print_unsigned_int(unsigned int num, char type, int value)
+int		print_unsigned_int(unsigned int num, char type, int value);
 int		get_digit(int n);
 int		get_digit_unsigned(unsigned int num, unsigned int notation);
 int		precision(int option, int length, char type);
