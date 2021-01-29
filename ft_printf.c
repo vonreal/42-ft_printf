@@ -12,19 +12,6 @@
 
 #include "ft_printf.h"
 
-int		precision(int option, int length, char type)
-{
-	if (type == 's')
-	{
-		if (option == 0)
-			return (0);
-		else if (option > 0 && option <= length)
-			return (option);
-		else
-			return (length);
-	}
-}
-
 void	convert_format_specifier(Field *fields, va_list *ap, int *total)
 {
 	char			type;
