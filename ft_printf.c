@@ -24,7 +24,7 @@ void	ft_putnbr_unsigned(unsigned int n, char type)
 {
 	char			num;
 	unsigned int	notation;
-	char			hex[17] = "0123456789abcedf";
+	char			hex[17] = "0123456789abcdef";
 	char			Hex[17] = "0123456789ABCDEF";
 
 	notation = (type == 'u') ? (notation = 10) : (notation = 16);
