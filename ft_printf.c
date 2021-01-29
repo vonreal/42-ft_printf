@@ -373,7 +373,7 @@ int		replace_and_print(const char *format, int i, va_list *ap)
 	conversion = "cspdiuxX%";
 	while (format[i])
 	{
-		if (flag == -1)
+		if (flag == '1')
 		{
 			if (format[i] == '-' || format[i] == '0')
 			{
@@ -390,7 +390,7 @@ int		replace_and_print(const char *format, int i, va_list *ap)
 		if (width == 0)
 		{
 			if ((format[i] >= '1' && format[i] <= '9') || format[i] == '*')
-				width = check_width(&format[i], ap);
+				width = check_width(&format[i + 1], ap);
 		}
 		if (format[i] == '.')
 			precision = check_precision(&format[i + 1], ap);
