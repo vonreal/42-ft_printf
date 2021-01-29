@@ -381,8 +381,8 @@ int		replace_and_print(const char *format, int i, va_list *ap)
 					flag = '-';
 				else if(format[i] == '0' && flag != '-')
 					flag = '0';
-			}
 			i++;
+			}
 		}
 		if (width == 0)
 		{
