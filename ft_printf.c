@@ -62,6 +62,19 @@ void	precision_number_int(int precision, int num)
 		write(1, "0", sizeof(char));
 }
 
+int		get_size_unum(unsigned int num, unsigned int division_num)
+{
+	int digit;
+
+	digit = 1;
+	while (num > (division_num - 1))
+	{
+		num /= division_num;
+		digit++;
+	}
+	return (digit);
+}
+
 // 10진수일때와 16진수일때의 경우가 다름
 void	precision_number(int precision, unsigned int num, unsigned int division_num)
 {
@@ -234,16 +247,52 @@ void	print_conversion(char conversion, va_list *ap, int width, int precision)
 	else if (conversion == 'u')
 	{
 		u_num = va_arg(*ap, unsigned int);
+		if (width > 0)
+		{
+			if (precision >= 0)
+				width -= (get_size_unum(unum, 10) + (precision - get_size_unum(unum, 10)));
+			else
+				width -= get_size_unum(unum, 10);
+			if (width > 0)
+				set_width(width);
+		}
 		if (precision >= 0)
 			precision_number(precision, u_num, 10);
 		ft_putnbr_unsigned(u_num);
+		if (width < 0)
+		{
+			if (precision >= 0)
+				width += (get_size_unum(unum, 10) + (precision - get_size_unum(unum, 10)));
+			else
+				width += get_size_unum(unum, 10);
+			if (width < 0)
+				set_width(width);
+		}
 	}
 	else if (conversion == 'x' || conversion == 'X')
 	{
 		u_num = va_arg(*ap, unsigned int);
+		if (width > 0)
+		{
+			if (precision >= 0)
+				width -= (get_size_unum(unum, 16) + (precision - get_size_unum(unum, 16)));
+			else
+				width -= get_size_unum(unum, 16);
+			if (width > 0)
+				set_width(width);
+		}
 		if (precision >= 0)
 			precision_number(precision, u_num, 16);
 		(conversion == 'x') ? get_hex_and_print(u_num, hex) : get_hex_and_print(u_num, HEX);
+		if (width < 0)
+		{
+			if (precision >= 0)
+				width += (get_size_unum(unum, 16) + (precision - get_size_unum(unum, 16)));
+			else
+				width += get_size_unum(unum, 16);
+			if (width < 0)
+				set_width(width);
+		}
 	}
 	else if (conversion == '%')
 		write(1, "%", sizeof(char));
