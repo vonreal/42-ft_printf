@@ -179,10 +179,20 @@ void	print_conversion(char conversion, va_list *ap, int width, int precision)
 		num = 0;
 		while (str[num])
 			num++;
+		if (width > 0)
+		{
+			if ((width -= num) > 0)
+				set_width(width);
+		}
 		// precision가 문자열보다 더 큰 경우는 그대로 출력임
 		if (precision >= 0 && precision <= num)
 			num = precision;
 		write(1, str, (sizeof(char) * num));
+		if (width < 0)
+		{
+			if ((width += num) < 0)
+				set_width(width);
+		}
 	}
 	else if (conversion == 'p')
 	{
