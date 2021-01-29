@@ -31,7 +31,7 @@ void	ft_putnbr_unsigned(unsigned int n, char type)
 	if (n < notation)
 	{
 		num = n + '0';
-		if (type = 'x' || type = 'p')
+		if (type == 'x' || type == 'p')
 			write(1, &hex[n], sizeof(char));
 		else if (type = 'X')
 			write(1, &Hex[n], sizeof(char));
@@ -64,7 +64,8 @@ void	convert_format_specifier(Field *fields, va_list *ap, int *total)
 	char			c_temp;
 	int				i_temp;
 	unsigned int	u_temp;
-	void			*v_temp;
+	void			*v_ptr;
+	char			*c_ptr;
 
 	type = fields->_type;
 	// if ((fields->flag == '-') && (fields->width > 0))
@@ -73,19 +74,19 @@ void	convert_format_specifier(Field *fields, va_list *ap, int *total)
 	if (type == 'c')
 	{
 		c_temp = va_arg(*ap, int);
-		write(1, &c, sizeof(char));
+		write(1, &c_temp, sizeof(char));
 		*total += 1;
 	}
 	else if (type == 's')
 	{
-		(char *)v_temp = va_arg(*ap, char *);
-		write(1, v_temp, (sizeof(char) * ft_strlen(v_temp)));
-		*total += ft_strlen(v_temp);
+		c_ptr = va_arg(*ap, char *);
+		write(1, c_ptr, (sizeof(char) * ft_strlen(c_ptr)));
+		*total += ft_strlen(c_ptr);
 	}
 	else if (type == 'p')
 	{
-		v_temp = va_arg(*ap, void *);
-		u_temp = (unsigned int)v_temp;
+		v_ptr = va_arg(*ap, void *);
+		u_temp = (unsigned int)v_ptr;
 		write(2, "0x", (sizeof(char) * 2));
 		ft_putnbr_unsigned(u_temp, type);
 		*total += (get_digit(u_temp, 16) + 2);
@@ -96,7 +97,7 @@ void	convert_format_specifier(Field *fields, va_list *ap, int *total)
 		ft_putnbr_fd(i_temp, 1);
 		//total
 	}
-	else if (type == 'u' || type == 'x' || type 'X')
+	else if (type == 'u' || type == 'x' || type == 'X')
 	{
 		u_temp = va_arg(*ap, unsigned int);
 		if (type == 'u')
