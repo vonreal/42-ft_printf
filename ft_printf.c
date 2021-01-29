@@ -170,7 +170,7 @@ void	print_conversion(char conversion, va_list *ap, int width, int precision)
 			set_width(width - 1);
 		write(1, &c, sizeof(char));
 		if (width < 0)
-			set_width(width - 1);
+			set_width(width + 1);
 	}
 	else if (conversion == 's')
 	{
