@@ -43,7 +43,6 @@ void	convert_format_specifier(Field *fields, va_list *ap, int *total)
 	else if (type == 'p')
 	{
 		v_ptr = va_arg(*ap, void *);
-		i_temp = get_digit_unsigned((unsigned int)v_ptr, 16) + 2;
 		write(2, "0x", (sizeof(char) * 2));
 		*total += (print_unsigned_int((unsigned int)v_ptr, type, -1));
 	}

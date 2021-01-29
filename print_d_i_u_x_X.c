@@ -79,13 +79,13 @@ int		print_unsigned_int(unsigned int num, char type, int value)
 	if (type == 'u')
 	{
 		size = get_digit_unsigned(num, 10);
-		size = precision(value, size, '0');
+		size = precision(value, size, type);
 		ft_putnbr_unsigned(num, type);
 	}
 	else if (type == 'x' || type == 'X' || type == 'p')
 	{
 		size = get_digit_unsigned(num, 16);
-		size = precision(value, size, '0');
+		size = precision(value, size, type);
 		ft_putnbr_unsigned(num, type);
 	}
 	return (size);
