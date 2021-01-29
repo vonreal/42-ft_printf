@@ -199,6 +199,7 @@ void	print_conversion(char conversion, va_list *ap, int width, int precision)
 		{
 			if ((width -= num) > 0)
 				set_width(width);
+			width = 1;
 		}
 		write(1, str, (sizeof(char) * num));
 		if (width < 0)
@@ -211,8 +212,19 @@ void	print_conversion(char conversion, va_list *ap, int width, int precision)
 	{
 		v_ptr = va_arg(*ap, void *);
 		u_num = (unsigned int)v_ptr;
+		if (width > 0)
+		{
+			if ((width -= (get_size_unum(u_num, 16) + 2) > 0))
+				set_width(width);
+			width = 1;
+		}
 		write(2, "0x", (sizeof(char) * 2));
 		get_hex_and_print(u_num, hex);
+		if (width < 0)
+		{
+			if ((width += (get_size_unum(u_num, 16) + 2) < 0))
+				set_width(width);
+		}
 	}
 	else if (conversion == 'd' || conversion == 'i')
 	{
@@ -230,6 +242,7 @@ void	print_conversion(char conversion, va_list *ap, int width, int precision)
 				width -= get_size(num);
 			if (width > 0)
 				set_width(width);
+			width = 1;
 		}
 		if (precision >= 0)
 			precision_number_int(precision, num);
@@ -255,6 +268,7 @@ void	print_conversion(char conversion, va_list *ap, int width, int precision)
 				width -= get_size_unum(u_num, 10);
 			if (width > 0)
 				set_width(width);
+			width = 1;
 		}
 		if (precision >= 0)
 			precision_number(precision, u_num, 10);
@@ -280,6 +294,7 @@ void	print_conversion(char conversion, va_list *ap, int width, int precision)
 				width -= get_size_unum(u_num, 16);
 			if (width > 0)
 				set_width(width);
+			width = 1;
 		}
 		if (precision >= 0)
 			precision_number(precision, u_num, 16);
@@ -295,7 +310,13 @@ void	print_conversion(char conversion, va_list *ap, int width, int precision)
 		}
 	}
 	else if (conversion == '%')
+	{
+		if (width > 0)
+			set_width(width - 1);
 		write(1, "%", sizeof(char));
+		if (width < 0)
+			set_width(width + 1);
+	}
 }
 
 // [Comment] %를 만나면 conversion까지 읽어와 해당 조건에 맞게 출력하는 함수
