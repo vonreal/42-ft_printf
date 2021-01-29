@@ -21,17 +21,29 @@ void	convert_format_specifier(Field *fields, va_list *ap, int *total)
 	char			*c_ptr;
 
 	type = fields->_type;
-	// if ((fields->flag == '-') && (fields->width > 0))
-	// 	fields->width *= -1;
+	if (fields->width > 0)
+	{
+		fields->_flag = '-';
+		fields->_width *= -1;
+	}
 
 	if (type == 'c' || type == '%')
 	{
+		if (fields->_flag == '-')
+		{
+			*total += width(fields->_width, 1, fields->_flag);
+			fields->_width = 0;
+		}
 		if (type == '%')
+		{
 			write(1, "%", sizeof(char));
+			*total += width(fields->_width, 1, fields->_flag);
+		}
 		else
 		{
 			c_temp = va_arg(*ap, int);
 			write(1, &c_temp, sizeof(char));
+			*total += width(fields->_width, 1, ' ');
 		}
 		*total += 1;
 	}
@@ -39,19 +51,32 @@ void	convert_format_specifier(Field *fields, va_list *ap, int *total)
 	{
 		c_ptr = va_arg(*ap, char *);
 		i_temp = precision(fields->_precision, ft_strlen(c_ptr), type);
+		if (fields->_flag == '-')
+		{
+			*total += width(fields->_width, i_temp, fields->_flag);
+			fields->_width = 0;
+		}
 		write(1, c_ptr, (sizeof(char) * i_temp));
+		*total += width(fields->_width, i_temp, ' ');
 		*total += i_temp;
 	}
 	else if (type == 'p')
 	{
 		v_ptr = va_arg(*ap, void *);
+		i_temp = get_digit_unsigned((unsigned int)v_ptr, 16) + 2;
+		if (fields->_flag == '-')
+		{
+			*total += width(fields->_width, i_temp, fields->_flag);
+			fields->_width = 0;
+		}
 		write(2, "0x", (sizeof(char) * 2));
-		*total += (print_unsigned_int((unsigned int)v_ptr, type, -1));
+		*total += (print_unsigned_int((unsigned int)v_ptr, 'x', -1));
+		*total += width(fields->_width, i_temp, ' ');
 	}
 	else if (type == 'd' || type == 'i')
-		*total += print_signed_int(va_arg(*ap, int), fields->_precision);
+		*total += print_signed_int(va_arg(*ap, int), fields->_precision, fields->_width, fields->_flag);
 	else if (type == 'u' || type == 'x' || type == 'X')
-		*total += print_unsigned_int(va_arg(*ap, unsigned int), type, fields->_precision);
+		*total += print_unsigned_int(va_arg(*ap, unsigned int), type, fields->_precision, fields->_width, fields->_flag);
 }
 
 int		set_width(int *dst, const char *format, int idx, va_list *ap)
