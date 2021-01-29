@@ -373,16 +373,11 @@ int		replace_and_print(const char *format, int i, va_list *ap)
 	conversion = "cspdiuxX%";
 	while (format[i])
 	{
-		if (format[i] == '-' || format[i] == '0')
+		if (format[i] == '-')
 		{
-			while (format[i] == '-' || format[i] == '0')
-			{
-				if (format[i] == '-')
-					flag = '-';
-				else if(format[i] == '0' && flag != '-')
-					flag = '0';
-			i++;
-			}
+			while (format[i] == '-')
+				i++;
+			flag = '-';
 		}
 		if (width == 0)
 		{
