@@ -21,7 +21,7 @@ void	convert_format_specifier(Field *fields, va_list *ap, int *total)
 	char			*c_ptr;
 
 	type = fields->_type;
-	if (fields->_width > 0)
+	if (fields->_width < 0)
 	{
 		fields->_flag = '-';
 		fields->_width *= -1;
