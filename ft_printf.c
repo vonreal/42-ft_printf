@@ -2,11 +2,14 @@
 #include <unistd.h>
 #include <limits.h>
 
-void	set_width(int width)
+void	set_width(int width, char flag)
 {
 	while (width > 0)
 	{
-		write (1, " ", sizeof(char));
+		if (flag == '0')
+			write(1, &flag, sizeof(char));
+		else
+			write(1, " ", sizeof(char));
 		width--;
 	}
 	while (width < 0)
@@ -166,7 +169,7 @@ void	get_hex_and_print(unsigned int n, char *hex)
 }
 
 // [Comment] conversion에 따라 출력하는 함수
-void	print_conversion(char conversion, va_list *ap, int width, int precision)
+void	print_conversion(char conversion, va_list *ap, int flag, int width, int precision)
 {
 	char			c;
 	char			*str;
@@ -179,6 +182,8 @@ void	print_conversion(char conversion, va_list *ap, int width, int precision)
 	if (conversion == 'c')
 	{
 		c = va_arg(*ap, int);
+		if (flag == '-')
+			width *= -1;
 		if (width > 0)
 			set_width(width - 1);
 		write(1, &c, sizeof(char));
@@ -190,6 +195,8 @@ void	print_conversion(char conversion, va_list *ap, int width, int precision)
 		// [Improving] Use the malloc and free function.
 		str = va_arg(*ap, char *);
 		num = 0;
+		if (flag == '-')
+			width *= -1;
 		while (str[num])
 			num++;
 		// precision가 문자열보다 더 큰 경우는 그대로 출력임
@@ -212,6 +219,8 @@ void	print_conversion(char conversion, va_list *ap, int width, int precision)
 	{
 		v_ptr = va_arg(*ap, void *);
 		u_num = (unsigned int)v_ptr;
+		if (flag == '-')
+			width *= -1;
 		if (width > 0)
 		{
 			if ((width -= (get_size_unum(u_num, 16) + 2)) > 0)
@@ -234,6 +243,8 @@ void	print_conversion(char conversion, va_list *ap, int width, int precision)
 			write(1, "-", sizeof(char));
 			precision += 1;
 		}
+		if (flag == '-')
+			width *= -1;
 		if (width > 0)
 		{
 			if (precision >= 0)
@@ -241,7 +252,7 @@ void	print_conversion(char conversion, va_list *ap, int width, int precision)
 			else
 				width -= get_size(num);
 			if (width > 0)
-				set_width(width);
+				set_width(width, flag);
 			width = 1;
 		}
 		if (precision >= 0)
@@ -260,6 +271,8 @@ void	print_conversion(char conversion, va_list *ap, int width, int precision)
 	else if (conversion == 'u')
 	{
 		u_num = va_arg(*ap, unsigned int);
+		if (flag == '-')
+			width *= -1;
 		if (width > 0)
 		{
 			if (precision >= 0)
@@ -267,7 +280,7 @@ void	print_conversion(char conversion, va_list *ap, int width, int precision)
 			else
 				width -= get_size_unum(u_num, 10);
 			if (width > 0)
-				set_width(width);
+				set_width(width, flag);
 			width = 1;
 		}
 		if (precision >= 0)
@@ -286,6 +299,8 @@ void	print_conversion(char conversion, va_list *ap, int width, int precision)
 	else if (conversion == 'x' || conversion == 'X')
 	{
 		u_num = va_arg(*ap, unsigned int);
+		if (flag == '-')
+			width *= -1;
 		if (width > 0)
 		{
 			if (precision >= 0)
@@ -293,7 +308,7 @@ void	print_conversion(char conversion, va_list *ap, int width, int precision)
 			else
 				width -= get_size_unum(u_num, 16);
 			if (width > 0)
-				set_width(width);
+				set_width(width, flag);
 			width = 1;
 		}
 		if (precision >= 0)
@@ -311,8 +326,10 @@ void	print_conversion(char conversion, va_list *ap, int width, int precision)
 	}
 	else if (conversion == '%')
 	{
+		if (flag == '-')
+			width *= -1;
 		if (width > 0)
-			set_width(width - 1);
+			set_width(width - 1, flag);
 		write(1, "%", sizeof(char));
 		if (width < 0)
 			set_width(width + 1);
@@ -324,15 +341,31 @@ int		replace_and_print(const char *format, int i, va_list *ap)
 {
 	int				j;
 	char			*conversion;
+	int				flag;
 	int				width;
 	int				precision;
 
 	// [Improving] Change to static varialbe and use ft_strlcpy funcion.
+	flag = -1;
 	width = 0;
 	precision = -1;
 	conversion = "cspdiuxX%";
 	while (format[i])
 	{
+		if (flag == -1)
+		{
+			if (format[i] == '-' || format[i] == '0')
+			{
+				while (format[i] == '-' || format[i] == '0')
+				{
+					if (format[i] == '-')
+						flag = '-';
+					i++;
+				}
+				if (flag == -1)
+					flag = '0';
+			}
+		}
 		if (width == 0)
 		{
 			if ((format[i] >= '1' && format[i] <= '9') || format[i] == '*')
@@ -351,7 +384,7 @@ int		replace_and_print(const char *format, int i, va_list *ap)
 			break ;
 		i++;
 	}
-	print_conversion(conversion[j], ap, width, precision);
+	print_conversion(conversion[j], ap, flag, width, precision);
 	if (format[i] == '\0')
 		return (-1);
 	return (i);
