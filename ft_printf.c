@@ -30,7 +30,6 @@ void	convert_format_specifier(Field *fields, va_list *ap, int *total)
 		{
 			c_temp = va_arg(*ap, int);
 			write(1, &c_temp, sizeof(char));
-			*total += width(fields->_width, 1, ' ');
 		}
 		*total += 1;
 	}
