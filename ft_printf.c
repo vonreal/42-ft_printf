@@ -20,19 +20,11 @@ void	convert_format_specifier(Field *fields, va_list *ap, int *total)
 	void			*v_ptr;
 	char			*c_ptr;
 
-	type = fields->_type;
-	if (fields->_width < 0)
-	{
-		fields->_flag = '-';
-		fields->_width *= -1;
-	}
-
 	if (type == 'c' || type == '%')
 	{
 		if (type == '%')
 		{
 			write(1, "%", sizeof(char));
-			*total += width(fields->_width, 1, fields->_flag);
 		}
 		else
 		{
@@ -46,27 +38,20 @@ void	convert_format_specifier(Field *fields, va_list *ap, int *total)
 	{
 		c_ptr = va_arg(*ap, char *);
 		i_temp = precision(fields->_precision, ft_strlen(c_ptr), type);
-		*total += width(fields->_width, i_temp, fields->_flag);
 		write(1, c_ptr, (sizeof(char) * i_temp));
-		*total += width(fields->_width, i_temp, fields->_flag);
 		*total += i_temp;
 	}
 	else if (type == 'p')
 	{
 		v_ptr = va_arg(*ap, void *);
 		i_temp = get_digit_unsigned((unsigned int)v_ptr, 16) + 2;
-		if (fields->_flag == '-')
-		{
-			*total += width(fields->_width, i_temp, fields->_flag);
-			fields->_width = 0;
-		}
 		write(2, "0x", (sizeof(char) * 2));
-		*total += (print_unsigned_int((unsigned int)v_ptr, type, -1, fields->_width, ' '));
+		*total += (print_unsigned_int((unsigned int)v_ptr, type));
 	}
 	else if (type == 'd' || type == 'i')
-		*total += print_signed_int(va_arg(*ap, int), fields->_precision, fields->_width, fields->_flag);
+		*total += print_signed_int(va_arg(*ap, int), fields->_precision);
 	else if (type == 'u' || type == 'x' || type == 'X')
-		*total += print_unsigned_int(va_arg(*ap, unsigned int), type, fields->_precision, fields->_width, fields->_flag);
+		*total += print_unsigned_int(va_arg(*ap, unsigned int), type, fields->_precision);
 }
 
 int		set_width(int *dst, const char *format, int idx, va_list *ap)

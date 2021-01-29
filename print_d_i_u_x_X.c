@@ -57,7 +57,7 @@ void	ft_putnbr_unsigned(unsigned int n, char type)
 	}
 }
 
-int		print_signed_int(int num, int value, int w, char c)
+int		print_signed_int(int num, int value)
 {
 	int				size;
 
@@ -72,7 +72,7 @@ int		print_signed_int(int num, int value, int w, char c)
 	return (size);
 }
 
-int		print_unsigned_int(unsigned int num, char type, int value, int w, char c)
+int		print_unsigned_int(unsigned int num, char type, int value)
 {
 	int				size;
 
@@ -81,14 +81,12 @@ int		print_unsigned_int(unsigned int num, char type, int value, int w, char c)
 		size = get_digit_unsigned(num, 10);
 		size = precision(value, size, '0');
 		ft_putnbr_unsigned(num, type);
-		size += width(w, size, c);
 	}
 	else if (type == 'x' || type == 'X' || type == 'p')
 	{
 		size = get_digit_unsigned(num, 16);
 		size = precision(value, size, '0');
 		ft_putnbr_unsigned(num, type);
-		size += width(w, size, c);
 	}
 	return (size);
 }
