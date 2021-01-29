@@ -21,12 +21,12 @@ typedef struct _Field
 } Field;
 
 
-int		convert_format_specifier(Field fields, va_list **ap)
+int		convert_format_specifier(Field fields, va_list *ap)
 {
 	return (0);
 }
 
-int		scan_syntax(const char *format, int idx, va_list **ap, int total)
+int		scan_syntax(const char *format, int idx, va_list *ap, int total)
 {
 	char	fmt;
 	Field	fields;
@@ -64,7 +64,7 @@ int		ft_printf(const char *format, ...)
 		// meet format_specifier
 		if (format[idx] == '%')
 		{
-			if ((idx = scan_syntax(&format[i], idx + 1 &ap, total)) == -1)
+			if ((idx = scan_syntax(&format[idx], idx + 1, &ap, total)) == -1)
 				return (-1);
 		}
 		else
