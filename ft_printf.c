@@ -260,7 +260,7 @@ void	print_conversion(char conversion, va_list *ap, int flag, int width, int pre
 		}		
 		if (width > 0)
 		{
-			if (precision >= 0 || (precision - get_size(num)) > 0)
+			if (precision >= 0 && (precision - get_size(num)) > 0)
 				width -= (get_size(num) + (precision - get_size(num)));
 			else
 				width -= get_size(num);
@@ -273,7 +273,7 @@ void	print_conversion(char conversion, va_list *ap, int flag, int width, int pre
 		ft_putnbr(num);
 		if (width < 0)
 		{
-			if (precision >= 0 || (precision - get_size(num)) > 0)
+			if (precision >= 0 && (precision - get_size(num)) > 0)
 				width += (get_size(num) + (precision - get_size(num)));
 			else
 				width += get_size(num);
@@ -291,7 +291,7 @@ void	print_conversion(char conversion, va_list *ap, int flag, int width, int pre
 		}
 		if (width > 0)
 		{
-			if (precision >= 0 || (precision - get_size(num)) > 0)
+			if (precision >= 0 && (precision - get_size(num)) > 0)
 				width -= (get_size_unum(u_num, 10) + (precision - get_size_unum(u_num, 10)));
 			else
 				width -= get_size_unum(u_num, 10);
@@ -304,7 +304,7 @@ void	print_conversion(char conversion, va_list *ap, int flag, int width, int pre
 		ft_putnbr_unsigned(u_num);
 		if (width < 0)
 		{
-			if (precision >= 0 || (precision - get_size(num)) > 0)
+			if (precision >= 0 && (precision - get_size(num)) > 0)
 				width += (get_size_unum(u_num, 10) + (precision - get_size_unum(u_num, 10)));
 			else
 				width += get_size_unum(u_num, 10);
@@ -322,7 +322,7 @@ void	print_conversion(char conversion, va_list *ap, int flag, int width, int pre
 		}
 		if (width > 0)
 		{
-			if (precision >= 0 || (precision - get_size(num)) > 0)
+			if (precision >= 0 &&| (precision - get_size(num)) > 0)
 				width -= (get_size_unum(u_num, 16) + (precision - get_size_unum(u_num, 16)));
 			else
 				width -= get_size_unum(u_num, 16);
@@ -335,7 +335,7 @@ void	print_conversion(char conversion, va_list *ap, int flag, int width, int pre
 		(conversion == 'x') ? get_hex_and_print(u_num, hex) : get_hex_and_print(u_num, HEX);
 		if (width < 0)
 		{
-			if (precision >= 0 || (precision - get_size(num)) > 0)
+			if (precision >= 0 && (precision - get_size(num)) > 0)
 				width += (get_size_unum(u_num, 16) + (precision - get_size_unum(u_num, 16)));
 			else
 				width += get_size_unum(u_num, 16);
