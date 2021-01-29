@@ -347,7 +347,7 @@ int		replace_and_print(const char *format, int i, va_list *ap)
 			{
 				if (flag == '1' && format[i] == '0')
 					flag = '0';
-				else
+				if (flag == '-')
 					flag = '-';
 				i++;
 			}
