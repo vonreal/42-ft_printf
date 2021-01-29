@@ -107,7 +107,7 @@ void	convert_format_specifier(Field *fields, va_list *ap, int *total)
 		}
 		else
 		{
-			ft_putnbr_unsigned(u_temp, type)
+			ft_putnbr_unsigned(u_temp, type);
 			*total += get_digit(u_temp, 16);	
 		}
 	}
