@@ -362,12 +362,12 @@ int		replace_and_print(const char *format, int i, va_list *ap)
 {
 	int				j;
 	char			*conversion;
-	int				flag;
+	char				flag;
 	int				width;
 	int				precision;
 
 	// [Improving] Change to static varialbe and use ft_strlcpy funcion.
-	flag = -1;
+	flag = '1';
 	width = 0;
 	precision = -1;
 	conversion = "cspdiuxX%";
