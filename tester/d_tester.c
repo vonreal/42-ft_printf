@@ -7,7 +7,7 @@ int	ft_printf(const char *format, ...);
 int     main(void)
 {
     ft_printf("1 ft_printf: hello [%10d] world\n", 7);
-    printf("1   printf: hello [%10d] world\n", 7);
+    printf("1    printf: hello [%10d] world\n", 7);
     write(1, "\n", 1);
 
     ft_printf("2 ft_printf: hello [%4d] world\n", 77777);
