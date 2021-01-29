@@ -34,7 +34,6 @@ void	ft_putchar_fd(char c, int fd);
 void	ft_putnbr_signed(int n);
 void	ft_putnbr_unsigned(unsigned int n, char type);
 int		precision(int option, int length, char type);
-int		width(int option, int length, char c);
 int		print_signed_int(int num, int value);
 int		print_unsigned_int(unsigned int num, char type, int value);
 int		ft_printf(const char *format, ...);
