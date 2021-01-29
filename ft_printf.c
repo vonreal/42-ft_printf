@@ -23,38 +23,58 @@ typedef struct _Field
 
 int		convert_format_specifier(Field *fields, va_list *ap)
 {
+	if ((*fields->flag == '-') && (*fields->width > 0))
+		*fields->width *= -1;
+
 	return (0);
 }
 
-void	field_rules(Field *fields)
+int		set_width(int *dst, const char *format, int idx, va_list *ap)
 {
-	if ((*fields->flag == '-') && (*fields->width > 0))
-		*fields->width *= -1;
+	int num;
+
+	num = 0;
+	if (format[idx++] == '*')
+		num = va_arg(*ap, int);
+	else
+	{
+		while (format[idx] >= '0' && format[idx] <= '9')
+			num = (num * 10) + format[idx++] - '0';	
+	}
+	*dst = num;
+	return (idx);
 }
 
 int		scan_syntax(const char *format, int idx, va_list *ap, int total)
 {
-	char	fmt;
 	Field	fields;
+	char	type[11] = "cspdiuxX%";
+	int		count;
 
 	ft_memset(&fields, 0, sizeof(Field));
 	while (format[idx])
 	{
-		fmt = format[idx];
-		if (fmt == '-' || fmt == '0')
-		if ((fmt >= '1' && fmt <= '9') || fmt == '*')
-		if (fmt == '.')
-		if (fmt == 'c' || fmt == 's' || fmt == 'p'
-					   || fmt == 'd' || fmt == 'i'
-					   || fmt == 'u' || fmt == 'x'
-					   || fmt == 'X' || fmt == '%')
+		while (format[idx] == '-' || format[idx] == '0')
 		{
-			fields.type = fmt;
-			break ;
+			if (fields.flag == '-')
+				continue ;
+			fields.flag = format[idx];
 		}
+		if ((format[idx] >= '1' && format[idx] <= '9') || format[idx] == '*')
+			idx = set_width(&fields.width, format, idx, ap);
+		if (format[idx] == '.')
+			idx = set_width(&fields.precision, format, idx, ap);
+		count = 0;
+		while (type[count])
+		{
+			if (format[idx] == type[count])
+				fields.type = format[idx];
+			count++;
+		}
+		if (format[idx] == fields.type)
+			break ;
 		idx++;
 	}
-	field_rules(&fields);
 	convert_format_specifier(&fields, ap);
 	if (format[idx] == '\0')
 		return (-1);
@@ -63,9 +83,9 @@ int		scan_syntax(const char *format, int idx, va_list *ap, int total)
 
 int		ft_printf(const char *format, ...)
 {
+	va_list	ap;
 	int		idx;
 	int		total;
-	va_list	ap;
 
 	idx = 0;
 	total = 0;
