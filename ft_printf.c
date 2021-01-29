@@ -12,14 +12,6 @@
 
 #include "ft_printf.h"
 
-typedef struct _Field
-{
-	char	_flag;
-	int		_width;
-	int		_precision;
-	char	_type;
-} Field;
-
 void	convert_format_specifier(Field *fields, va_list *ap, int *total)
 {
 	char			type;
