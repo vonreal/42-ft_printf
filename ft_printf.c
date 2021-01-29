@@ -209,10 +209,6 @@ void	print_conversion(char conversion, va_list *ap, int width, int precision)
 			write(1, "-", sizeof(char));
 			precision += 1;
 		}
-		if (precision >= 0)
-		{
-			precision_number_int(precision, num);
-		}
 		if (width > 0)
 		{
 			if (precision >= 0)
@@ -222,6 +218,8 @@ void	print_conversion(char conversion, va_list *ap, int width, int precision)
 			if (width > 0)
 				set_width(width);
 		}
+		if (precision >= 0)
+			precision_number_int(precision, num);
 		ft_putnbr(num);
 		if (width < 0)
 		{
