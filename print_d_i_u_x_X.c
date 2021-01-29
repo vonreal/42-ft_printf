@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   type_d.c                                           :+:      :+:    :+:   */
+/*   print_d_i_u_x_X.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jna <jna@student.42seoul.kr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/29 22:25:54 by jna               #+#    #+#             */
-/*   Updated: 2021/01/29 22:25:54 by jna              ###   ########.fr       */
+/*   Created: 2021/01/29 22:56:04 by jna               #+#    #+#             */
+/*   Updated: 2021/01/29 22:56:04 by jna              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_putnbr(int n)
+void	ft_putnbr_signed(int n)
 {
 	char			num;
 
@@ -57,24 +57,37 @@ void	ft_putnbr_unsigned(unsigned int n, char type)
 	}
 }
 
-int		print_signed_int(int num)
+int		print_signed_int(int num, int value)
 {
+	int				size;
+
+	size = get_digit(num);
 	if (num < 0)
+	{
 		write(1, "-", sizeof(char));
+		value += 1;
+	}
+	size = precision(value, size, '0');
 	ft_putnbr(num);
-	return (get_digit(num));
+	return (size);
 }
 
-int		print_unsigned_int(unsigned int num, char type)
+int		print_unsigned_int(unsigned int num, char type, int value)
 {
+	int				size;
+
 	if (type == 'u')
 	{
+		size = get_digit_unsigned(num, 10);
+		size = precision(value, size, '0');
 		ft_putnbr_unsigned(num, type);
-		return(get_digit_unsigned(num, 10));
 	}
 	else if (type == 'x' || type == 'X' || type =='p')
 	{
+		size = get_digit_unsigned(num, 16);
+		if (type == 'x' || type == 'X')
+			size = precision(value, size, '0');
 		ft_putnbr_unsigned(num, type);
-		return(get_digit_unsigned(num, 16));
 	}
+	return (size);
 }

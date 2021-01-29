@@ -12,9 +12,23 @@
 
 #include "ft_printf.h"
 
+int		precision(int option, int length, char type)
+{
+	if (type == 's')
+	{
+		if (option == 0)
+			return (0);
+		else if (option > 0 && option <= length)
+			return (option);
+		else
+			return (length);
+	}
+}
+
 void	convert_format_specifier(Field *fields, va_list *ap, int *total)
 {
 	char			type;
+	int				i_temp;
 	char			c_temp;
 	void			*v_ptr;
 	char			*c_ptr;
@@ -23,17 +37,23 @@ void	convert_format_specifier(Field *fields, va_list *ap, int *total)
 	// if ((fields->flag == '-') && (fields->width > 0))
 	// 	fields->width *= -1;
 
-	if (type == 'c')
+	if (type == 'c' || type == '%')
 	{
-		c_temp = va_arg(*ap, int);
-		write(1, &c_temp, sizeof(char));
+		if (type == '%')
+			write(1, "%", sizeof(char));
+		else
+		{
+			c_temp = va_arg(*ap, int);
+			write(1, &c_temp, sizeof(char));
+		}
 		*total += 1;
 	}
 	else if (type == 's')
 	{
 		c_ptr = va_arg(*ap, char *);
-		write(1, c_ptr, (sizeof(char) * ft_strlen(c_ptr)));
-		*total += ft_strlen(c_ptr);
+		i_temp = precision(fields->_precision, ft_strlen(c_ptr), type);
+		write(1, c_ptr, (sizeof(char) * i_temp));
+		*total += i_temp;
 	}
 	else if (type == 'p')
 	{
@@ -42,14 +62,9 @@ void	convert_format_specifier(Field *fields, va_list *ap, int *total)
 		*total += (print_unsigned_int((unsigned int)v_ptr, type) + 2);
 	}
 	else if (type == 'd' || type == 'i')
-		*total += print_signed_int(va_arg(*ap, int));
+		*total += print_signed_int(va_arg(*ap, int), fields->_precision);
 	else if (type == 'u' || type == 'x' || type == 'X')
-		*total += print_unsigned_int(va_arg(*ap, unsigned int), type);
-	else if (type == '%')
-	{
-		write(1, "%", sizeof(char));
-		*total += 1;
-	}
+		*total += print_unsigned_int(va_arg(*ap, unsigned int), type, fields->_precision);
 }
 
 int		set_width(int *dst, const char *format, int idx, va_list *ap)
@@ -77,7 +92,6 @@ int		scan_syntax(const char *format, int idx, va_list *ap, int *total)
 	char	type[11] = "cspdiuxX%";
 	int		count;
 
-	ft_memset(&fields, 0, sizeof(Field));
 	while (format[idx])
 	{
 		while (format[idx] == '-' || format[idx] == '0')
