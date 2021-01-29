@@ -26,17 +26,17 @@ typedef struct _Field
 	char	_type;
 } Field;
 
+int		get_digit(int n);
+int		get_digit_unsigned(unsigned int num, unsigned int notation);
 void	*ft_memset(void *b, int c, size_t len);
 size_t	ft_strlen(const char *s);
 void	ft_putchar_fd(char c, int fd);
 void	ft_putnbr_signed(int n);
 void	ft_putnbr_unsigned(unsigned int n, char type);
-int		print_signed_int(int num, int value, int w, char c);
-int		print_unsigned_int(unsigned int num, char type, int value, int w, char c);
-int		get_digit(int n);
-int		get_digit_unsigned(unsigned int num, unsigned int notation);
 int		precision(int option, int length, char type);
 int		width(int option, int length, char c);
+int		print_signed_int(int num, int value, int w, char c);
+int		print_unsigned_int(unsigned int num, char type, int value, int w, char c);
 int		ft_printf(const char *format, ...);
 
 #endif
