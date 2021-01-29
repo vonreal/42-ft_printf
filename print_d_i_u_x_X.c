@@ -19,7 +19,7 @@ void	ft_putnbr_signed(int n)
 	if (n == -2147483648)
 		write(1, "2147483648", 10);
 	else if (n < 0)
-		ft_putnbr(n * (-1));
+		ft_putnbr_signed(n * (-1));
 	else if (n < 10)
 	{
 		num = n + '0';
@@ -27,8 +27,8 @@ void	ft_putnbr_signed(int n)
 	}
 	else
 	{
-		ft_putnbr(n / 10);
-		ft_putnbr(n % 10);
+		ft_putnbr_signed(n / 10);
+		ft_putnbr_signed(n % 10);
 	}
 }
 
@@ -68,7 +68,7 @@ int		print_signed_int(int num, int value)
 		value += 1;
 	}
 	size = precision(value, size, '0');
-	ft_putnbr(num);
+	ft_putnbr_signed(num);
 	return (size);
 }
 
@@ -85,8 +85,7 @@ int		print_unsigned_int(unsigned int num, char type, int value)
 	else if (type == 'x' || type == 'X' || type =='p')
 	{
 		size = get_digit_unsigned(num, 16);
-		if (type == 'x' || type == 'X')
-			size = precision(value, size, '0');
+		size = precision(value, size, '0');
 		ft_putnbr_unsigned(num, type);
 	}
 	return (size);

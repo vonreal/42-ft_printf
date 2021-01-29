@@ -59,7 +59,7 @@ void	convert_format_specifier(Field *fields, va_list *ap, int *total)
 	{
 		v_ptr = va_arg(*ap, void *);
 		write(2, "0x", (sizeof(char) * 2));
-		*total += (print_unsigned_int((unsigned int)v_ptr, type) + 2);
+		*total += (print_unsigned_int((unsigned int)v_ptr), type, -1));
 	}
 	else if (type == 'd' || type == 'i')
 		*total += print_signed_int(va_arg(*ap, int), fields->_precision);
