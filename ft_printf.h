@@ -17,9 +17,22 @@
 #include <stdarg.h>
 #include <unistd.h>
 
+typedef struct _Field
+{
+	char	_flag;
+	int		_width;
+	int		_precision;
+	char	_type;
+} Field;
+
 int		ft_printf(const char *format, ...);
 void	*ft_memset(void *b, int c, size_t len);
 size_t	ft_strlen(const char *s);
-void	ft_putnbr_fd(int n, int fd);
+void	ft_putnbr(int n);
+void	ft_putnbr_unsigned(unsigned int n, char type);
+int		print_signed_int(int num);
+int		print_unsigned_int(unsigned int num, char type);
+int		get_digit(int n);
+int		get_digit_unsigned(unsigned int num, unsigned int notation);
 
 #endif

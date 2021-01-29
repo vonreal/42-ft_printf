@@ -20,50 +20,10 @@ typedef struct _Field
 	char	_type;
 } Field;
 
-void	ft_putnbr_unsigned(unsigned int n, char type)
-{
-	char			num;
-	unsigned int	notation;
-	char			hex[17] = "0123456789abcdef";
-	char			Hex[17] = "0123456789ABCDEF";
-
-	notation = (type == 'u') ? (notation = 10) : (notation = 16);
-	if (n < notation)
-	{
-		num = n + '0';
-		if (type == 'x' || type == 'p')
-			write(1, &hex[n], sizeof(char));
-		else if (type = 'X')
-			write(1, &Hex[n], sizeof(char));
-		else
-			write(1, &num, 1);
-	}
-	else
-	{
-		ft_putnbr_unsigned((n / notation), type);
-		ft_putnbr_unsigned((n % notation), type);
-	}
-}
-
-int		get_digit(unsigned int num, unsigned int notation)
-{
-	int				digit;
-
-	digit = 1;
-	while (num > (notation - 1))
-	{
-		num /= notation;
-		digit++;
-	}
-	return (digit);
-}
-
 void	convert_format_specifier(Field *fields, va_list *ap, int *total)
 {
 	char			type;
 	char			c_temp;
-	int				i_temp;
-	unsigned int	u_temp;
 	void			*v_ptr;
 	char			*c_ptr;
 
@@ -86,31 +46,13 @@ void	convert_format_specifier(Field *fields, va_list *ap, int *total)
 	else if (type == 'p')
 	{
 		v_ptr = va_arg(*ap, void *);
-		u_temp = (unsigned int)v_ptr;
 		write(2, "0x", (sizeof(char) * 2));
-		ft_putnbr_unsigned(u_temp, type);
-		*total += (get_digit(u_temp, 16) + 2);
+		*total += (print_unsigned_int((unsigned int)v_ptr, type) + 2);
 	}
 	else if (type == 'd' || type == 'i')
-	{
-		i_temp = va_arg(*ap, int);
-		ft_putnbr_fd(i_temp, 1);
-		//total
-	}
+		*total += print_signed_int(va_arg(*ap, int));
 	else if (type == 'u' || type == 'x' || type == 'X')
-	{
-		u_temp = va_arg(*ap, unsigned int);
-		if (type == 'u')
-		{
-			ft_putnbr_unsigned(u_temp, type);
-			*total += get_digit(u_temp, 10);
-		}
-		else
-		{
-			ft_putnbr_unsigned(u_temp, type);
-			*total += get_digit(u_temp, 16);	
-		}
-	}
+		*total += print_unsigned_int(va_arg(*ap, unsigned int), type);
 	else if (type == '%')
 	{
 		write(1, "%", sizeof(char));

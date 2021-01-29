@@ -1,38 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.c                                            :+:      :+:    :+:   */
+/*   get_size_d_i_u_x_X.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jna <jna@student.42seoul.kr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/29 18:56:12 by jna               #+#    #+#             */
-/*   Updated: 2021/01/29 18:56:12 by jna              ###   ########.fr       */
+/*   Created: 2021/01/29 22:41:22 by jna               #+#    #+#             */
+/*   Updated: 2021/01/29 22:41:22 by jna              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	*ft_memset(void *b, int c, size_t len)
+int		get_digit(int n)
 {
-	unsigned int	count;
-	unsigned char	*ptr;
+	int				digit;
 
-	ptr = (unsigned char *)b;
-	count = 0;
-	while (count < len)
+	digit = 1;
+	if (n < 0)
 	{
-		ptr[count] = (unsigned char)c;
-		count++;
+		if (n == INT_MIN)
+			return (11);
+		n *= (-1);
+		digit++;
 	}
-	return (b);
+	while (n > 9)
+	{
+		n /= 10;
+		digit++;
+	}
+	return (digit);
 }
 
-size_t		ft_strlen(const char *s)
+int		get_digit_unsigned(unsigned int num, unsigned int notation)
 {
-	unsigned int	count;
+	int				digit;
 
-	count = 0;
-	while (s[count] != '\0')
-		count++;
-	return (count);
+	digit = 1;
+	while (num > (notation - 1))
+	{
+		num /= notation;
+		digit++;
+	}
+	return (digit);
 }
