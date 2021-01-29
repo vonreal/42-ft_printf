@@ -210,16 +210,26 @@ void	print_conversion(char conversion, va_list *ap, int width, int precision)
 			precision += 1;
 		}
 		if (precision >= 0)
+		{
 			precision_number_int(precision, num);
+		}
 		if (width > 0)
 		{
-			if ((width -= get_size(num)) > 0)
+			if (precision >= 0)
+				width -= (get_size(num) + (precision - get_size(num)));
+			else
+				width -= get_size(num);
+			if (width > 0)
 				set_width(width);
 		}
 		ft_putnbr(num);
 		if (width < 0)
 		{
-			if ((width += get_size(num)) < 0)
+			if (precision >= 0)
+				width += (get_size(num) + (precision - get_size(num)));
+			else
+				width += get_size(num);
+			if (width < 0)
 				set_width(width);
 		}
 	}
