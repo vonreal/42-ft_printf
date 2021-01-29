@@ -382,10 +382,10 @@ int		replace_and_print(const char *format, int i, va_list *ap)
 				{
 					if (format[i] == '-')
 						flag = '-';
+					if (flag != '1' && format[i] == '0')
+						flag '0';
 					i++;
 				}
-				if (flag == '1')
-					flag = '0';
 			}
 		}
 		if (width == 0)
