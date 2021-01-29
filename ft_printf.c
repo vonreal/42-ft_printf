@@ -185,10 +185,10 @@ void	print_conversion(char conversion, va_list *ap, int flag, int width, int pre
 		if (flag == '-')
 			width *= -1;
 		if (width > 0)
-			set_width(width - 1);
+			set_width(width - 1, flag);
 		write(1, &c, sizeof(char));
 		if (width < 0)
-			set_width(width + 1);
+			set_width(width + 1, flag);
 	}
 	else if (conversion == 's')
 	{
@@ -205,14 +205,14 @@ void	print_conversion(char conversion, va_list *ap, int flag, int width, int pre
 		if (width > 0)
 		{
 			if ((width -= num) > 0)
-				set_width(width);
+				set_width(width, flag);
 			width = 1;
 		}
 		write(1, str, (sizeof(char) * num));
 		if (width < 0)
 		{
 			if ((width += num) < 0)
-				set_width(width);
+				set_width(width, flag);
 		}
 	}
 	else if (conversion == 'p')
@@ -224,7 +224,7 @@ void	print_conversion(char conversion, va_list *ap, int flag, int width, int pre
 		if (width > 0)
 		{
 			if ((width -= (get_size_unum(u_num, 16) + 2)) > 0)
-				set_width(width);
+				set_width(width, flag);
 			width = 1;
 		}
 		write(2, "0x", (sizeof(char) * 2));
@@ -232,7 +232,7 @@ void	print_conversion(char conversion, va_list *ap, int flag, int width, int pre
 		if (width < 0)
 		{
 			if ((width += (get_size_unum(u_num, 16) + 2)) < 0)
-				set_width(width);
+				set_width(width, flag);
 		}
 	}
 	else if (conversion == 'd' || conversion == 'i')
@@ -265,7 +265,7 @@ void	print_conversion(char conversion, va_list *ap, int flag, int width, int pre
 			else
 				width += get_size(num);
 			if (width < 0)
-				set_width(width);
+				set_width(width, flag);
 		}
 	}
 	else if (conversion == 'u')
@@ -293,7 +293,7 @@ void	print_conversion(char conversion, va_list *ap, int flag, int width, int pre
 			else
 				width += get_size_unum(u_num, 10);
 			if (width < 0)
-				set_width(width);
+				set_width(width, flag);
 		}
 	}
 	else if (conversion == 'x' || conversion == 'X')
@@ -321,7 +321,7 @@ void	print_conversion(char conversion, va_list *ap, int flag, int width, int pre
 			else
 				width += get_size_unum(u_num, 16);
 			if (width < 0)
-				set_width(width);
+				set_width(width, flag);
 		}
 	}
 	else if (conversion == '%')
@@ -332,7 +332,7 @@ void	print_conversion(char conversion, va_list *ap, int flag, int width, int pre
 			set_width(width - 1, flag);
 		write(1, "%", sizeof(char));
 		if (width < 0)
-			set_width(width + 1);
+			set_width(width + 1, flag);
 	}
 }
 
