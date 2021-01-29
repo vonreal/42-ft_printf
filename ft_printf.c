@@ -2,6 +2,20 @@
 #include <unistd.h>
 #include <limits.h>
 
+void	set_width(int width)
+{
+	while (width > 1)
+	{
+		write (1, " ", sizeof(char));
+		width--;
+	}
+	while (width < -1)
+	{
+		wrtie(1, " ", sizeof(char));
+		width++;
+	}
+}
+
 int		check_width(const char *format, va_list *ap)
 {
 	int num;
@@ -153,19 +167,10 @@ void	print_conversion(char conversion, va_list *ap, int width, int precision)
 	{
 		c = va_arg(*ap, int);
 		if (width != 0)
-		{
-			while (width > 1)
-			{
-				write(1, " ", sizeof(char));
-				width--;
-			}
-		}
+			set_width(width);
 		write(1, &c, sizeof(char));
-		while (width < -1)
-		{
-			write(1, " ", sizeof(char));
-			width++;
-		}
+		if (width < 0)
+			set_width(width);
 	}
 	else if (conversion == 's')
 	{
