@@ -29,11 +29,6 @@ void	convert_format_specifier(Field *fields, va_list *ap, int *total)
 
 	if (type == 'c' || type == '%')
 	{
-		if (fields->_flag == '-')
-		{
-			*total += width(fields->_width, 1, fields->_flag);
-			fields->_width = 0;
-		}
 		if (type == '%')
 		{
 			write(1, "%", sizeof(char));
@@ -51,13 +46,9 @@ void	convert_format_specifier(Field *fields, va_list *ap, int *total)
 	{
 		c_ptr = va_arg(*ap, char *);
 		i_temp = precision(fields->_precision, ft_strlen(c_ptr), type);
-		if (fields->_flag == '-')
-		{
-			*total += width(fields->_width, i_temp, fields->_flag);
-			fields->_width = 0;
-		}
+		*total += width(fields->_width, i_temp, fields->_flag);
 		write(1, c_ptr, (sizeof(char) * i_temp));
-		*total += width(fields->_width, i_temp, ' ');
+		*total += width(fields->_width, i_temp, fields->_flag);
 		*total += i_temp;
 	}
 	else if (type == 'p')
