@@ -250,9 +250,9 @@ void	print_conversion(char conversion, va_list *ap, int width, int precision)
 		if (width > 0)
 		{
 			if (precision >= 0)
-				width -= (get_size_unum(unum, 10) + (precision - get_size_unum(unum, 10)));
+				width -= (get_size_unum(u_num, 10) + (precision - get_size_unum(u_num, 10)));
 			else
-				width -= get_size_unum(unum, 10);
+				width -= get_size_unum(u_num, 10);
 			if (width > 0)
 				set_width(width);
 		}
@@ -262,9 +262,9 @@ void	print_conversion(char conversion, va_list *ap, int width, int precision)
 		if (width < 0)
 		{
 			if (precision >= 0)
-				width += (get_size_unum(unum, 10) + (precision - get_size_unum(unum, 10)));
+				width += (get_size_unum(u_num, 10) + (precision - get_size_unum(u_num, 10)));
 			else
-				width += get_size_unum(unum, 10);
+				width += get_size_unum(u_num, 10);
 			if (width < 0)
 				set_width(width);
 		}
@@ -275,9 +275,9 @@ void	print_conversion(char conversion, va_list *ap, int width, int precision)
 		if (width > 0)
 		{
 			if (precision >= 0)
-				width -= (get_size_unum(unum, 16) + (precision - get_size_unum(unum, 16)));
+				width -= (get_size_unum(u_num, 16) + (precision - get_size_unum(u_num, 16)));
 			else
-				width -= get_size_unum(unum, 16);
+				width -= get_size_unum(u_num, 16);
 			if (width > 0)
 				set_width(width);
 		}
@@ -287,9 +287,9 @@ void	print_conversion(char conversion, va_list *ap, int width, int precision)
 		if (width < 0)
 		{
 			if (precision >= 0)
-				width += (get_size_unum(unum, 16) + (precision - get_size_unum(unum, 16)));
+				width += (get_size_unum(u_num, 16) + (precision - get_size_unum(u_num, 16)));
 			else
-				width += get_size_unum(unum, 16);
+				width += get_size_unum(u_num, 16);
 			if (width < 0)
 				set_width(width);
 		}
