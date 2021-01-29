@@ -403,25 +403,25 @@ int		replace_and_print(const char *format, int i, va_list *ap)
 	return (i);
 }
 
-// int		ft_printf(const char *format, ...)
-// {
-// 	int				idx;
-// 	va_list			ap;
+int		ft_printf(const char *format, ...)
+{
+	int				idx;
+	va_list			ap;
 
-// 	idx = 0;
-// 	va_start(ap, format);
-// 	while (format[idx])
-// 	{
-// 		if (format[idx] == '%')
-// 		{
-// 			idx = replace_and_print(format, ++idx, &ap);
-// 			if (idx == -1)
-// 				return (-1);
-// 		}
-// 		else
-// 			write(1, &format[idx], sizeof(char));
-// 		idx++;
-// 	}
-// 	va_end(ap);
-// 	return (0);
-// }
+	idx = 0;
+	va_start(ap, format);
+	while (format[idx])
+	{
+		if (format[idx] == '%')
+		{
+			idx = replace_and_print(format, ++idx, &ap);
+			if (idx == -1)
+				return (-1);
+		}
+		else
+			write(1, &format[idx], sizeof(char));
+		idx++;
+	}
+	va_end(ap);
+	return (0);
+}
