@@ -4,12 +4,12 @@
 
 void	set_width(int width)
 {
-	while (width > 1)
+	while (width > 0)
 	{
 		write (1, " ", sizeof(char));
 		width--;
 	}
-	while (width < -1)
+	while (width < 0)
 	{
 		write(1, " ", sizeof(char));
 		width++;
@@ -167,10 +167,10 @@ void	print_conversion(char conversion, va_list *ap, int width, int precision)
 	{
 		c = va_arg(*ap, int);
 		if (width > 0)
-			set_width(width);
+			set_width(width - 1);
 		write(1, &c, sizeof(char));
 		if (width < 0)
-			set_width(width);
+			set_width(width - 1);
 	}
 	else if (conversion == 's')
 	{
@@ -240,6 +240,8 @@ int		replace_and_print(const char *format, int i, va_list *ap)
 	int				precision;
 
 	// [Improving] Change to static varialbe and use ft_strlcpy funcion.
+	width = 0;
+	precision = -1;
 	conversion = "cspdiuxX%";
 	while (format[i])
 	{
