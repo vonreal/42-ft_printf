@@ -81,15 +81,7 @@ int		get_size_unum(unsigned int num, unsigned int division_num)
 // 10진수일때와 16진수일때의 경우가 다름
 void	precision_number(int precision, unsigned int num, unsigned int division_num)
 {
-	int digit;
-
-	digit = 1;
-	while (num > (division_num - 1))
-	{
-		num /= division_num;
-		digit++;
-	}
-	precision -= digit;
+	precision -= get_size_unum(num, division_num);
 	while (precision-- > 0)
 		write(1, "0", sizeof(char));
 }
