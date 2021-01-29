@@ -46,9 +46,9 @@ int		width(int option, int length, char c)
 		while (temp-- > 0)
 		{
 			if (c == '0')
-				write(1, '0', sizeof(char));
+				write(1, "0", sizeof(char));
 			else
-				write(1, ' ', sizeof(char));
+				write(1, " ", sizeof(char));
 		}
 		return (option);
 	}
