@@ -11,7 +11,7 @@ void	set_width(int width)
 	}
 	while (width < -1)
 	{
-		wrtie(1, " ", sizeof(char));
+		write(1, " ", sizeof(char));
 		width++;
 	}
 }
