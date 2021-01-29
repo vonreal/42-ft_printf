@@ -2,6 +2,15 @@
 #include <unistd.h>
 #include <limits.h>
 
+// width, precision 조건에 맞게 출력할 수 있을듯..
+void	print_char(int count, int number, char c)
+{
+	count -= get_size(number);
+	while (count-- > 0)
+		write(1, &c, sizoef(char));
+}
+
+
 void	set_width(int width)
 {
 	while (width > 0)
@@ -211,7 +220,17 @@ void	print_conversion(char conversion, va_list *ap, int width, int precision)
 		}
 		if (precision >= 0)
 			precision_number_int(precision, num);
+		if (width > 0)
+		{
+			if ((width -= get_size(num)) > 0)
+				set_width(width);
+		}
 		ft_putnbr(num);
+		if (width < 0)
+		{
+			if ((width += get_size(num)) < 0)
+				set_width(width);
+		}
 	}
 	else if (conversion == 'u')
 	{
