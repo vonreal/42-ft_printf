@@ -380,6 +380,11 @@ int		replace_and_print(const char *format, int i, va_list *ap)
 				i++;
 			flag = '-';
 		}
+		if (format[i] == '0')
+		{
+			while (format[i] == '-')
+				i++;
+		}
 		if (width == 0)
 		{
 			if ((format[i] >= '1' && format[i] <= '9') || format[i] == '*')
