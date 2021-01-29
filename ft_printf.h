@@ -26,7 +26,6 @@ typedef struct _Field
 	char	_type;
 } Field;
 
-int		ft_printf(const char *format, ...);
 void	*ft_memset(void *b, int c, size_t len);
 size_t	ft_strlen(const char *s);
 void	ft_putchar_fd(char c, int fd);
@@ -38,5 +37,6 @@ int		get_digit(int n);
 int		get_digit_unsigned(unsigned int num, unsigned int notation);
 int		precision(int option, int length, char type);
 int		width(int option, int length, char c);
+int		ft_printf(const char *format, ...);
 
 #endif
