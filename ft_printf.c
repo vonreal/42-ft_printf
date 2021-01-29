@@ -70,8 +70,7 @@ void	convert_format_specifier(Field *fields, va_list *ap, int *total)
 			fields->_width = 0;
 		}
 		write(2, "0x", (sizeof(char) * 2));
-		*total += (print_unsigned_int((unsigned int)v_ptr, 'x', -1));
-		*total += width(fields->_width, i_temp, ' ');
+		*total += (print_unsigned_int((unsigned int)v_ptr, type, -1, fields->_width, ' '));
 	}
 	else if (type == 'd' || type == 'i')
 		*total += print_signed_int(va_arg(*ap, int), fields->_precision, fields->_width, fields->_flag);

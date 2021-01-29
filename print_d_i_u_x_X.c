@@ -83,7 +83,7 @@ int		print_unsigned_int(unsigned int num, char type, int value, int w, char c)
 		ft_putnbr_unsigned(num, type);
 		size += width(w, size, c);
 	}
-	else if (type == 'x' || type == 'X')
+	else if (type == 'x' || type == 'X' || type == 'p')
 	{
 		size = get_digit_unsigned(num, 16);
 		size = precision(value, size, '0');
