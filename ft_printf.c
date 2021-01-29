@@ -238,7 +238,6 @@ int		replace_and_print(const char *format, int i, va_list *ap)
 	char			*conversion;
 	int				width;
 	int				precision;
-	int				temp;
 
 	// [Improving] Change to static varialbe and use ft_strlcpy funcion.
 	width = 0;
@@ -246,14 +245,13 @@ int		replace_and_print(const char *format, int i, va_list *ap)
 	conversion = "cspdiuxX%";
 	while (format[i])
 	{
-		if ((format[i] >= '1' && format[i] <= '9') || format[i] == '*')
-			width = check_width(&format[i], ap);
-		if (format[i] == '.')
+		if (width == 0)
 		{
-			if (width != 0)
-				temp = width;
-			precision = check_precision(&format[i + 1], ap);
+			if ((format[i] >= '1' && format[i] <= '9') || format[i] == '*')
+				width = check_width(&format[i], ap);
 		}
+		if (format[i] == '.')
+			precision = check_precision(&format[i + 1], ap);
 		j = 0;
 		while (conversion[j])
 		{
@@ -265,8 +263,6 @@ int		replace_and_print(const char *format, int i, va_list *ap)
 			break ;
 		i++;
 	}
-	if (temp != 0)
-		width = temp;
 	print_conversion(conversion[j], ap, width, precision);
 	if (format[i] == '\0')
 		return (-1);
