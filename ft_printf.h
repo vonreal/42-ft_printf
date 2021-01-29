@@ -19,7 +19,7 @@
 
 int		ft_printf(const char *format, ...);
 void	*ft_memset(void *b, int c, size_t len);
-size_t	ft_strlen(const char *s)
-void	ft_putnbr_fd(int n, int fd)
+size_t	ft_strlen(const char *s);
+void	ft_putnbr_fd(int n, int fd);
 
 #endif
