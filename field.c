@@ -45,14 +45,16 @@ int		option(Field *opt, int length)
 	}
 	else
 	{
-		if ((opt->_precision -= length) > 0)
+		temp = opt->_precision - length;
+		if (temp > 0)
 		{
+			opt->_precision = temp;
 			if (opt->_flag != '-')
-				opt->_precision += apply_width(opt->_width, opt->_precision + length, opt->_flag);
+				opt->_precision += apply_width(opt->_width, temp + length, opt->_flag);
 			temp = opt->_precision;
 			while (temp-- > 0)
 				write(1, "0", sizeof(char));
-			return (opt->_precision);
+			return (opt->_precision + length);
 		}
 		else
 		{
