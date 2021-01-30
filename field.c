@@ -47,7 +47,7 @@ int		option(Field *opt, int length)
 		opt->_flag = (opt->_flag == '0') ? '0' : ' ';
 		if ((opt->_precision -= length) > 0)
 		{
-			opt->_precision += apply_width(opt->_width, opt->_precision, opt->_flag)
+			opt->_precision += apply_width(opt->_width, opt->_precision, opt->_flag);
 			temp = opt->_precision;
 			while (temp-- > 0)
 				write(1, "0", sizeof(char));
@@ -56,22 +56,3 @@ int		option(Field *opt, int length)
 	}
 	return (length);
 }
-
-// int		width(int option, int length, char c)
-// {
-// 	int		temp;
-
-// 	if ((option -= length) > 0)
-// 	{
-// 		temp = option;
-// 		while (temp-- > 0)
-// 		{
-// 			if (c == '0')
-// 				write(1, "0", sizeof(char));
-// 			else
-// 				write(1, " ", sizeof(char));
-// 		}
-// 		return (option);
-// 	}
-// 	return (0);
-// }
