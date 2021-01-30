@@ -67,8 +67,7 @@ int		print_signed_int(int num, Field *opts)
 		write(1, "-", sizeof(char));
 		opts->_precision += 1;
 	}
-	if (opts->_flag != '-')
-		size = option(opts, size);
+	size = option(opts, size);
 	ft_putnbr_signed(num);
 	if (opts->_flag == '-')
 		size += apply_width(opts->_width, size, ' ');
@@ -84,8 +83,7 @@ int		print_unsigned_int(unsigned int num, Field *opts)
 	type = opts->_type;
 	notation = (type == 'u') ? 10 : 16;
 	size = get_digit_unsigned(num, notation);
-	if (opts->_flag != '-')
-		size = option(opts, size);
+	size = option(opts, size);
 	ft_putnbr_unsigned(num, type);
 	if (opts->_flag == '-')
 		size += apply_width(opts->_width, size, ' ');

@@ -36,7 +36,8 @@ int		option(Field *opt, int length)
 
 	if (opt->_type == 's')
 	{
-		apply_width(opt->_width, length, ' ');
+		if (opt->_flag != '-')
+			apply_width(opt->_width, length, ' ');
 		if (opt->_precision == 0)
 			return (0);
 		else if (opt->_precision > 0 && opt->_precision <= length)
@@ -47,14 +48,18 @@ int		option(Field *opt, int length)
 		opt->_flag = (opt->_flag == '0') ? '0' : ' ';
 		if ((opt->_precision -= length) > 0)
 		{
-			opt->_precision += apply_width(opt->_width, opt->_precision, opt->_flag);
+			if (opt->_flag != '-')
+				opt->_precision += apply_width(opt->_width, opt->_precision, opt->_flag);
 			temp = opt->_precision;
 			while (temp-- > 0)
 				write(1, "0", sizeof(char));
 			return (opt->_precision);
 		}
 		else
-			length += apply_width(opt->_width, length, opt->_flag);
+		{
+			if (opt->_flag != '-')
+				length += apply_width(opt->_width, length, opt->_flag);
+		}
 	}
 	return (length);
 }

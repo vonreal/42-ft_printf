@@ -44,10 +44,9 @@ void	convert_format_specifier(Field *fields, va_list *ap, int *total)
 	else if (type == 's')
 	{
 		c_ptr = va_arg(*ap, char *);
-		if (fields->_flag != '-')
-			i_temp = option(fields, ft_strlen(c_ptr));
+		i_temp = option(fields, ft_strlen(c_ptr));
 		write(1, c_ptr, (sizeof(char) * i_temp));
-		if (fields->_flag != '-')
+		if (fields->_flag == '-')
 			i_temp += apply_width(fields->_width, i_temp, ' ');
 		*total += (i_temp + fields->_width);
 	}
