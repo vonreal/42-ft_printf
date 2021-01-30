@@ -45,7 +45,6 @@ int		option(Field *opt, int length)
 	}
 	else
 	{
-		opt->_flag = (opt->_flag == '0') ? '0' : ' ';
 		if ((opt->_precision -= length) > 0)
 		{
 			if (opt->_flag != '-')
