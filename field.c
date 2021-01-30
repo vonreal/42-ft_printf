@@ -48,7 +48,7 @@ int		option(Field *opt, int length)
 		if ((opt->_precision -= length) > 0)
 		{
 			if (opt->_flag != '-')
-				opt->_precision += apply_width(opt->_width, opt->_precision, opt->_flag);
+				opt->_precision += apply_width(opt->_width, opt->_precision + length, opt->_flag);
 			temp = opt->_precision;
 			while (temp-- > 0)
 				write(1, "0", sizeof(char));
