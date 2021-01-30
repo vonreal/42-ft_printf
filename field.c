@@ -36,7 +36,7 @@ int		option(Field *opt, int length)
 
 	if (opt->_type == 's')
 	{
-		apply_width(opt->_width, length, ' ');
+		length += apply_width(opt->_width, length, ' ');
 		if (opt->_precision == 0)
 			return (0);
 		else if (opt->_precision > 0 && opt->_precision <= length)
@@ -53,6 +53,8 @@ int		option(Field *opt, int length)
 				write(1, "0", sizeof(char));
 			return (opt->_precision);
 		}
+		else
+			length += apply_width(opt->_width, length, opt->_flag);
 	}
 	return (length);
 }
