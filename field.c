@@ -12,28 +12,49 @@
 
 #include "ft_printf.h"
 
-int		precision(int option, int length, char type)
+int		apply_width(int value, int length, char c)
 {
-    int         temp;
+	int size;
 
-	if (type == 's')
+	value -= length;
+	if ((size = value) <= 0)
+		return (0);
+	else
 	{
-		if (option == 0)
-			return (0);
-		else if (option > 0 && option <= length)
-			return (option);
+		while (value > 0)
+		{
+			write(1, &c, sizeof(char));
+			value--;
+		}
 	}
-    else
-    {
-        if ((option -= length) > 0)
-        {
-            temp = option;
-            while (temp-- > 0)
-                write(1, "0", sizeof(char));
-            return (option);
-        }
-    }
-    return (length);
+	return (size);
+}
+
+int		option(Field *opt, int length)
+{
+	int         temp;
+
+	if (opt->_type == 's')
+	{
+		apply_width(opt->_width, length, ' ');
+		if (opt->_precision == 0)
+			return (0);
+		else if (opt->_precision > 0 && opt->_precision <= length)
+			return (opt->_precision);
+	}
+	else
+	{
+		opt->_flag = (opt->_flag == '0') ? '0' : ' ';
+		if ((opt->_precision -= length) > 0)
+		{
+			opt->_precision += apply_width(opt->_width, opt->_precision, opt->_flag)
+			temp = opt->_precision;
+			while (temp-- > 0)
+				write(1, "0", sizeof(char));
+			return (opt->_precision);
+		}
+	}
+	return (length);
 }
 
 // int		width(int option, int length, char c)

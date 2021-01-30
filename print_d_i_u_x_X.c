@@ -57,7 +57,7 @@ void	ft_putnbr_unsigned(unsigned int n, char type)
 	}
 }
 
-int		print_signed_int(int num, int value)
+int		print_signed_int(int num, Field *opts)
 {
 	int				size;
 
@@ -65,28 +65,29 @@ int		print_signed_int(int num, int value)
 	if (num < 0)
 	{
 		write(1, "-", sizeof(char));
-		value += 1;
+		opts->_precision += 1;
 	}
-	size = precision(value, size, '0');
+	if (opts->_flag != '-')
+		size = option(opts, size);
 	ft_putnbr_signed(num);
+	if (opts->_flag == '-')
+		size += apply_width(opts->_width, size, ' ');
 	return (size);
 }
 
-int		print_unsigned_int(unsigned int num, char type, int value)
+int		print_unsigned_int(unsigned int num, Field *opts)
 {
 	int				size;
+	int				notation;
+	char			type;
 
-	if (type == 'u')
-	{
-		size = get_digit_unsigned(num, 10);
-		size = precision(value, size, type);
-		ft_putnbr_unsigned(num, type);
-	}
-	else if (type == 'x' || type == 'X' || type == 'p')
-	{
-		size = get_digit_unsigned(num, 16);
-		size = precision(value, size, type);
-		ft_putnbr_unsigned(num, type);
-	}
+	type = opts->_type;
+	notation = (type == 'u') ? 10 : 16;
+	size = get_digit_unsigned(num, notation);
+	if (opts->_flag != '-')
+		size = option(opts, size);
+	ft_putnbr_unsigned(num, type);
+	if (opts->_flag == '-')
+		size += apply_width(opts->_width, size, ' ');
 	return (size);
 }

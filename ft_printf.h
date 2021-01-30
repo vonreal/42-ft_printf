@@ -33,9 +33,10 @@ size_t	ft_strlen(const char *s);
 void	ft_putchar_fd(char c, int fd);
 void	ft_putnbr_signed(int n);
 void	ft_putnbr_unsigned(unsigned int n, char type);
-int		precision(int option, int length, char type);
-int		print_signed_int(int num, int value);
-int		print_unsigned_int(unsigned int num, char type, int value);
+int		apply_width(int value, int length, char c);
+int		option(Field *fields, int length);
+int		print_signed_int(int num, Field *opts);
+int		print_unsigned_int(unsigned int num, Field *opts);
 int		ft_printf(const char *format, ...);
 
 #endif

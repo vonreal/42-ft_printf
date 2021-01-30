@@ -20,39 +20,48 @@ void	convert_format_specifier(Field *fields, va_list *ap, int *total)
 	void			*v_ptr;
 	char			*c_ptr;
 
+	type = fields->_type;
+	if (fields->_width < 0)
+	{
+		(fields->_flag) = '-';
+		(fields->_width) *= -1;
+	}
 	if (type == 'c' || type == '%')
 	{
+		if (fields->_flag != '-')
+			*total += apply_width(fields->_width, 1, ' ');
 		if (type == '%')
-		{
 			write(1, "%", sizeof(char));
-		}
 		else
 		{
 			c_temp = va_arg(*ap, int);
 			write(1, &c_temp, sizeof(char));
 		}
+		if (fields->_flag == '-')
+			*total += apply_width(fields->_width, 1, ' ');
 		*total += 1;
 	}
 	else if (type == 's')
 	{
 		c_ptr = va_arg(*ap, char *);
-		i_temp = precision(fields->_precision, ft_strlen(c_ptr), type);
+		i_temp = option(fields, ft_strlen(c_ptr));
 		write(1, c_ptr, (sizeof(char) * i_temp));
-		*total += i_temp;
+		*total += (i_temp + fields->_width);
 	}
 	else if (type == 'p')
 	{
 		v_ptr = va_arg(*ap, void *);
 		write(2, "0x", (sizeof(char) * 2));
-		*total += (print_unsigned_int((unsigned int)v_ptr, type, -1));
+		fields->_precision = -1;
+		*total += (print_unsigned_int((unsigned int)v_ptr, fields) + 2);
 	}
 	else if (type == 'd' || type == 'i')
-		*total += print_signed_int(va_arg(*ap, int), fields->_precision);
+		*total += print_signed_int(va_arg(*ap, int), fields);
 	else if (type == 'u' || type == 'x' || type == 'X')
-		*total += print_unsigned_int(va_arg(*ap, unsigned int), type, fields->_precision);
+		*total += print_unsigned_int(va_arg(*ap, unsigned int), fields);
 }
 
-int		set_width(int *dst, const char *format, int idx, va_list *ap)
+int		set_num(int *dst, const char *format, int idx, va_list *ap)
 {
 	int num;
 
@@ -92,9 +101,9 @@ int		scan_syntax(const char *format, int idx, va_list *ap, int *total)
 			idx++;
 		}
 		if ((format[idx] >= '1' && format[idx] <= '9') || format[idx] == '*')
-			idx = set_width(&fields._width, format, idx, ap);
+			idx = set_num(&fields._width, format, idx, ap);
 		if (format[idx] == '.')
-			idx = set_width(&fields._precision, format, ++idx, ap);
+			idx = set_num(&fields._precision, format, ++idx, ap);
 		count = 0;
 		while (type[count])
 		{
