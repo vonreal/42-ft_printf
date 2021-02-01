@@ -29,7 +29,7 @@ int		print_string(Field *fields, char *s)
 	int		size;
 
 	length = 0;
-	size = apply_precision(fields->_precision, ft_strlen(s));
+	size = apply_precision(&fields->_precision, ft_strlen(s));
 	length = apply_option(fields, size);
 	write(1, s, (sizeof(char) * size));
 	length += apply_option(fields, length);
@@ -38,15 +38,15 @@ int		print_string(Field *fields, char *s)
 
 int		print_pointer(Field *fields, void *p)
 {
-	unsigned int	u_num;
+	unsigned int	*u_num;
 	int				length;
 	int				size;
-
-	u_num = (unsigned int)*p;
-	size = get_digit_unsigned(u_num, 16) + 2;
+	
+	u_num = (unsigned int)p;
+	size = get_digit_unsigned(*u_num, 16) + 2;
 	length = apply_option(fields, size);
 	write(2, "0x", (sizeof(char) * 2));
-	ft_putnbr_unsigned(u_num, 'x');
+	ft_putnbr_unsigned(*u_num, 'x');
 	length += apply_option(fields, size);
 	return (length);
 }
@@ -64,7 +64,7 @@ int		print_signed_int(Field *fields, int num)
 		length += apply_width(fields, size);
 		write(1, "-", sizeof(char));
 	}
-	length += apply_precision(fields->_precision, size);
+	length += apply_precision(&fields->_precision, size);
 	ft_putnbr_signed(num);
 	length += apply_width(fields, size);
 	return (length);
