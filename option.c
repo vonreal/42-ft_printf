@@ -56,7 +56,7 @@ int		apply_width(Field *opt, int length)
 			while (temp-- > 0)
 			{
 				flag = opt->_flag;
-				write(1, flag, sizeof(char));
+				write(1, &flag, sizeof(char));
 			}
 		}
 	}
