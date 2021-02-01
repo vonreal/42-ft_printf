@@ -84,7 +84,7 @@ int		find_precision_and_set(const char *format, int *precision, va_list *ap)
 
 int		find_type_and_set(const char *format, char *type)
 {
-	char	type[11] = "cspdiuxX%";
+	char	types[11] = "cspdiuxX%";
 	int		idx;
 	int		jdx;
 
@@ -92,9 +92,9 @@ int		find_type_and_set(const char *format, char *type)
 	jdx = 0;
 	while (format[idx])
 	{
-		while (type[jdx])
+		while (types[jdx])
 		{
-			if (format[idx] == type[jdx])
+			if (format[idx] == types[jdx])
 			{
 				*type = format[idx];
 				break ;
