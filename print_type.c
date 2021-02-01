@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-int		print_character(Field fields, char c)
+int		print_character(Field *fields, char c)
 {
 	int		length;
 
@@ -23,7 +23,7 @@ int		print_character(Field fields, char c)
 	return (length);
 }
 
-int		print_string(Field fields, char *s)
+int		print_string(Field *fields, char *s)
 {
 	int		length;
 	int		size;
@@ -36,7 +36,7 @@ int		print_string(Field fields, char *s)
 	return (length);
 }
 
-int		print_pointer(Field fields, void *p)
+int		print_pointer(Field *fields, void *p)
 {
 	unsigned int	u_num;
 	int				length;
@@ -51,7 +51,7 @@ int		print_pointer(Field fields, void *p)
 	return (length);
 }
 
-int		print_signed_int(Field fields, int num)
+int		print_signed_int(Field *fields, int num)
 {
 	int			length;
 	int			size;
@@ -70,7 +70,7 @@ int		print_signed_int(Field fields, int num)
 	return (length);
 }
 
-int		print_unsigned_int(Field fields, unsigned int u_num, char type)
+int		print_unsigned_int(Field *fields, unsigned int u_num, char type)
 {
 	int			length;
 	int			size;
