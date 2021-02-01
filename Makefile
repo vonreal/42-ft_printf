@@ -10,18 +10,22 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME	=	libftprintf.a
+NAME		=	libftprintf.a
+LIBFT		= libft
+LIBFT_LIB	= libft.a
 
-CC		=	gcc
-CFLAGS	=	-Wall -Wextra -Werror
-AR		=	ar rcs
-RM		=	rm -f
+CC			=	gcc
+CFLAGS		=	-Wall -Wextra -Werror
+AR			=	ar rcs
+RM			=	rm -f
 
-SRCS	=	get_size_num.c \
-			libft.c \
-			print_num.c \
-			print_type.c \
-			ft_printf.c \
+SRCS		=	get_size_num.c \
+				ft_printf.c \
+				scan_syntax.c \
+				print_num.c \
+				print_type.c \
+				option.c \
+				libft.c \
 
 OBJS	=	${SRCS:.c=.o}
 
