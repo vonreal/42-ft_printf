@@ -45,7 +45,7 @@ void	ft_putnbr_unsigned(unsigned int n, char type)
 		num = n + '0';
 		if (type == 'x' || type == 'p')
 			write(1, &hex[n], sizeof(char));
-		else if (type = 'X')
+		else if (type == 'X')
 			write(1, &Hex[n], sizeof(char));
 		else
 			write(1, &num, 1);
