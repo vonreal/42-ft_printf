@@ -29,7 +29,7 @@ int		print_string(Field *fields, char *s)
 	int		size;
 
 	length = 0;
-	size = apply_precision(&fields->_precision, ft_strlen(s));
+	size = apply_precision(&fields->_precision, ft_strlen(s), fields->_type);
 	length = apply_option(fields, size);
 	write(1, s, (sizeof(char) * size));
 	length += apply_option(fields, length);
@@ -64,7 +64,7 @@ int		print_signed_int(Field *fields, int num)
 		length += apply_width(fields, size);
 		write(1, "-", sizeof(char));
 	}
-	length += apply_precision(&fields->_precision, size);
+	length += apply_precision(&fields->_precision, size, fields->_type);
 	ft_putnbr_signed(num);
 	length += apply_width(fields, size);
 	return (length);

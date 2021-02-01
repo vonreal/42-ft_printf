@@ -27,12 +27,13 @@ void	setting_option(Field *opt)
 	if (opt->_width == 0 || opt->_type == 's')
 		opt->_flag = ' ';
 	if (opt->_precision < 0 || opt->_type == '%')
-		opt->_precision = -1
+		opt->_precision = -1;
 }
 
 int		apply_width(Field *opt, int length)
 {
 	int		temp;
+	char	flag;
 
 	if (opt->_width == 0)
 		return (0);
@@ -41,7 +42,7 @@ int		apply_width(Field *opt, int length)
 		if (opt->_precision != -1)
 		{
 			if (opt->_type == 's')
-				length = apply_precision(opt->_precision, length);
+				length = apply_precision(&opt->_precision, length, opt->_type);
 			else
 				length = (opt->_precision) - length;
 		}
@@ -53,14 +54,17 @@ int		apply_width(Field *opt, int length)
 		{
 			temp = length;
 			while (temp-- > 0)
-				write(1, opt->_flag, sizeof(char));
+			{
+				flag = opt->_flag;
+				write(1, flag, sizeof(char));
+			}
 		}
 	}
 	opt->_width = 0;
-	return (length)
+	return (length);
 }
 
-int		apply_precision(int *precision, int length)
+int		apply_precision(int *precision, int length, char type)
 {
 	int		temp;
 
@@ -68,9 +72,9 @@ int		apply_precision(int *precision, int length)
 		return (0);
 	else
 	{
-		if (opt->_type == 's' && *precision <= length)
+		if (type == 's' && *precision <= length)
 			return (*precision);
-		else if (opt->_type == 's' && *precision > length)
+		else if (type == 's' && *precision > length)
 			return (length);
 		else
 		{
@@ -100,7 +104,7 @@ int		apply_option(Field *opt, int length)
 	else
 	{
 		print_size += apply_width(opt, length);
-		print_size += apply_precision(opt->_precision, length);
+		print_size += apply_precision(&opt->_precision, length, opt->_type);
 	}
 	return (print_size);
 }

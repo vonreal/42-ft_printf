@@ -36,7 +36,7 @@ int		get_digit_unsigned(unsigned int num, unsigned int notation);
 
 void	setting_option(Field *opt);
 int		apply_width(Field *opt, int length);
-int		apply_precision(int *precision, int length);
+int		apply_precision(int *precision, int length, char type);
 int		apply_option(Field *opt, int length);
 
 int		print_character(Field *fields, char c);
