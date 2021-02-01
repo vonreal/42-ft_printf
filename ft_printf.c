@@ -14,112 +14,43 @@
 
 void	convert_format_specifier(Field *fields, va_list *ap, int *total)
 {
-	char			type;
-	int				i_temp;
-	char			c_temp;
-	void			*v_ptr;
-	char			*c_ptr;
+	char	c;
 
-	type = fields->_type;
-	if (fields->_width < 0)
+	if (fields->_type == 'c' || fields->_type == '%')
 	{
-		(fields->_flag) = '-';
-		(fields->_width) *= -1;
-	}
-	if (type == 'c' || type == '%')
-	{
-		if (fields->_flag != '-')
-			*total += apply_width(fields->_width, 1, ' ');
-		if (type == '%')
-			write(1, "%", sizeof(char));
+		if (fields->_type == '%')
+			c = '%';
 		else
-		{
-			c_temp = va_arg(*ap, int);
-			write(1, &c_temp, sizeof(char));
-		}
-		if (fields->_flag == '-')
-			*total += apply_width(fields->_width, 1, ' ');
-		*total += 1;
+			c = va_arg(*ap, int);
+		*total += print_character(fields, c);
 	}
-	else if (type == 's')
-	{
-		c_ptr = va_arg(*ap, char *);
-		i_temp = option(fields, ft_strlen(c_ptr));
-		write(1, c_ptr, (sizeof(char) * i_temp));
-		if (fields->_flag == '-')
-			i_temp += apply_width(fields->_width, i_temp, ' ');
-		*total += (i_temp + fields->_width);
-	}
-	else if (type == 'p')
-	{
-		v_ptr = va_arg(*ap, void *);
-		write(2, "0x", (sizeof(char) * 2));
-		fields->_precision = -1;
-		*total += (print_unsigned_int((unsigned int)v_ptr, fields) + 2);
-	}
-	else if (type == 'd' || type == 'i')
-		*total += print_signed_int(va_arg(*ap, int), fields);
-	else if (type == 'u' || type == 'x' || type == 'X')
-		*total += print_unsigned_int(va_arg(*ap, unsigned int), fields);
-}
-
-int		set_num(int *dst, const char *format, int idx, va_list *ap)
-{
-	int num;
-
-	num = 0;
-	if (format[idx] == '*')
-	{
-		num = va_arg(*ap, int);
-		idx++;
-	}
-	else
-	{
-		while (format[idx] >= '0' && format[idx] <= '9')
-			num = (num * 10) + format[idx++] - '0';	
-	}
-	*dst = num;
-	return (idx);
+	else if (fields->_type == 's')
+		*total += print_string(fields, va_arg(*ap, char *));
+	else if (fields->_type == 'p')
+		*total += print_pointer(fields, va_arg(*ap, void *));
+	else if (fields->_type == 'd' || fields->_type == 'i')
+		*total += print_signed_int(fields, va_arg(*ap, int));
+	else if (fields->_type == 'u' || fields->_type == 'x' || fields->_type == 'X')
+		*total += print_unsigned_int(fields, va_arg(*ap, unsigned int), fields->_type);
 }
 
 int		scan_syntax(const char *format, int idx, va_list *ap, int *total)
 {
 	Field	fields;
-	char	type[11] = "cspdiuxX%";
-	int		count;
 
-	ft_memset(&fields, 0, sizeof(Field));
-	fields._precision = -1;
 	while (format[idx])
 	{
-		while (format[idx] == '-' || format[idx] == '0')
-		{
-			if (fields._flag == '-')
-			{
-				idx++;
-				continue ;
-			}
-			fields._flag = format[idx];
-			idx++;
-		}
-		if ((format[idx] >= '1' && format[idx] <= '9') || format[idx] == '*')
-			idx = set_num(&fields._width, format, idx, ap);
-		if (format[idx] == '.')
-			idx = set_num(&fields._precision, format, ++idx, ap);
-		count = 0;
-		while (type[count])
-		{
-			if (format[idx] == type[count])
-				fields._type = format[idx];
-			count++;
-		}
+		idx += find_flag_and_set(&format[idx], &fields._flag);
+		idx += find_width_and_set(&format[idx], &fields._width, ap);
+		idx += find_precision_and_set(&format[idx], &fields._precision, ap);
+		idx += find_type_and_set(&format[idx], &fields._type);
 		if (format[idx] == fields._type)
 			break ;
 		idx++;
 	}
-	convert_format_specifier(&fields, ap, total);
 	if (format[idx] == '\0')
 		return (-1);
+	convert_format_specifier(&fields, ap, total);
 	return (idx);
 }
 
