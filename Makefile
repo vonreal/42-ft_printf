@@ -17,11 +17,11 @@ CFLAGS	=	-Wall -Wextra -Werror
 AR		=	ar rcs
 RM		=	rm -f
 
-SRCS	=	ft_printf.c \
-			print_type.c \
-			print_num.c \
+SRCS	=	get_size_num.c \
 			libft.c \
-			get_size_num.c \
+			print_num.c \
+			print_type.c \
+			ft_printf.c \
 
 OBJS	=	${SRCS:.c=.o}
 
