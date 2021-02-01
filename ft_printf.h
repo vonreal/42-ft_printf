@@ -48,7 +48,7 @@ int		print_unsigned_int(Field *fields, unsigned int u_num, char type);
 int		set_num(int *dst, const char *format, va_list *ap);
 int		find_flag_and_set(const char *format, char *flag);
 int		find_width_and_set(const char *format, int *width, va_list *ap);
-int		find_precision_and_set(const char *foramt, int *precision, va_list *ap);
+int		find_precision_and_set(const char *format, int *precision, va_list *ap);
 int		find_type_and_set(const char *format, char *type);
 
 int		ft_printf(const char *format, ...);

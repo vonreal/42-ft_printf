@@ -63,7 +63,7 @@ int		find_width_and_set(const char *format, int *width, va_list *ap)
 	return (idx);
 }
 
-int		find_precision_and_set(const char *foramt, int *precision, va_list *ap)
+int		find_precision_and_set(const char *format, int *precision, va_list *ap)
 {
 	int		idx;
 
