@@ -56,37 +56,3 @@ void	ft_putnbr_unsigned(unsigned int n, char type)
 		ft_putnbr_unsigned((n % notation), type);
 	}
 }
-
-// TODO: 아래 두 함수 제거요망
-int		print_signed_int(int num, Field *opts)
-{
-	int				size;
-
-	size = get_digit(num);
-	if (num < 0)
-	{
-		write(1, "-", sizeof(char));
-		opts->_precision += 1;
-	}
-	size = option(opts, size);
-	ft_putnbr_signed(num);
-	if (opts->_flag == '-')
-		size += apply_width(opts->_width, size, ' ');
-	return (size);
-}
-
-int		print_unsigned_int(unsigned int num, Field *opts)
-{
-	int				size;
-	int				notation;
-	char			type;
-
-	type = opts->_type;
-	notation = (type == 'u') ? 10 : 16;
-	size = get_digit_unsigned(num, notation);
-	size = option(opts, size);
-	ft_putnbr_unsigned(num, type);
-	if (opts->_flag == '-')
-		size += apply_width(opts->_width, size, ' ');
-	return (size);
-}

@@ -12,21 +12,6 @@
 
 #include "ft_printf.h"
 
-void	*ft_memset(void *b, int c, size_t len)
-{
-	unsigned int	count;
-	unsigned char	*ptr;
-
-	ptr = (unsigned char *)b;
-	count = 0;
-	while (count < len)
-	{
-		ptr[count] = (unsigned char)c;
-		count++;
-	}
-	return (b);
-}
-
 size_t		ft_strlen(const char *s)
 {
 	unsigned int	count;

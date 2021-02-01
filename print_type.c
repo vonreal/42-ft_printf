@@ -30,13 +30,12 @@ int		print_string(Field fields, char *s)
 
 	length = 0;
 	size = apply_precision(fields->_precision, ft_strlen(s));
-	length = apply_option(fields, size) + size;
+	length = apply_option(fields, size);
 	write(1, s, (sizeof(char) * size));
 	length += apply_option(fields, length);
 	return (length);
 }
 
-// '%p' == '%#x' ('#' means append '0x')
 int		print_pointer(Field fields, void *p)
 {
 	unsigned int	u_num;
@@ -65,8 +64,6 @@ int		print_signed_int(Field fields, int num)
 		length += apply_width(fields, size);
 		write(1, "-", sizeof(char));
 	}
-	// TODO: num이 음수면 -를 제외한 자릿수에 옵션을 적용해야 한다.
-	//		 이 부분은 일단 나중에 처리한다.
 	length += apply_precision(fields->_precision, size);
 	ft_putnbr_signed(num);
 	length += apply_width(fields, size);

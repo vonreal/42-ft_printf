@@ -15,23 +15,25 @@
 void	convert_format_specifier(Field *fields, va_list *ap, int *total)
 {
 	char	c;
+	char	type;
 
-	if (fields->_type == 'c' || fields->_type == '%')
+	type = fields->_type;
+	if (type == 'c' || type == '%')
 	{
-		if (fields->_type == '%')
+		if (type == '%')
 			c = '%';
 		else
 			c = va_arg(*ap, int);
 		*total += print_character(fields, c);
 	}
-	else if (fields->_type == 's')
+	else if (type == 's')
 		*total += print_string(fields, va_arg(*ap, char *));
-	else if (fields->_type == 'p')
+	else if (type == 'p')
 		*total += print_pointer(fields, va_arg(*ap, void *));
-	else if (fields->_type == 'd' || fields->_type == 'i')
+	else if (type == 'd' || type == 'i')
 		*total += print_signed_int(fields, va_arg(*ap, int));
-	else if (fields->_type == 'u' || fields->_type == 'x' || fields->_type == 'X')
-		*total += print_unsigned_int(fields, va_arg(*ap, unsigned int), fields->_type);
+	else if (type == 'u' || type == 'x' || type == 'X')
+		*total += print_unsigned_int(fields, va_arg(*ap, unsigned int), type);
 }
 
 int		scan_syntax(const char *format, int idx, va_list *ap, int *total)
