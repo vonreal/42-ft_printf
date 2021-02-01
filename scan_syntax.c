@@ -74,7 +74,7 @@ int		find_precision_and_set(const char *format, int *precision, va_list *ap)
 		idx++;
 		if ((format[idx] >= '0' && format[idx] <= '9') || format[idx] == '*')
 			idx += set_num(precision, &format[idx], ap);
-		else if (foramt[idx] == 's')
+		else if (format[idx] == 's')
 			*precision = 0;
 		else
 			*precision = -1;
