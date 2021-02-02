@@ -35,6 +35,7 @@ int		print_string(Field *fields, char *s)
 	length = apply_option(fields, size);
 	write(1, s, (sizeof(char) * size));
 	length += apply_option(fields, length);
+	length += size;
 	return (length);
 }
 
