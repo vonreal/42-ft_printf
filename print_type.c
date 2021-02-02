@@ -46,10 +46,10 @@ int		print_pointer(Field *fields, void *p)
 	int				size;
 	
 	u_num = (unsigned int)p;
-	size = get_digit_unsigned(u_num), 16) + 2;
+	size = get_digit_unsigned(u_num, 16) + 2;
 	length = apply_option(fields, size);
 	write(2, "0x", (sizeof(char) * 2));
-	ft_putnbr_unsigned(u_num), 'x');
+	ft_putnbr_unsigned(u_num, 'x');
 	length += apply_option(fields, size);
 	length += size;
 	return (length);
