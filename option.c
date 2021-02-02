@@ -19,12 +19,12 @@ void	setting_option(Field *opt)
 		(opt->_flag) = '-';
 		(opt->_width) *= -1;
 	}
-	if (opt->_type == 'c' || opt->_type == 'p')
+	if (opt->_flag == '0' && (opt->_type == 'c' || opt->_type == 'p'))
 	{
 		opt->_flag = ' ';
 		opt->_precision = -1;
 	}
-	if (opt->_width == 0 || opt->_type == 's')
+	if (opt->_flag == '0' && (opt->_width == 0 || opt->_type == 's'))
 		opt->_flag = ' ';
 	if (opt->_precision < 0 || opt->_type == '%')
 		opt->_precision = -1;
