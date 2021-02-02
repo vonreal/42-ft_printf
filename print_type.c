@@ -41,7 +41,7 @@ int		print_string(Field *fields, char *s)
 
 int		print_pointer(Field *fields, void *p)
 {
-	unsigned int	*u_num;
+	unsigned int	u_num;
 	int				length;
 	int				size;
 	
