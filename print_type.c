@@ -34,7 +34,7 @@ int		print_string(Field *fields, char *s)
 		size = apply_precision(&fields->_precision, ft_strlen(s), fields->_type);
 	length = apply_option(fields, size);
 	write(1, s, (sizeof(char) * size));
-	length += apply_option(fields, length);
+	length += apply_option(fields, size);
 	length += size;
 	return (length);
 }
