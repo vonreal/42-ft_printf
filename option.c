@@ -56,6 +56,8 @@ int		apply_width(Field *opt, int length)
 			while (temp-- > 0)
 			{
 				flag = opt->_flag;
+				if (flag == '-')
+					flag = ' ';
 				write(1, &flag, sizeof(char));
 			}
 		}
@@ -84,6 +86,8 @@ int		apply_precision(int *precision, int length, char type)
 			else
 			{
 				temp = length;
+				if (temp == 0)
+					write(1, "0", sizeof(char));
 				while (temp-- > 0)
 					write(1, "0", sizeof(char));
 			}
