@@ -22,7 +22,6 @@ int		get_digit(int n)
 		if (n == INT_MIN)
 			return (11);
 		n *= (-1);
-		digit++;
 	}
 	while (n > 9)
 	{
