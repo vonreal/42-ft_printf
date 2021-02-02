@@ -51,6 +51,7 @@ int		print_pointer(Field *fields, void *p)
 	write(2, "0x", (sizeof(char) * 2));
 	ft_putnbr_unsigned(*u_num, 'x');
 	length += apply_option(fields, size);
+	length += size;
 	return (length);
 }
 
@@ -70,6 +71,7 @@ int		print_signed_int(Field *fields, int num)
 	length += apply_precision(&fields->_precision, size, fields->_type);
 	ft_putnbr_signed(num);
 	length += apply_width(fields, size);
+	length += size;
 	return (length);
 }
 
@@ -84,5 +86,6 @@ int		print_unsigned_int(Field *fields, unsigned int u_num, char type)
 	length = apply_option(fields, size);
 	ft_putnbr_unsigned(u_num, fields->_type);
 	length += apply_option(fields, size);
+	length += size;
 	return (length);
 }
