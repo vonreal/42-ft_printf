@@ -65,7 +65,7 @@ int		print_signed_int(Field *fields, int num)
 	if (num < 0)
 	{
 		fields->_precision += 1;
-		write(1, '-', sizeof(char));
+		write(1, "-", sizeof(char));
 	}
 	length = apply_option(fields, size);
 	ft_putnbr_signed(num);
