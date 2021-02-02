@@ -75,12 +75,12 @@ int		find_precision_and_set(const char *format, int *precision, va_list *ap)
 	if (format[idx] == '.')
 	{
 		idx++;
-		if (format[idx] == 's')
-			*precision = 0;
-		else if ((format[idx] >= '0' && format[idx] <= '9') || format[idx] == '*')
+		if ((format[idx] >= '0' && format[idx] <= '9') || format[idx] == '*')
 			idx += set_num(precision, &format[idx], ap);
-		else
+		else if (format[idx] == 'c' || format[idx] == 'p', format[idx] == '%')
 			*precision = -1;
+		else
+			*precision = 0;
 	}
 	return (idx);
 }
