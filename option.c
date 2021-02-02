@@ -100,7 +100,10 @@ int		apply_option(Field *opt, int length)
 	print_size = 0;
 	setting_option(opt);
 	if (opt->_flag == '-')
-		print_size += apply_width(opt, length);
+	{
+		opt->_flag = ' ';
+		print_size += apply_precision(&opt->_precision, length, opt->_type);
+	}
 	else
 	{
 		print_size += apply_width(opt, length);
