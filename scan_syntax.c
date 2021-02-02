@@ -18,15 +18,18 @@ int		find_flag_and_set(const char *format, char *flag)
 
 	idx = 0;
 	*flag = ' ';
-	while (format[idx] == '-' || format[idx] == '0')
+	if (format[idx] == '-' || format[idx] == '0')
 	{
-		if (*flag == '-')
+		while (format[idx] == '-' || format[idx] == '0')
 		{
+			if (*flag == '-')
+			{
+				idx++;
+				continue ;
+			}
+			*flag = format[idx];
 			idx++;
-			continue ;
 		}
-		*flag = format[idx];
-		idx++;
 	}
 	return (idx);
 }
