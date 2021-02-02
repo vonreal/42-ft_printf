@@ -76,6 +76,8 @@ int		apply_precision(int *precision, int length, char type)
 			return (*precision);
 		else if (type == 's' && *precision > length)
 			return (length);
+		else if (type == 's' && *precision == 0)
+			return (0);
 		else
 		{
 			length = *precision - length;
