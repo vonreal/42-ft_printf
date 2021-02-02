@@ -63,7 +63,10 @@ int		print_signed_int(Field *fields, int num)
 	length = 0;
 	size = get_digit(num);
 	if (num < 0)
+	{
 		write(1, "-", sizeof(char));
+		length += 1;
+	}
 	length = apply_option(fields, size);
 	ft_putnbr_signed(num);
 	length += apply_option(fields, size);
