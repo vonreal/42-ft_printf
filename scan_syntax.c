@@ -104,6 +104,8 @@ int		find_type_and_set(const char *format, char *type)
 			}
 			jdx++;
 		}
+		if (format[idx] == *type)
+			break ;
 		idx++;
 	}
 	return (idx);
