@@ -80,7 +80,7 @@ int		print_signed_int(Field *fields, int num)
 	if (fields->_flag == '-')
 	{
 		fields->_flag = ' ';
-		output += apply_precision(fields, get_digit(num), fields->_type);
+		output += apply_precision(fields->_precision, get_digit(num), fields->_type);
 		if (!(num == 0 && fields->_precision == 0))
 			ft_putnbr_signed(num);
 		output += apply_width(fields, size);
@@ -88,7 +88,7 @@ int		print_signed_int(Field *fields, int num)
 	else if (fields->_flag == '0')
 	{
 		output += apply_width(fields, size);
-		output += apply_precision(fields, get_digit(num), fields->_type);
+		output += apply_precision(fields->_precision, get_digit(num), fields->_type);
 		if (!(num == 0 && fields->_precision == 0))
 			ft_putnbr_signed(num);
 	}
