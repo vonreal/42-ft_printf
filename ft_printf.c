@@ -52,7 +52,8 @@ int		scan_syntax(const char *format, int idx, va_list *ap, int *total)
 	}
 	if (format[idx] == '\0')
 		return (-1);
-	convert_format_specifier(&fields, ap, total);
+	else
+		convert_format_specifier(&fields, ap, total);
 	return (idx);
 }
 

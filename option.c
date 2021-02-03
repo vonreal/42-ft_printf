@@ -14,14 +14,15 @@
 
 void	setting_option(Field *opt)
 {
-	if (opt->_width < 0)
+	if (opt->_width < 0)	// left sort
 	{
 		(opt->_flag) = '-';
 		(opt->_width) *= -1;
 	}
-	if (opt->_flag == '0' && (opt->_type == 'c' || opt->_type == 'p'))
+	if (opt->_type == 'c' || opt->_type == 'p')
 	{
-		opt->_flag = ' ';
+		if (opt->_flag == '0')
+			opt->_flag = ' ';
 		opt->_precision = -1;
 	}
 	if (opt->_flag == '0' && (opt->_width == 0 || opt->_type == 's'))
@@ -39,19 +40,21 @@ int		apply_width(Field *opt, int length)
 		return (0);
 	else
 	{
-		if (opt->_precision != -1)
+		if (opt->_precision >= 0)
 		{
 			if (opt->_type == 's')
-				length = apply_precision(&opt->_precision, length, opt->_type);
+				length = apply_precision(&opt->_precision, length, 's');
 			else
-				length = (opt->_precision) - length;
+			{
+				if ((opt->_precision - length) > 0)
+					length = (opt->_precision - length);
+			}
 		}
-		if (length > 0)
-			length = (opt->_width) - length;
-		if (length < 0)
-			length = 0;
+		if ((opt->_width - length) <= 0)
+			return (0);
 		else
 		{
+			length = (opt->_width) - length;
 			temp = length;
 			while (temp-- > 0)
 			{
@@ -76,18 +79,19 @@ int		apply_precision(int *precision, int length, char type)
 			return (*precision);
 		else if (type == 's' && *precision > length)
 			return (length);
-		else if (type == 's' && *precision == 0)
-			return (0);
 		else
 		{
-			length = *precision - length;
-			if (length < 0)
-				length = 0;
+			if ((*precision - length) < 0)
+				return (0);
 			else
 			{
+				length = *precision - length;
 				temp = length;
 				if (temp == 0)
+				{
 					write(1, "0", sizeof(char));
+					length++;
+				}
 				while (temp-- > 0)
 					write(1, "0", sizeof(char));
 			}
@@ -99,19 +103,19 @@ int		apply_precision(int *precision, int length, char type)
 
 int		apply_option(Field *opt, int length)
 {
-	int		print_size;
+	int		output;
 
-	print_size = 0;
+	output = 0;
 	setting_option(opt);
 	if (opt->_flag == '-')
 	{
 		opt->_flag = ' ';
-		print_size += apply_precision(&opt->_precision, length, opt->_type);
+		output += apply_precision(&opt->_precision, length, opt->_type);
 	}
 	else
 	{
-		print_size += apply_width(opt, length);
-		print_size += apply_precision(&opt->_precision, length, opt->_type);
+		output += apply_width(opt, length);
+		output += apply_precision(&opt->_precision, length, opt->_type);
 	}
-	return (print_size);
+	return (output);
 }

@@ -12,79 +12,84 @@
 
 #include "ft_printf.h"
 
+/* 반환값은 총 출력한 문자의 갯수이다. */
+
 int		print_character(Field *fields, char c)
 {
-	int		length;
+	int		size;
+	int		output;
 
-	length = 1;
-	length += apply_option(fields, length);
+	size = 1;
+	output = size;
+	output += apply_option(fields, size);
 	write(1, &c, sizeof(char));
-	length += apply_option(fields, length);
-	return (length);
+	output += apply_option(fields, size);
+	return (output);
 }
 
 int		print_string(Field *fields, char *s)
 {
-	int		length;
 	int		size;
+	int		output;
 
-	length = 0;
-	size = ft_strlen(s);
 	if (fields->_precision > 0)
 		size = apply_precision(&fields->_precision, ft_strlen(s), fields->_type);
-	length = apply_option(fields, size);
+	else
+		size = ft_strlen(s);
+	output = size;
+	output += apply_option(fields, size);
 	write(1, s, (sizeof(char) * size));
-	length += apply_option(fields, size);
-	length += size;
-	return (length);
+	output += apply_option(fields, size);
+	return (output);
 }
 
 int		print_pointer(Field *fields, void *p)
 {
 	unsigned int	u_num;
-	int				length;
 	int				size;
+	int				output;
 	
 	u_num = (unsigned int)p;
 	size = get_digit_unsigned(u_num, 16) + 2;
-	length = apply_option(fields, size);
+	output = size;
+	output += apply_option(fields, size);
 	write(2, "0x", (sizeof(char) * 2));
 	ft_putnbr_unsigned(u_num, 'x');
-	length += apply_option(fields, size);
-	length += size;
-	return (length);
+	output += apply_option(fields, size);
+	return (output);
 }
 
 int		print_signed_int(Field *fields, int num)
 {
-	int			length;
 	int			size;
+	int			output;
 
-	length = 0;
 	size = get_digit(num);
+	output = size;
 	if (num < 0)
 	{
+		output += 1;
+		if (fields->_flag != '-')
+			output += apply_width(fields, size);
 		write(1, "-", sizeof(char));
-		length += 1;
 	}
-	length = apply_option(fields, size);
+	output += apply_option(fields, size);
 	ft_putnbr_signed(num);
-	length += apply_option(fields, size);
-	length += size;
-	return (length);
+	output += apply_option(fields, size);
+	return (output);
 }
 
 int		print_unsigned_int(Field *fields, unsigned int u_num, char type)
 {
-	int			length;
-	int			size;
 	int			notation;
+	int			size;
+	int			output;
 
 	notation = (type == 'u') ? 10 : 16;
 	size = get_digit_unsigned(u_num, notation);
-	length = apply_option(fields, size);
+	output = size;
+	output += apply_option(fields, size);
 	ft_putnbr_unsigned(u_num, fields->_type);
-	length += apply_option(fields, size);
-	length += size;
-	return (length);
+	output += apply_option(fields, size);
+	return (output);
 }
