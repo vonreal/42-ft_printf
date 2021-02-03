@@ -20,7 +20,7 @@ int		get_digit(int n)
 	if (n < 0)
 	{
 		if (n == INT_MIN)
-			return (11);
+			return (10);
 		n *= (-1);
 	}
 	while (n > 9)

@@ -65,17 +65,33 @@ int		print_signed_int(Field *fields, int num)
 	int			output;
 
 	size = get_digit(num);
+	if (num == 0 && fields->_precision == 0)
+		size = 0;
 	output = size;
+	setting_option(fields);
 	if (num < 0)
 	{
 		output += 1;
-		if (fields->_flag != '-')
+		size += 1;
+		if (fields->_flag == ' ')
 			output += apply_width(fields, size);
 		write(1, "-", sizeof(char));
 	}
-	output += apply_option(fields, size);
-	ft_putnbr_signed(num);
-	output += apply_option(fields, size);
+	if (fields->_flag == '-')
+	{
+		fields->_flag = ' ';
+		output += apply_precision(fields, get_digit(num), fields->_type);
+		if (!(num == 0 && fields->_precision == 0))
+			ft_putnbr_signed(num);
+		output += apply_width(fields, size);
+	}
+	else if (fields->_flag == '0')
+	{
+		output += apply_width(fields, size);
+		output += apply_precision(fields, get_digit(num), fields->_type);
+		if (!(num == 0 && fields->_precision == 0))
+			ft_putnbr_signed(num);
+	}
 	return (output);
 }
 

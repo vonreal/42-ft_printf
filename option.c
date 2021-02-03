@@ -87,11 +87,6 @@ int		apply_precision(int *precision, int length, char type)
 			{
 				length = *precision - length;
 				temp = length;
-				if (temp == 0)
-				{
-					write(1, "0", sizeof(char));
-					length++;
-				}
 				while (temp-- > 0)
 					write(1, "0", sizeof(char));
 			}
