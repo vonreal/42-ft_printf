@@ -85,7 +85,7 @@ int		print_signed_int(Field *fields, int num)
 			ft_putnbr_signed(num);
 		output += apply_width(fields, size);
 	}
-	else if (fields->_flag == '0')
+	else
 	{
 		output += apply_width(fields, size);
 		output += apply_precision(&fields->_precision, get_digit(num), fields->_type);
