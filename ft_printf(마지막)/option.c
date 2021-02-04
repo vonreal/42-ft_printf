@@ -104,7 +104,6 @@ int		apply_precision(Field *opt, int length)
 	{
 		length = 0;
 	}
-	opt->_precision = -1;
 	return (length);
 }
 
