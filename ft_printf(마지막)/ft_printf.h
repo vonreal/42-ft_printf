@@ -29,7 +29,7 @@ typedef struct _Field
 size_t		ft_strlen(const char *s);
 
 void	ft_putnbr_signed(int n);
-void	ft_putnbr_unsigned(unsigned int n, char type);
+void	ft_putnbr_unsigned(unsigned long n, char type);
 
 int		get_digit(int n);
 int		get_digit_unsigned(unsigned long num, unsigned int notation);
@@ -44,7 +44,7 @@ int		print_character(Field *fields, char c);
 int		print_string(Field *fields, char *s);
 int		print_pointer(Field *fields, unsigned long u_num);
 int		print_signed_int(Field *fields, int num);
-int		print_unsigned_int(Field *fields, unsigned long u_num, char type);
+int		print_unsigned_int(Field *fields, unsigned int u_num, char type);
 
 int		set_num(int *dst, const char *format, va_list *ap);
 int		find_flag_and_set(const char *format, char *flag);
