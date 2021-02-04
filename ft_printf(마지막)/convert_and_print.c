@@ -54,14 +54,12 @@ int		print_string(Field *fields, char *s)
 	return (output);
 }
 
-int		print_pointer(Field *fields, void *p)
+int		print_pointer(Field *fields, unsigned long u_num)
 {
 	// 옵션 적용 완료
-	unsigned int	u_num;
 	int				size;
 	int				output;
 
-	u_num = (unsigned int)p;
 	if (u_num == 0 && fields->_precision == 0)
 		size = 2;
 	else

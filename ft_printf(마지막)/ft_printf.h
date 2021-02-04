@@ -32,7 +32,7 @@ void	ft_putnbr_signed(int n);
 void	ft_putnbr_unsigned(unsigned int n, char type);
 
 int		get_digit(int n);
-int		get_digit_unsigned(unsigned int num, unsigned int notation);
+int		get_digit_unsigned(unsigned long num, unsigned int notation);
 
 void	setting_option(Field *opt);
 int		get_output_size_precision(Field *opt, int length);
@@ -42,9 +42,9 @@ int		apply_width(Field *opt, int length);
 
 int		print_character(Field *fields, char c);
 int		print_string(Field *fields, char *s);
-int		print_pointer(Field *fields, void *p);
+int		print_pointer(Field *fields, unsigned long u_num);
 int		print_signed_int(Field *fields, int num);
-int		print_unsigned_int(Field *fields, unsigned int u_num, char type);
+int		print_unsigned_int(Field *fields, unsigned long u_num, char type);
 
 int		set_num(int *dst, const char *format, va_list *ap);
 int		find_flag_and_set(const char *format, char *flag);

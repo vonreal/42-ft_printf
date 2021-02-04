@@ -31,7 +31,7 @@ int		get_digit(int n)
 	return (digit);
 }
 
-int		get_digit_unsigned(unsigned int num, unsigned int notation)
+int		get_digit_unsigned(unsigned long num, unsigned int notation)
 {
 	int				digit;
 

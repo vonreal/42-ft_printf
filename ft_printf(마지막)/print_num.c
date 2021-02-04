@@ -32,7 +32,7 @@ void	ft_putnbr_signed(int n)
 	}
 }
 
-void	ft_putnbr_unsigned(unsigned int n, char type)
+void	ft_putnbr_unsigned(unsigned long n, char type)
 {
 	char			num;
 	unsigned int	notation;

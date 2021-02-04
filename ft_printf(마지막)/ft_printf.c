@@ -30,7 +30,7 @@ void	convert_format_specifier(Field *fields, va_list *ap, int *total)
 	else if (type == 's')
 		*total += print_string(fields, va_arg(*ap, char *));
 	else if (type == 'p')
-		*total += print_pointer(fields, va_arg(*ap, void *));
+		*total += print_pointer(fields, va_arg(*ap, unsigned long));
 	else if (type == 'd' || type == 'i')
 		*total += print_signed_int(fields, va_arg(*ap, int));
 	else if (type == 'u' || type == 'x' || type == 'X')

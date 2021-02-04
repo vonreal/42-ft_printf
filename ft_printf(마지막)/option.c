@@ -22,7 +22,7 @@ void	setting_option(Field *opt)
 		{
 			if (opt->_flag == '0')
 			{
-				if (opt->_precision >= 0) 	// Not apply with precision.
+				if (opt->_precision >= 0 && opt->_type != '%') 	// Not apply with precision.
 					opt->_flag = ' ';
 				if (opt->_type == 'c' || opt->_type == 's' || opt->_type == 'p')	// Not opply with 'c','s','p'
 					opt->_flag = ' ';
