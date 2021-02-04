@@ -37,11 +37,6 @@ void	setting_option(Field *opt)
 			(opt->_width) *= -1;
 		}
 	}
-	if (opt->_precision >= 0)
-	{
-		if (opt->_type == 'c' || opt->_type == '%')
-			opt->_precision = -1;
-	}
 }
 
 int		get_output_size_precision(Field *opt, int length)
