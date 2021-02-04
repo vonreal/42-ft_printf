@@ -39,7 +39,7 @@ void	setting_option(Field *opt)
 	}
 	if (opt->_precision >= 0)
 	{
-		if (opt->_type == 'c' || opt->_type == '%')
+		if (opt->_type == 'c' || opt->_type == '%' || opt->_type == 'p')
 			opt->_precision = -1;
 	}
 }

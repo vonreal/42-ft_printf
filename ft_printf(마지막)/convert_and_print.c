@@ -67,8 +67,7 @@ int		print_pointer(Field *fields, void *p)
 	if (fields->_flag != '-')
 		output += apply_width(fields, size);
 	write(1, "0x", (sizeof(char) * 2));
-	if (!(u_num == 0 && fields->_precision == 0))
-		ft_putnbr_unsigned(u_num, 'x');
+	ft_putnbr_unsigned(u_num, 'x');
 	if (fields->_flag == '-')
 	{
 		fields->_flag = ' ';
