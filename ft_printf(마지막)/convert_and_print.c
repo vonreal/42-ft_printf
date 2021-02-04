@@ -38,7 +38,7 @@ int		print_string(Field *fields, char *s)
 	int		output;
 
 	if (s == NULL)
-		return (0);
+		s = "(null)";
 	size = ft_strlen(s);
 	if (fields->_precision >= 0)
 		size = get_output_size_precision(fields, size);
