@@ -83,10 +83,7 @@ int		print_signed_int(Field *fields, int num)
 	int			output;
 
 	if (num == 0 && fields->_precision == 0)
-	{
-		fields->_precision = -1;
 		size = 0;
-	}
 	else
 		size = get_digit(num);
 	output = size;
@@ -118,10 +115,7 @@ int		print_unsigned_int(Field *fields, unsigned int u_num, char type)
 	int			output;
 
 	if (u_num == 0 && fields->_precision == 0)
-	{
-		fields->_precision = -1;
 		size = 0;
-	}
 	if (type == 'u')
 		notatiton = 10;
 	else
