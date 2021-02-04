@@ -24,7 +24,10 @@ int		print_character(Field *fields, char c)
 		output += apply_width(fields, 1);
 	write(1, &c, sizeof(char));
 	if (fields->_flag == '-')
+	{
+		fields->_flag = ' ';	
 		output += apply_width(fields, 1);
+	}
 	return (output);
 }
 
@@ -44,7 +47,10 @@ int		print_string(Field *fields, char *s)
 		output += apply_width(fields, size);
 	write(1, s, (sizeof(char) * size));
 	if (fields->_flag == '-')
+	{
+		fields->_flag = ' ';
 		output += apply_width(fields, size);
+	}
 	return (output);
 }
 
@@ -63,7 +69,10 @@ int		print_pointer(Field *fields, void *p)
 	write(1, "0x", (sizeof(char) * 2));
 	ft_putnbr_unsigned(u_num, 'x');
 	if (fields->_flag == '-')
+	{
+		fields->_flag = ' ';
 		output += apply_width(fields, size);
+	}
 	return (output);
 }
 
@@ -91,7 +100,10 @@ int		print_signed_int(Field *fields, int num)
 	if (!(num == 0 && fields->_precision == 0))
 		ft_putnbr_signed(num);
 	if (fields->_flag == '-')
+	{
+		fields->_flag = ' ';
 		output += apply_width(fields, size);
+	}
 	return (output);
 }
 
@@ -113,6 +125,9 @@ int		print_unsigned_int(Field *fields, unsigned int u_num, char type)
 	output += apply_precision(fields, size);
 	ft_putnbr_unsigned(u_num, fields->_type);
 	if (fields->_flag == '-')
+	{
+		fields->_flag = ' ';
 		output += apply_width(fields, size + get_output_size_precision(fields, size));
+	}
 	return (output);
 }
