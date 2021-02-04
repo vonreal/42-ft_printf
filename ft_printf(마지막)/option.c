@@ -96,7 +96,7 @@ int		apply_precision(Field *opt, int length)
 	{
 		temp = length;
 		while (temp-- > 0)
-			write(1, " ", sizeof(char));
+			write(1, "0", sizeof(char));
 	}
 	else
 	{
