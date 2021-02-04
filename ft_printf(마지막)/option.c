@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-void	setting_option(Field opt)
+void	setting_option(Field *opt)
 {
 	if (opt->_flag != ' ')
 	{
@@ -87,7 +87,7 @@ int		get_output_size_width(int *width, int length)
 }
 
 
-int		apply_precision(Field opt, int length)
+int		apply_precision(Field *opt, int length)
 {
 	int		temp;
 
@@ -106,7 +106,7 @@ int		apply_precision(Field opt, int length)
 	return (length);
 }
 
-int		apply_width(Field opt, int length)
+int		apply_width(Field *opt, int length)
 {
 	int		temp;
 	
