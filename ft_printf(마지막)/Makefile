@@ -11,8 +11,6 @@
 # **************************************************************************** #
 
 NAME		=	libftprintf.a
-LIBFT		= libft
-LIBFT_LIB	= libft.a
 
 CC			=	gcc
 CFLAGS		=	-Wall -Wextra -Werror
