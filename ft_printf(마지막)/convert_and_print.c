@@ -89,7 +89,7 @@ int		print_signed_int(Field *fields, int num)
 	output = size;
 	if (num < 0)
 	{
-		if (fields->_flag == ' ')
+		if (fields->_flag != '-')
 			output += apply_width(fields, size + 1);
 		write(1, "-", sizeof(char));
 		output += 1;
