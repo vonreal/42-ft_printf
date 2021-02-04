@@ -91,6 +91,8 @@ int		apply_precision(Field *opt, int length)
 {
 	int		temp;
 
+	if (length == 0)
+		return (0);
 	length = get_output_size_precision(opt, length);
 	if (length > 0)
 	{
