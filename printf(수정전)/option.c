@@ -51,7 +51,10 @@ int		apply_width(Field *opt, int length)
 			}
 		}
 		if ((opt->_width - length) <= 0)
+		{
+			opt->_width = 0;
 			return (0);
+		}
 		else
 		{
 			length = (opt->_width) - length;
@@ -81,8 +84,13 @@ int		apply_precision(int *precision, int length, char type)
 			return (length);
 		else
 		{
-			if ((*precision - length) < 0)
+			if (*precision == 0)
 				return (0);
+			if ((*precision - length) < 0)
+			{
+				*precision = -1;
+				return (0);
+			}
 			else
 			{
 				length = *precision - length;
@@ -92,7 +100,6 @@ int		apply_precision(int *precision, int length, char type)
 			}
 		}
 	}
-	*precision = -1;
 	return (length);
 }
 
@@ -111,6 +118,7 @@ int		apply_option(Field *opt, int length)
 	{
 		output += apply_width(opt, length);
 		output += apply_precision(&opt->_precision, length, opt->_type);
+		opt->_precision = -1;
 	}
 	return (output);
 }

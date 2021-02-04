@@ -32,8 +32,12 @@ int		print_string(Field *fields, char *s)
 	int		size;
 	int		output;
 
-	if (fields->_precision > 0)
+	if (fields->_precision >= 0)
+	{
 		size = apply_precision(&fields->_precision, ft_strlen(s), fields->_type);
+		fields->_precision = -1;
+
+	}
 	else
 		size = ft_strlen(s);
 	output = size;
@@ -53,7 +57,7 @@ int		print_pointer(Field *fields, void *p)
 	size = get_digit_unsigned(u_num, 16) + 2;
 	output = size;
 	output += apply_option(fields, size);
-	write(2, "0x", (sizeof(char) * 2));
+	write(1, "0x", (sizeof(char) * 2));
 	ft_putnbr_unsigned(u_num, 'x');
 	output += apply_option(fields, size);
 	return (output);
@@ -63,10 +67,13 @@ int		print_signed_int(Field *fields, int num)
 {
 	int			size;
 	int			output;
+	int			pre_temp;
 
 	size = get_digit(num);
 	if (num == 0 && fields->_precision == 0)
 		size = 0;
+	if (fields->_precision >= 0 && fields->_flag == '-')
+		fields->_flag = ' ';
 	output = size;
 	setting_option(fields);
 	if (num < 0)
@@ -83,7 +90,7 @@ int		print_signed_int(Field *fields, int num)
 		output += apply_precision(&fields->_precision, get_digit(num), fields->_type);
 		if (!(num == 0 && fields->_precision == 0))
 			ft_putnbr_signed(num);
-		output += apply_width(fields, size);
+		output += apply_width(fields, output);
 	}
 	else
 	{
@@ -103,9 +110,14 @@ int		print_unsigned_int(Field *fields, unsigned int u_num, char type)
 
 	notation = (type == 'u') ? 10 : 16;
 	size = get_digit_unsigned(u_num, notation);
+	if (u_num == 0 && fields->_precision == 0)
+		size = 0;
+	if (fields->_precision >= 0 && fields->_flag == '-')
+		fields->_flag = ' ';
 	output = size;
 	output += apply_option(fields, size);
-	ft_putnbr_unsigned(u_num, fields->_type);
+	if (!(u_num == 0 && fields->_precision == 0))
+		ft_putnbr_unsigned(u_num, fields->_type);
 	output += apply_option(fields, size);
 	return (output);
 }
