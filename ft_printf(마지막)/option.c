@@ -91,7 +91,7 @@ int		apply_precision(Field *opt, int length)
 {
 	int		temp;
 
-	length = get_output_size_precision(opt, length) - length;
+	length = get_output_size_precision(opt, length);
 	if (length > 0)
 	{
 		temp = length;
@@ -110,7 +110,7 @@ int		apply_width(Field *opt, int length)
 {
 	int		temp;
 	
-	length = get_output_size_width(&opt->_width, length) - length;
+	length = get_output_size_width(&opt->_width, length);
 	if (length > 0)
 	{
 		temp = length;
