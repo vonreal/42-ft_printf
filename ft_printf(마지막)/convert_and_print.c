@@ -63,7 +63,7 @@ int		print_pointer(Field *fields, void *p)
 
 	u_num = (unsigned int)p;
 	if (u_num == 0 && fields->_precision == 0)
-		size = 0;
+		size = 2;
 	else
 		size = get_digit_unsigned(u_num, 16) + 2;
 	output = size;
