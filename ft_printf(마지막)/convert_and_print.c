@@ -53,10 +53,11 @@ int		print_pointer(Field *fields, void *p)
 	int				size;
 	int				output;
 
+	u_num = (unsigned int)p;
 	size = get_digit_unsigned(u_num, 16) + 2;
+	output = size;
 	if (fields->_flag != '-')
 		output += apply_width(fields, size);
-	u_num = (unsigned int)p;
 	write(1, "0x", (sizeof(char) * 2));
 	ft_putnbr_unsigned(u_num, 'x');
 	if (fields->_flag == '-')
