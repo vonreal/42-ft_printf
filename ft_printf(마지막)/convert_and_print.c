@@ -102,6 +102,8 @@ int		print_signed_int(Field *fields, int num)
 	if (fields->_flag == '-')
 	{
 		fields->_flag = ' ';
+		if (num < 0)
+			size += 1;
 		output += apply_width(fields, size);
 	}
 	return (output);
