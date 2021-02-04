@@ -110,7 +110,7 @@ int		apply_width(Field *opt, int length)
 {
 	int		temp;
 	
-	length = get_output_size_width(opt->_width, length) - length;
+	length = get_output_size_width(&opt->_width, length) - length;
 	if (length > 0)
 	{
 		temp = length;
