@@ -129,7 +129,8 @@ int		print_unsigned_int(Field *fields, unsigned int u_num, char type)
 	if (fields->_flag != '-')
 		output += apply_width(fields, size + get_output_size_precision(fields, size));
 	output += apply_precision(fields, size);
-	ft_putnbr_unsigned(u_num, fields->_type);
+	if (!(u_num == 0 && fields->_precision == 0))
+		ft_putnbr_unsigned(u_num, fields->_type);
 	if (fields->_flag == '-')
 	{
 		fields->_flag = ' ';
