@@ -89,21 +89,23 @@ int		print_signed_int(Field *fields, int num)
 	output = size;
 	if (num < 0)
 	{
-		if (fields->_flag != '-')
-			output += apply_width(fields, size + 1);
+		size += 1;
+		if (fields->_flag == ' ')
+			output += apply_width(fields, size);
 		write(1, "-", sizeof(char));
 		output += 1;
 	}
 	if (fields->_flag != '-')
 		output += apply_width(fields, size);
-	output += apply_precision(fields, size);
+	if (num < 0)
+		output += apply_precision(fields, size - 1);
+	else
+		output += apply_precision(fields, size);
 	if (!(num == 0 && fields->_precision == 0))
 		ft_putnbr_signed(num);
 	if (fields->_flag == '-')
 	{
 		fields->_flag = ' ';
-		if (num < 0)
-			size += 1;
 		output += apply_width(fields, size);
 	}
 	return (output);
