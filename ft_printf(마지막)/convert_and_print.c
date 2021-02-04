@@ -16,7 +16,7 @@
 
 int		print_character(Field *fields, char c)
 {
-	// 옵션 적용 완료
+	// 옵션 적용 완료 
 	int		output;
 
 	output = 1;
