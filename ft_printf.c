@@ -39,7 +39,7 @@ void	convert_format_specifier(t_field *fields, va_list *ap, int *total)
 
 int		scan_syntax(const char *format, int idx, va_list *ap, int *total)
 {
-	Field	fields;
+	t_field	fields;
 
 	while (format[idx])
 	{
