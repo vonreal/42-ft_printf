@@ -105,13 +105,13 @@ int		print_signed_int(t_field *fields, int num)
 	return (output);
 }
 
-int		print_unsigned_int(t_field *fields, unsigned int u_num, char type)
+int		print_unsigned_int(t_field *fields, unsigned int u_num)
 {
 	int			notatiton;
 	int			size;
 	int			output;
 
-	if (type == 'u')
+	if (fields->s_type == 'u')
 		notatiton = 10;
 	else
 		notatiton = 16;
