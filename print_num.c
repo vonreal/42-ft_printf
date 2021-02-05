@@ -6,7 +6,7 @@
 /*   By: jna <jna@student.42seoul.kr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 13:43:39 by jna               #+#    #+#             */
-/*   Updated: 2021/02/05 14:29:56 by jna              ###   ########.fr       */
+/*   Updated: 2021/02/05 14:36:35 by jna              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	ft_putnbr_unsigned(unsigned long n, char type)
 	char			*small_hex;
 	char			*upper_hex;
 
-	small_hex = "0123456789abcedf";
+	small_hex = "0123456789abcdef";
 	upper_hex = "0123456789ABCDEF";
 	notation = 16;
 	if (type == 'u')
