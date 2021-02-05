@@ -6,7 +6,7 @@
 /*   By: jna <jna@student.42seoul.kr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 13:43:39 by jna               #+#    #+#             */
-/*   Updated: 2021/02/05 13:43:39 by jna              ###   ########.fr       */
+/*   Updated: 2021/02/05 14:29:56 by jna              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,21 @@ void	ft_putnbr_unsigned(unsigned long n, char type)
 {
 	char			num;
 	unsigned int	notation;
-	char			hex[17] = "0123456789abcdef";
-	char			Hex[17] = "0123456789ABCDEF";
+	char			*small_hex;
+	char			*upper_hex;
 
-	notation = (type == 'u') ? (notation = 10) : (notation = 16);
+	small_hex = "0123456789abcedf";
+	upper_hex = "0123456789ABCDEF";
+	notation = 16;
+	if (type == 'u')
+		notation = 10;
 	if (n < notation)
 	{
 		num = n + '0';
 		if (type == 'x' || type == 'p')
-			write(1, &hex[n], sizeof(char));
+			write(1, &small_hex[n], sizeof(char));
 		else if (type == 'X')
-			write(1, &Hex[n], sizeof(char));
+			write(1, &upper_hex[n], sizeof(char));
 		else
 			write(1, &num, 1);
 	}
