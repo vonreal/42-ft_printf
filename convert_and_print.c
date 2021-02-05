@@ -89,14 +89,14 @@ int		print_signed_int(t_field *fields, int num)
 	if (num < 0)
 		output += num_is_minus(fields, &minus, size);
 	if (fields->s_flag != '-')
-		output += apply_width(fields, size + minus + size_pre);
+		output += apply_width(fields, (size + minus + size_pre));
 	output += apply_precision(fields, size);
 	if (!(num == 0 && fields->s_precision == 0))
 		ft_putnbr_signed(num);
 	if (fields->s_flag == '-')
 	{
 		fields->s_flag = ' ';
-		output += apply_width(fields, size + minus + size_pre));
+		output += apply_width(fields, (size + minus + size_pre));
 	}
 	return (output);
 }
