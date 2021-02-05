@@ -37,21 +37,21 @@ void	convert_format_specifier(t_field *fields, va_list *ap, int *total)
 		*total += print_unsigned_int(fields, va_arg(*ap, unsigned int));
 }
 
-int		scan_syntax(const char *format, int idx, va_list *ap, int *total)
+int		scan_syntax(const char *fmt, int idx, va_list *ap, int *total)
 {
 	t_field	fields;
 
-	while (format[idx])
+	while (fmt[idx])
 	{
-		idx += find_flag_and_set(&format[idx], &fields.s_flag);
-		idx += find_width_and_set(&format[idx], &fields.s_width, ap);
-		idx += find_precision_and_set(&format[idx], &fields.s_precision, ap);
-		idx += find_type_and_set(&format[idx], &fields.s_type);
-		if (format[idx] == fields.s_type)
+		idx += find_flag_and_set(&fmt[idx], &fields.s_flag);
+		idx += find_width_and_set(&fmt[idx], &fields.s_width, ap);
+		idx += find_precision_and_set(&fmt[idx], &fields.s_precision, ap);
+		idx += find_type_and_set(&fmt[idx], &fields.s_type);
+		if (fmt[idx] == fields.s_type)
 			break ;
 		idx++;
 	}
-	if (format[idx] == '\0')
+	if (fmt[idx] == '\0')
 		return (-1);
 	else
 		convert_format_specifier(&fields, ap, total);

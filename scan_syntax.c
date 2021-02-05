@@ -12,72 +12,72 @@
 
 #include "ft_printf.h"
 
-int		find_flag_and_set(const char *format, char *flag)
+int		find_flag_and_set(const char *fmt, char *flag)
 {
 	int		idx;
 
 	idx = 0;
 	*flag = ' ';
-	if (format[idx] == '-' || format[idx] == '0')
+	if (fmt[idx] == '-' || fmt[idx] == '0')
 	{
-		while (format[idx] == '-' || format[idx] == '0')
+		while (fmt[idx] == '-' || fmt[idx] == '0')
 		{
 			if (*flag == '-')
 			{
 				idx++;
 				continue ;
 			}
-			*flag = format[idx];
+			*flag = fmt[idx];
 			idx++;
 		}
 	}
 	return (idx);
 }
 
-int		set_num(int *dst, const char *format, va_list *ap)
+int		set_num(int *dst, const char *fmt, va_list *ap)
 {
 	int num;
 	int	idx;
 
 	num = 0;
 	idx = 0;
-	if (format[idx] == '*')
+	if (fmt[idx] == '*')
 	{
 		num = va_arg(*ap, int);
 		idx++;
 	}
 	else
 	{
-		while (format[idx] >= '0' && format[idx] <= '9')
-			num = (num * 10) + format[idx++] - '0';
+		while (fmt[idx] >= '0' && fmt[idx] <= '9')
+			num = (num * 10) + fmt[idx++] - '0';
 	}
 	*dst = num;
 	return (idx);
 }
 
-int		find_width_and_set(const char *format, int *width, va_list *ap)
+int		find_width_and_set(const char *fmt, int *width, va_list *ap)
 {
 	int		idx;
 
 	idx = 0;
 	*width = 0;
-	if ((format[idx] >= '1' && format[idx] <= '9') || format[idx] == '*')
-		idx += set_num(width, &format[idx], ap);
+	if ((fmt[idx] >= '1' && fmt[idx] <= '9') || fmt[idx] == '*')
+		idx += set_num(width, &fmt[idx], ap);
 	return (idx);
 }
 
-int		find_precision_and_set(const char *format, int *precision, va_list *ap)
+int		find_precision_and_set(const char *fmt, int *precision, va_list *ap)
 {
 	int		idx;
 
 	idx = 0;
 	*precision = -1;
-	if (format[idx] == '.')
+	if (fmt[idx] == '.')
 	{
 		idx++;
-		if ((format[idx] >= '0' && format[idx] <= '9') || format[idx] == '*')
-			idx += set_num(precision, &format[idx], ap);
-		else if (format[idx] == 'c' || format[idx] == '%')
+		if ((fmt[idx] >= '0' && fmt[idx] <= '9') || fmt[idx] == '*')
+			idx += set_num(precision, &fmt[idx], ap);
+		else if (fmt[idx] == 'c' || fmt[idx] == '%')
 			*precision = -1;
 		else
 			*precision = 0;
@@ -85,7 +85,7 @@ int		find_precision_and_set(const char *format, int *precision, va_list *ap)
 	return (idx);
 }
 
-int		find_type_and_set(const char *format, char *type)
+int		find_type_and_set(const char *fmt, char *type)
 {
 	char	*types;
 	int		idx;
@@ -94,18 +94,18 @@ int		find_type_and_set(const char *format, char *type)
 	idx = 0;
 	jdx = 0;
 	types = "cspdiuxX%";
-	while (format[idx])
+	while (fmt[idx])
 	{
 		while (types[jdx])
 		{
-			if (format[idx] == types[jdx])
+			if (fmt[idx] == types[jdx])
 			{
-				*type = format[idx];
+				*type = fmt[idx];
 				break ;
 			}
 			jdx++;
 		}
-		if (format[idx] == *type)
+		if (fmt[idx] == *type)
 			break ;
 		idx++;
 	}

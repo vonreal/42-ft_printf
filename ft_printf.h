@@ -46,11 +46,11 @@ int				print_pointer(t_field *fields, unsigned long u_num);
 int				print_signed_int(t_field *fields, int num);
 int				print_unsigned_int(t_field *fields, unsigned int u_num);
 
-int				set_num(int *dst, const char *format, va_list *ap);
-int				find_flag_and_set(const char *format, char *flag);
-int				find_width_and_set(const char *format, int *width, va_list *ap);
-int				find_precision_and_set(const char *format, int *pre, va_list *ap);
-int				find_type_and_set(const char *format, char *type);
+int				set_num(int *dst, const char *fmt, va_list *ap);
+int				find_flag_and_set(const char *fmt, char *flag);
+int				find_width_and_set(const char *fmt, int *width, va_list *ap);
+int				find_precision_and_set(const char *fmt, int *pre, va_list *ap);
+int				find_type_and_set(const char *fmt, char *type);
 
 int				ft_printf(const char *format, ...);
 
