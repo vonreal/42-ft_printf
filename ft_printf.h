@@ -20,10 +20,10 @@
 
 typedef struct	s_field
 {
-	char	flag;
-	int		width;
-	int		precision;
-	char	type;
+	char	s_flag;
+	int		s_width;
+	int		s_precision;
+	char	s_type;
 }				t_field;
 
 size_t			ft_strlen(const char *s);

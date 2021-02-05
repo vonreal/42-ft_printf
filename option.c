@@ -14,27 +14,27 @@
 
 void	setting_option(t_field *opt)
 {
-	if (opt->_flag != ' ')
+	if (opt->s_flag != ' ')
 	{
-		if (opt->_width == 0)
-			opt->_flag = ' ';
+		if (opt->s_width == 0)
+			opt->s_flag = ' ';
 		else
 		{
-			if (opt->_flag == '0')
+			if (opt->s_flag == '0')
 			{
-				if (opt->_precision >= 0 && opt->_type != '%')
-					opt->_flag = ' ';
-				if (opt->_type == 'c' || opt->_type == 's' || opt->_type == 'p')
-					opt->_flag = ' ';
+				if (opt->s_precision >= 0 && opt->s_type != '%')
+					opt->s_flag = ' ';
+				if (opt->s_type == 'c' || opt->s_type == 's' || opt->s_type == 'p')
+					opt->s_flag = ' ';
 			}
 		}
 	}
-	if (opt->_width != 0)
+	if (opt->s_width != 0)
 	{
-		if (opt->_width < 0)
+		if (opt->s_width < 0)
 		{
-			(opt->_flag) = '-';
-			(opt->_width) *= -1;
+			(opt->s_flag) = '-';
+			(opt->s_width) *= -1;
 		}
 	}
 }
@@ -43,19 +43,19 @@ int		get_output_size_precision(t_field *opt, int length)
 {
 	int		output;
 
-	if (opt->_precision > 0)
+	if (opt->s_precision > 0)
 	{
-		if (opt->_type == 's')
+		if (opt->s_type == 's')
 		{
-			if (opt->_precision <= length)
-				output = opt->_precision;
+			if (opt->s_precision <= length)
+				output = opt->s_precision;
 			else
 				output = length;
 		}
 		else
 		{
-			if ((opt->_precision - length) > 0)
-				output = opt->_precision - length;
+			if ((opt->s_precision - length) > 0)
+				output = opt->s_precision - length;
 			else
 				output = 0;
 		}
@@ -105,17 +105,17 @@ int		apply_width(t_field *opt, int length)
 {
 	int		temp;
 
-	length = get_output_size_width(&opt->_width, length);
+	length = get_output_size_width(&opt->s_width, length);
 	if (length > 0)
 	{
 		temp = length;
 		while (temp-- > 0)
-			write(1, &opt->_flag, sizeof(char));
+			write(1, &opt->s_flag, sizeof(char));
 	}
 	else
 	{
 		length = 0;
 	}
-	opt->_width = 0;
+	opt->s_width = 0;
 	return (length);
 }

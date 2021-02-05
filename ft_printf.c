@@ -17,7 +17,7 @@ void	convert_format_specifier(t_field *fields, va_list *ap, int *total)
 	char	c;
 	char	type;
 
-	type = fields->_type;
+	type = fields->s_type;
 	setting_option(fields);
 	if (type == 'c' || type == '%')
 	{
@@ -43,11 +43,11 @@ int		scan_syntax(const char *format, int idx, va_list *ap, int *total)
 
 	while (format[idx])
 	{
-		idx += find_flag_and_set(&format[idx], &fields._flag);
-		idx += find_width_and_set(&format[idx], &fields._width, ap);
-		idx += find_precision_and_set(&format[idx], &fields._precision, ap);
-		idx += find_type_and_set(&format[idx], &fields._type);
-		if (format[idx] == fields._type)
+		idx += find_flag_and_set(&format[idx], &fields.s_flag);
+		idx += find_width_and_set(&format[idx], &fields.s_width, ap);
+		idx += find_precision_and_set(&format[idx], &fields.s_precision, ap);
+		idx += find_type_and_set(&format[idx], &fields.s_type);
+		if (format[idx] == fields.s_type)
 			break ;
 		idx++;
 	}
