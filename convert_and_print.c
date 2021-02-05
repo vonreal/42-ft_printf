@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-int		print_character(Field *fields, char c)
+int		print_character(t_field *fields, char c)
 {
 	int		output;
 
@@ -28,7 +28,7 @@ int		print_character(Field *fields, char c)
 	return (output);
 }
 
-int		print_string(Field *fields, char *s)
+int		print_string(t_field *fields, char *s)
 {
 	int		size;
 	int		output;
@@ -50,7 +50,7 @@ int		print_string(Field *fields, char *s)
 	return (output);
 }
 
-int		print_pointer(Field *fields, unsigned long u_num)
+int		print_pointer(t_field *fields, unsigned long u_num)
 {
 	int				size;
 	int				output;
@@ -73,17 +73,16 @@ int		print_pointer(Field *fields, unsigned long u_num)
 	return (output);
 }
 
-int		print_signed_int(Field *fields, int num)
+int		print_signed_int(t_field *fields, int num)
 {
 	int			size;
 	int			minus;
 	int			output;
 
 	minus = 0;
+	size = get_digit(num);
 	if (num == 0 && fields->_precision == 0)
 		size = 0;
-	else
-		size = get_digit(num);
 	output = size;
 	if (num < 0)
 	{
@@ -106,7 +105,7 @@ int		print_signed_int(Field *fields, int num)
 	return (output);
 }
 
-int		print_unsigned_int(Field *fields, unsigned int u_num, char type)
+int		print_unsigned_int(t_field *fields, unsigned int u_num, char type)
 {
 	int			notatiton;
 	int			size;

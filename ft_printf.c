@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-void	convert_format_specifier(Field *fields, va_list *ap, int *total)
+void	convert_format_specifier(t_field *fields, va_list *ap, int *total)
 {
 	char	c;
 	char	type;
