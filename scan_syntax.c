@@ -49,7 +49,7 @@ int		set_num(int *dst, const char *format, va_list *ap)
 	else
 	{
 		while (format[idx] >= '0' && format[idx] <= '9')
-			num = (num * 10) + format[idx++] - '0';	
+			num = (num * 10) + format[idx++] - '0';
 	}
 	*dst = num;
 	return (idx);
@@ -58,7 +58,7 @@ int		set_num(int *dst, const char *format, va_list *ap)
 int		find_width_and_set(const char *format, int *width, va_list *ap)
 {
 	int		idx;
-	
+
 	idx = 0;
 	*width = 0;
 	if ((format[idx] >= '1' && format[idx] <= '9') || format[idx] == '*')

@@ -35,7 +35,7 @@ int		get_digit(int n);
 int		get_digit_unsigned(unsigned long num, unsigned int notation);
 
 void	setting_option(Field *opt);
-int		get_precision(Field *opt, int length);
+int		get_output_size_precision(Field *opt, int length);
 int		get_output_size_width(int *width, int length);
 int		apply_precision(Field *opt, int length);
 int		apply_width(Field *opt, int length);
