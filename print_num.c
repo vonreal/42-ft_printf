@@ -66,7 +66,7 @@ int		num_is_minus(t_field *fields, int *minus, int size)
 	int		size_pre;
 	int		output;
 
-	minus += 1;
+	*minus += 1;
 	output = 0;
 	size_pre = get_output_size_precision(fields, size);
 	if (fields->s_flag == ' ')
