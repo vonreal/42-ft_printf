@@ -24,7 +24,7 @@ void	setting_option(t_field *opt)
 			{
 				if (opt->s_precision >= 0 && opt->s_type != '%')
 					opt->s_flag = ' ';
-				if (opt->s_type == 'c' || opt->s_type == 's' 
+				if (opt->s_type == 'c' || opt->s_type == 's'
 										|| opt->s_type == 'p')
 					opt->s_flag = ' ';
 			}
