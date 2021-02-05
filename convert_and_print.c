@@ -78,29 +78,25 @@ int		print_signed_int(t_field *fields, int num)
 	int			size;
 	int			minus;
 	int			output;
+	int			size_pre;
 
 	minus = 0;
 	size = get_digit(num);
 	if (num == 0 && fields->s_precision == 0)
 		size = 0;
 	output = size;
+	size_pre = get_output_size_precision(fields, size);
 	if (num < 0)
-	{
-		minus += 1;
-		if (fields->s_flag == ' ')
-			output += apply_width(fields, size + minus + get_output_size_precision(fields, size));
-		write(1, "-", sizeof(char));
-		output += 1;
-	}
+		output += num_is_minus(fields, &minus, size);
 	if (fields->s_flag != '-')
-		output += apply_width(fields, size + minus + get_output_size_precision(fields, size));
+		output += apply_width(fields, size + minus + size_pre);
 	output += apply_precision(fields, size);
 	if (!(num == 0 && fields->s_precision == 0))
 		ft_putnbr_signed(num);
 	if (fields->s_flag == '-')
 	{
 		fields->s_flag = ' ';
-		output += apply_width(fields, size + minus + get_output_size_precision(fields, size));
+		output += apply_width(fields, size + minus + size_pre));
 	}
 	return (output);
 }

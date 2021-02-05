@@ -33,6 +33,7 @@ void			ft_putnbr_unsigned(unsigned long n, char type);
 
 int				get_digit(int n);
 int				get_digit_unsigned(unsigned long num, unsigned int notation);
+int				num_is_minus(t_field *fields, int *minus, int size);
 
 void			setting_option(t_field *opt);
 int				get_output_size_precision(t_field *opt, int length);
