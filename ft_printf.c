@@ -34,7 +34,7 @@ void	convert_format_specifier(t_field *fields, va_list *ap, int *total)
 	else if (type == 'd' || type == 'i')
 		*total += print_signed_int(fields, va_arg(*ap, int));
 	else if (type == 'u' || type == 'x' || type == 'X')
-		*total += print_unsigned_int(fields, va_arg(*ap, unsigned int), type);
+		*total += print_unsigned_int(fields, va_arg(*ap, unsigned int));
 }
 
 int		scan_syntax(const char *format, int idx, va_list *ap, int *total)
