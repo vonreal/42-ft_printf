@@ -70,7 +70,7 @@ int		num_is_minus(t_field *fields, int *minus, int size)
 	output = 0;
 	size_pre = get_output_size_precision(fields, size);
 	if (fields->s_flag == ' ')
-		output += apply_width(fields, (size + minus + size_pre));
+		output += apply_width(fields, (size + *minus + size_pre));
 	write(1, "-", sizeof(char));
 	output += 1;
 	return (output);
