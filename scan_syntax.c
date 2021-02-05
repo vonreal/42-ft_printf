@@ -6,7 +6,7 @@
 /*   By: jna <jna@student.42seoul.kr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 20:27:18 by jna               #+#    #+#             */
-/*   Updated: 2021/01/31 20:27:18 by jna              ###   ########.fr       */
+/*   Updated: 2021/02/05 14:14:39 by jna              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,12 +87,13 @@ int		find_precision_and_set(const char *format, int *precision, va_list *ap)
 
 int		find_type_and_set(const char *format, char *type)
 {
-	char	types[11] = "cspdiuxX%";
+	char	*types;
 	int		idx;
 	int		jdx;
 
 	idx = 0;
 	jdx = 0;
+	types = "cspdiuxX%";
 	while (format[idx])
 	{
 		while (types[jdx])
