@@ -106,6 +106,7 @@ int		print_unsigned_int(t_field *fields, unsigned int u_num)
 	int			notatiton;
 	int			size;
 	int			output;
+	int			size_pre;
 
 	if (fields->s_type == 'u')
 		notatiton = 10;
@@ -116,15 +117,16 @@ int		print_unsigned_int(t_field *fields, unsigned int u_num)
 	else
 		size = get_digit_unsigned(u_num, notatiton);
 	output = size;
+	size_pre = get_output_size_precision(fields, size);
 	if (fields->s_flag != '-')
-		output += apply_width(fields, size + get_output_size_precision(fields, size));
+		output += apply_width(fields, (size + size_pre));
 	output += apply_precision(fields, size);
 	if (!(u_num == 0 && fields->s_precision == 0))
 		ft_putnbr_unsigned(u_num, fields->s_type);
 	if (fields->s_flag == '-')
 	{
 		fields->s_flag = ' ';
-		output += apply_width(fields, size + get_output_size_precision(fields, size));
+		output += apply_width(fields, (size + size_pre));
 	}
 	return (output);
 }
