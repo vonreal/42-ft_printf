@@ -108,14 +108,12 @@ int		print_unsigned_int(t_field *fields, unsigned int u_num)
 	int			output;
 	int			size_pre;
 
+	notatiton = 16;
 	if (fields->s_type == 'u')
 		notatiton = 10;
-	else
-		notatiton = 16;
+	size = get_digit_unsigned(u_num, notatiton);
 	if (u_num == 0 && fields->s_precision == 0)
 		size = 0;
-	else
-		size = get_digit_unsigned(u_num, notatiton);
 	output = size;
 	size_pre = get_output_size_precision(fields, size);
 	if (fields->s_flag != '-')
