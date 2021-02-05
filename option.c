@@ -16,22 +16,22 @@ void	setting_option(Field *opt)
 {
 	if (opt->_flag != ' ')
 	{
-		if (opt->_width == 0)	// Not apply without width.
+		if (opt->_width == 0)
 			opt->_flag = ' ';
 		else
 		{
 			if (opt->_flag == '0')
 			{
-				if (opt->_precision >= 0 && opt->_type != '%') 	// Not apply with precision.
+				if (opt->_precision >= 0 && opt->_type != '%')
 					opt->_flag = ' ';
-				if (opt->_type == 'c' || opt->_type == 's' || opt->_type == 'p')	// Not opply with 'c','s','p'
+				if (opt->_type == 'c' || opt->_type == 's' || opt->_type == 'p')
 					opt->_flag = ' ';
 			}
 		}
 	}
 	if (opt->_width != 0)
 	{
-		if (opt->_width < 0)	// left sort
+		if (opt->_width < 0)
 		{
 			(opt->_flag) = '-';
 			(opt->_width) *= -1;

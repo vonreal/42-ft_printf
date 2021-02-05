@@ -12,11 +12,8 @@
 
 #include "ft_printf.h"
 
-/* 반환값은 총 출력한 문자의 갯수이다. */
-
 int		print_character(Field *fields, char c)
 {
-	// 옵션 적용 완료 
 	int		output;
 
 	output = 1;
@@ -33,7 +30,6 @@ int		print_character(Field *fields, char c)
 
 int		print_string(Field *fields, char *s)
 {
-	// 옵션 적용 완료
 	int		size;
 	int		output;
 
@@ -56,7 +52,6 @@ int		print_string(Field *fields, char *s)
 
 int		print_pointer(Field *fields, unsigned long u_num)
 {
-	// 옵션 적용 완료
 	int				size;
 	int				output;
 
@@ -80,7 +75,6 @@ int		print_pointer(Field *fields, unsigned long u_num)
 
 int		print_signed_int(Field *fields, int num)
 {
-	// 옵션 적용 완료
 	int			size;
 	int			minus;
 	int			output;
@@ -114,7 +108,6 @@ int		print_signed_int(Field *fields, int num)
 
 int		print_unsigned_int(Field *fields, unsigned int u_num, char type)
 {
-	// 옵션 적용 완료
 	int			notatiton;
 	int			size;
 	int			output;
