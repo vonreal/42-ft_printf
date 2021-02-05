@@ -17,12 +17,12 @@ int		print_character(t_field *fields, char c)
 	int		output;
 
 	output = 1;
-	if (fields->_flag != '-')
+	if (fields->s_flag != '-')
 		output += apply_width(fields, 1);
 	write(1, &c, sizeof(char));
-	if (fields->_flag == '-')
+	if (fields->s_flag == '-')
 	{
-		fields->_flag = ' ';
+		fields->s_flag = ' ';
 		output += apply_width(fields, 1);
 	}
 	return (output);
@@ -39,12 +39,12 @@ int		print_string(t_field *fields, char *s)
 	if (fields->s_precision >= 0)
 		size = get_output_size_precision(fields, size);
 	output = size;
-	if (fields->_flag != '-')
+	if (fields->s_flag != '-')
 		output += apply_width(fields, size);
 	write(1, s, (sizeof(char) * size));
-	if (fields->_flag == '-')
+	if (fields->s_flag == '-')
 	{
-		fields->_flag = ' ';
+		fields->s_flag = ' ';
 		output += apply_width(fields, size);
 	}
 	return (output);
@@ -60,7 +60,7 @@ int		print_pointer(t_field *fields, unsigned long u_num)
 	else
 		size = get_digit_unsigned(u_num, 16) + 2;
 	output = size;
-	if (fields->_flag != '-')
+	if (fields->s_flag != '-')
 		output += apply_width(fields, size);
 	write(1, "0x", (sizeof(char) * 2));
 	if (!(u_num == 0 && fields->s_precision == 0))
