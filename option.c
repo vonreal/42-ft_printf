@@ -6,7 +6,7 @@
 /*   By: jna <jna@student.42seoul.kr>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 15:56:03 by jna               #+#    #+#             */
-/*   Updated: 2021/02/04 15:56:03 by jna              ###   ########.fr       */
+/*   Updated: 2021/02/05 14:22:45 by jna              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ int		get_output_size_width(int *width, int length)
 	return (output);
 }
 
-
 int		apply_precision(Field *opt, int length)
 {
 	int		temp;
@@ -105,7 +104,7 @@ int		apply_precision(Field *opt, int length)
 int		apply_width(Field *opt, int length)
 {
 	int		temp;
-	
+
 	length = get_output_size_width(&opt->_width, length);
 	if (length > 0)
 	{
