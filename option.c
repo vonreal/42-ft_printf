@@ -39,7 +39,7 @@ void	setting_option(Field *opt)
 	}
 }
 
-int		get_output_size_precision(Field *opt, int length)
+int		get_precision(Field *opt, int length)
 {
 	int		output;
 

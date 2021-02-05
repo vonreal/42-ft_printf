@@ -22,7 +22,7 @@ int		print_character(Field *fields, char c)
 	write(1, &c, sizeof(char));
 	if (fields->_flag == '-')
 	{
-		fields->_flag = ' ';	
+		fields->_flag = ' ';
 		output += apply_width(fields, 1);
 	}
 	return (output);
@@ -80,28 +80,27 @@ int		print_signed_int(Field *fields, int num)
 	int			output;
 
 	minus = 0;
+	size = get_digit(num);
 	if (num == 0 && fields->_precision == 0)
 		size = 0;
-	else
-		size = get_digit(num);
 	output = size;
 	if (num < 0)
 	{
 		minus += 1;
 		if (fields->_flag == ' ')
-			output += apply_width(fields, size + minus + get_output_size_precision(fields, size));
+			output += apply_width(fields, size + minus + get_precision(fields, size));
 		write(1, "-", sizeof(char));
 		output += 1;
 	}
 	if (fields->_flag != '-')
-		output += apply_width(fields, size + minus + get_output_size_precision(fields, size));
+		output += apply_width(fields, size + minus + get_precision(fields, size));
 	output += apply_precision(fields, size);
 	if (!(num == 0 && fields->_precision == 0))
 		ft_putnbr_signed(num);
 	if (fields->_flag == '-')
 	{
 		fields->_flag = ' ';
-		output += apply_width(fields, size + minus + get_output_size_precision(fields, size));
+		output += apply_width(fields, size + minus + get_precision(fields, size));
 	}
 	return (output);
 }
@@ -122,14 +121,14 @@ int		print_unsigned_int(Field *fields, unsigned int u_num, char type)
 		size = get_digit_unsigned(u_num, notatiton);
 	output = size;
 	if (fields->_flag != '-')
-		output += apply_width(fields, size + get_output_size_precision(fields, size));
+		output += apply_width(fields, size + get_precision(fields, size));
 	output += apply_precision(fields, size);
 	if (!(u_num == 0 && fields->_precision == 0))
 		ft_putnbr_unsigned(u_num, fields->_type);
 	if (fields->_flag == '-')
 	{
 		fields->_flag = ' ';
-		output += apply_width(fields, size + get_output_size_precision(fields, size));
+		output += apply_width(fields, size + get_precision(fields, size));
 	}
 	return (output);
 }
